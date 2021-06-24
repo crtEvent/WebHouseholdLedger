@@ -13,6 +13,9 @@
 	<div>
 		<p><a href="<c:url value='/sample/testLogger.do'/>">/sample/testLogger.do</p>
 	</div>
+	<div>
+		<p><a href="<c:url value='/ledger/details.do'/>">/ledger/details.do</p>
+	</div>
 	
 
 </body>
