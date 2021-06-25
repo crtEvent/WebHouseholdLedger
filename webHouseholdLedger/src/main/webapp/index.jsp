@@ -15,6 +15,8 @@
 	</div>
 	<div>
 		<p><a href="<c:url value='/ledger/details.do'/>">/ledger/details.do</p>
+		<p><a href="<c:url value='/user/signin.do'/>">/user/signin.do</p>
+		<p><a href="<c:url value='/user/signup.do'/>">/user/signup.do</p>
 	</div>
 	
 
