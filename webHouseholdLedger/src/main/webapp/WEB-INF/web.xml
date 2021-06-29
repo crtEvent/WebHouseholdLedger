@@ -14,12 +14,6 @@
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
 	
-	<!-- DB 설정 파일 경로 설정 -->
-	<context-param>
-    	<param-name>contextConfigLocation</param-name>
-    	<param-value>classpath*:config/context-*.xml</param-value>
-  	</context-param>
-	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

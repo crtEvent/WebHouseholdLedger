@@ -12,6 +12,8 @@
 	<p>Hello World</p>
 	<div>
 		<p><a href="<c:url value='/sample/testLogger.do'/>">/sample/testLogger.do</p>
+		<p><a href="<c:url value='/sample/testDB.do'/>">/sample/testDB.do</p>
+		<p><a href="<c:url value='/sample/testMyBatis.do'/>">/sample/testMyBatis.do</p>
 	</div>
 	<div>
 		<p><a href="<c:url value='/ledger/details.do'/>">/ledger/details.do</p>
