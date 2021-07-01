@@ -3,4 +3,8 @@
 
 <configuration>
 
+	<typeAliases>
+            <typeAlias type="com.houseledger.app.user.vo.SignUpVO" alias="signUpVO"/>
+    </typeAliases>
+
 </configuration>
