@@ -18,9 +18,9 @@
 			<div class="card-body">
 				<p class="login-box-msg">로그인 하세요.</p>
 
-				<form action="#" method="post">
+				<form action="<c:url value='/user/excute_signin.do'/>" name="signInForm" id="signInForm" method="post">
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" placeholder="아이디">
+						<input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-envelope"></span>
@@ -28,7 +28,7 @@
 						</div>
 					</div>
 					<div class="input-group mb-3">
-						<input type="password" class="form-control" placeholder="비밀번호">
+						<input type="password" class="form-control" name="user_password" id="user_password" placeholder="비밀번호">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock"></span>
@@ -44,9 +44,10 @@
 						</div>
 						<!-- /.col -->
 						<div class="col-4">
-							<button type="submit" class="btn btn-primary btn-block">로그인</button>
+							<button type="submit" id="btn_submit" class="btn btn-primary btn-block">로그인</button>
 						</div>
 						<!-- /.col -->
+						<div class="col-12 text-center text-danger">${signInError }</div>
 					</div>
 				</form>
 
@@ -55,7 +56,7 @@
 					<a href="#" class="btn btn-block btn-primary">
 						<i class="fab mr-2"></i> 아이디/비밀번호 찾기
 					</a>
-					<a href="#" class="btn btn-block btn-danger">
+					<a href="<c:url value='/user/signup.do'/>" class="btn btn-block btn-danger">
 						<i class="fab mr-2"></i> 회원가입 하기
 					</a>
 				</div>
@@ -68,5 +69,25 @@
 	<!-- /.login-box -->
 	
 	<%@include file="../include/include_main_plugins.jsp" %>
+	<script type="text/javascript">
+	
+	$('#btn_submit').click(function(e){
+		e.preventDefault();
+		
+		var check_id = $('#user_id').val();
+		var check_pw = $('#user_password').val();
+		
+	 	if(check_id=='' || check_id==null){
+			alert("아이디를 입력해 주세요.");
+			return false;
+		}else if(check_pw=='' || check_pw==null){
+			alert("비밀번호를 입력해 주세요.");
+			return false;
+		}else{
+			$('#signInForm').submit();
+		}
+	})
+	
+	</script>
 </body>
 </html>

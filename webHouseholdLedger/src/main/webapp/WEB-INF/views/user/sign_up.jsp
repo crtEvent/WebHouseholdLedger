@@ -18,7 +18,7 @@
 
 				<form action="<c:url value='/user/excute_signup.do'/>" name="signUpForm" id="signUpForm" method="post">
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디(영문,숫자 조합 5-20자)">
+						<input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디(영문,숫자 조합 5-20자)" autocomplete="off">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-user"></span>
@@ -27,7 +27,7 @@
 						<div id="msg_user_id">${valid_user_id }</div>
 					</div>
 					<div class="input-group mb-3">
-						<input type="email" class="form-control" name="user_email" id="user_email" placeholder="이메일">
+						<input type="email" class="form-control" name="user_email" id="user_email" placeholder="이메일" autocomplete="off">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-envelope"></span>

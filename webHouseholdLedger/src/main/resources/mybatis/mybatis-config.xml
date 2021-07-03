@@ -5,6 +5,8 @@
 
 	<typeAliases>
             <typeAlias type="com.houseledger.app.user.vo.SignUpVO" alias="signUpVO"/>
+            <typeAlias type="com.houseledger.app.user.vo.SignInVO" alias="signInVO"/>
+            <typeAlias type="com.houseledger.app.user.vo.UserVO" alias="userVO"/>
     </typeAliases>
 
 </configuration>
