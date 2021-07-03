@@ -22,7 +22,7 @@
         </a>
       </li>
       <li class="nav-item">
-      	<a href="#" class="nav-link">Sign out</a>
+      	<a href="<c:url value='/user/excute_signout.do'/>" class="nav-link">Sign out</a>
       </li>
     </ul>
   </nav>

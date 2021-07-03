@@ -28,6 +28,7 @@ public class SignInController {
 		return "user/sign_in";
 	}
 	
+	// 로그인 기능
 	@RequestMapping(value="/user/excute_signin.do")
 	public String excute_sign_in(Model model, SignInVO signInVO, HttpSession session) throws Exception {
 		
@@ -41,6 +42,15 @@ public class SignInController {
 		}
 		
 		model.addAttribute("signInError", "ID 또는 Password가 일치하지 않습니다.");
+		
+		return "user/sign_in";
+	}
+	
+	// 로그아웃
+	@RequestMapping(value="/user/excute_signout.do")
+	public String signOut(Model model, HttpSession session) throws Exception{
+		
+		session.removeAttribute("userSession");
 		
 		return "user/sign_in";
 	}
