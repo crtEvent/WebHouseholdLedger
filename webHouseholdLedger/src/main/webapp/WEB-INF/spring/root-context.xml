@@ -14,26 +14,15 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	<!-- MySQL dataSource -->
-    <bean id="dataSourceSpied" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
         <property name="url"
-            value="jdbc:mysql://localhost/house_ledger_db?useSSL=false&amp;serverTimezone=UTC">
+            value="jdbc:log4jdbc:mysql://localhost/house_ledger_db?useSSL=false&amp;serverTimezone=UTC">
         </property>
         <property name="username" value="root"></property>
         <property name="password" value="1234"></property>
     </bean>
     
-    <!-- Query log -->
-    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
-		<constructor-arg ref="dataSourceSpied" />
-		<property name="logFormatter">
-			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
-			<property name="loggingType" value="MULTI_LINE" />
-			<property name="sqlPrefix" value="SQL : "/>
-			</bean>
-		</property>
-	</bean>
-	
 	<!-- mybatis SqlSessionFactoryBean -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>

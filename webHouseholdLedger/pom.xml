@@ -174,7 +174,7 @@
             <version>${org.springframework-version}</version>
         </dependency>
         
-        <!-- Query log -->
+		<!-- Log4Jdbc Remix : Query log 용 -->
         <!-- https://mvnrepository.com/artifact/org.lazyluke/log4jdbc-remix -->
 		<dependency>
     		<groupId>org.lazyluke</groupId>
@@ -182,6 +182,30 @@
     		<version>0.2.7</version>
 		</dependency>
         
+		<!-- Log4Jdbc Log4j2 JDBC 4 : Query log 용 -->
+		<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
+		<dependency>
+		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
+		    <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+		    <version>1.16</version>
+		</dependency>
+		
+		<!-- Apache Log4j API : Query log 용 -->
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-api</artifactId>
+		    <version>2.12.1</version>
+		</dependency>
+		
+		<!-- Apache Log4j Core : Query log 용 -->
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>2.12.1</version>
+		</dependency>
+
         <!-- JBCrypt -->
         <!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
 		<dependency>
