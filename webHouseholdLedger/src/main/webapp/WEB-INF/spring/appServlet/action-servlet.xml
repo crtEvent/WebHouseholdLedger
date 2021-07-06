@@ -33,6 +33,12 @@
         </mvc:interceptor>
     </mvc:interceptors>
 	
-	
+	<!-- SignInInterceptor -->
+	<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/excute_signin.do"/>
+            <beans:bean id="SignInInterceptor" class="com.houseledger.app.common.auth.SignInInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 	
 </beans:beans>

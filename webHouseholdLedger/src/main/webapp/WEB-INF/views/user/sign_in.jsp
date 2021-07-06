@@ -9,6 +9,10 @@
 </head>
 <body class="hold-transition login-page">
 
+	<c:if test="${not empty cookie.remember_user}">
+		<c:set value="checked" var="checked"/>
+	</c:if>
+
 	<div class="login-box">
 		<!-- /.login-logo -->
 		<div class="card card-outline card-primary">
@@ -20,7 +24,7 @@
 
 				<form action="<c:url value='/user/excute_signin.do'/>" name="signInForm" id="signInForm" method="post">
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디">
+						<input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디" value="${cookie.remember_user.value }">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-envelope"></span>
@@ -38,8 +42,8 @@
 					<div class="row">
 						<div class="col-8">
 							<div class="icheck-primary">
-								<input type="checkbox" id="remember"> <label
-									for="remember"> 아이디/비밀번호 저장 </label>
+								<input type="checkbox" name="remember_user" id="remember" ${checked}>
+									<label for="remember"> 아이디 저장 </label>
 							</div>
 						</div>
 						<!-- /.col -->

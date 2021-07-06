@@ -4,6 +4,7 @@ public class SignInVO {
 	
 	private String user_id;
 	private String user_password;
+	private String remember_user;
 	
 	public String getUser_id() {
 		return user_id;
@@ -17,7 +18,11 @@ public class SignInVO {
 	public void setUser_password(String user_password) {
 		this.user_password = user_password;
 	}
+	public String getRemember_user() {
+		return remember_user;
+	}
+	public void setRemember_user(String remember_user) {
+		this.remember_user = remember_user;
+	}
 	
-	
-
 }
