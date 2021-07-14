@@ -1,0 +1,34 @@
+package com.houseledger.app.ledger.controller;
+
+import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import com.houseledger.app.ledger.dto.LedgerInsertDTO;
+import com.houseledger.app.ledger.service.LedgerService;
+import com.houseledger.app.user.vo.UserVO;
+
+@Controller
+public class LedgerController {
+	
+Logger log = LoggerFactory.getLogger(this.getClass());
+	
+	@Resource(name="ledgerService")
+	LedgerService ledgerService;
+	
+	@RequestMapping(value="/ledger/insert_ledger.do")
+	public String insert_ledger(Model model, LedgerInsertDTO ledgerInsertDTO, @SessionAttribute("userSession")UserVO userVO) throws Exception {
+		
+		ledgerInsertDTO.setUser_idx(userVO.getUser_idx());
+		
+		ledgerService.insertLedger(ledgerInsertDTO);
+		log.debug("완료다 gg");
+		return "redirect:/ledger/details.do";
+	}
+	
+}

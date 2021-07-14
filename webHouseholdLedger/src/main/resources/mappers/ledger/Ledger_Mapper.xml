@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="ledger">
+	
+	<select id="ledger.selectLedgerList" parameterType="ledgerSelectDTO" resultType="hashmap">
+    	<![CDATA[
+		SELECT LEDGER_IDX, DATE, INCOME_AND_EXPENSES, CATEGORY, DESCRIPTION, AMOUNT, ASSET
+		FROM LEDGER
+		WHERE USER_IDX = #{user_idx}
+		AND DATE = #{date}
+		ORDER BY DATE DESC;
+        ]]>
+    </select>
+    
+    <select id="ledger.selectLedgerGroup" parameterType="ledgerSelectDTO" resultType="hashmap">
+    	<![CDATA[
+    	SELECT DATE, COUNT(*) 'CNT', SUM(CASE WHEN INCOME_AND_EXPENSES='수입' THEN AMOUNT ELSE 0 END) 'INCOME', SUM(CASE WHEN INCOME_AND_EXPENSES='지출' THEN AMOUNT ELSE 0 END) 'EXPENSES'
+    	FROM LEDGER
+    	WHERE USER_IDX = #{user_idx}
+    	GROUP BY DATE
+    	HAVING DATE BETWEEN #{start_date} AND #{end_date}
+    	ORDER BY DATE DESC
+    	]]>
+    </select>
+    
+    <select id="ledger.selectLedgerSummary" parameterType="ledgerSelectDTO" resultType="hashmap">
+    	<![CDATA[
+    	SELECT SUM(CASE WHEN INCOME_AND_EXPENSES='수입' THEN AMOUNT ELSE 0 END) 'INCOME', SUM(CASE WHEN INCOME_AND_EXPENSES='지출' THEN AMOUNT ELSE 0 END) 'EXPENSES', SUM(CASE WHEN INCOME_AND_EXPENSES='수입' THEN AMOUNT ELSE -AMOUNT END) 'TOTAL'
+    	FROM LEDGER
+    	WHERE USER_IDX = #{user_idx} AND DATE BETWEEN #{start_date} AND #{end_date}
+    	]]>
+    </select>
+    
+    <insert id="ledger.insertIncomeAndExpensesLedger" parameterType="ledgerInsertDTO">
+    	<![CDATA[
+    	INSERT INTO LEDGER
+    		(USER_IDX, DATE, INCOME_AND_EXPENSES, CATEGORY, DESCRIPTION, AMOUNT, ASSET)
+    	VALUES
+    		(#{user_idx}, #{date}, #{income_and_expenses}, #{category}, #{description}, #{amount}, #{asset})
+    	]]>
+    </insert>
+    
+    <insert id="ledger.insertTransferLedger" parameterType="ledgerInsertDTO">
+    	<![CDATA[
+    	INSERT INTO LEDGER
+    		(USER_IDX, DATE, INCOME_AND_EXPENSES, DESCRIPTION, AMOUNT, FORMER_ASSET, LATTER_ASSET)
+    	VALUES
+    		(#{user_idx}, #{date}, #{income_and_expenses}, "#{former_asset} > #{latter_asset}", #{amount}, #{former_asset}, #{latter_asset})
+    	]]>
+    </insert>
+
+</mapper>

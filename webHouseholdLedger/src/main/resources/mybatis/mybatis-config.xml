@@ -7,6 +7,8 @@
             <typeAlias type="com.houseledger.app.user.vo.SignUpVO" alias="signUpVO"/>
             <typeAlias type="com.houseledger.app.user.vo.SignInVO" alias="signInVO"/>
             <typeAlias type="com.houseledger.app.user.vo.UserVO" alias="userVO"/>
+            <typeAlias type="com.houseledger.app.ledger.dto.LedgerSelectDTO" alias="ledgerSelectDTO"/>
+            <typeAlias type="com.houseledger.app.ledger.dto.LedgerInsertDTO" alias="ledgerInsertDTO"/>
     </typeAliases>
 
 </configuration>

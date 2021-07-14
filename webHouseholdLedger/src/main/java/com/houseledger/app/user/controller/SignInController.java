@@ -33,7 +33,7 @@ public class SignInController {
 	// 로그인 기능
 	@RequestMapping(value="/user/excute_signin.do")
 	public String excute_sign_in(Model model, SignInVO signInVO) throws Exception {
-		
+		log.debug("signInVO.getUser_id(): "+signInVO.getUser_id());
 		UserVO userVO = signInService.excuteSignIn(signInVO);
 		model.addAttribute("signIn", userVO);
 		model.addAttribute("signInVO", signInVO);

@@ -13,7 +13,7 @@
 	<div class="wrapper">
 		<%@include file="../include/include_main_navbar.jsp" %>
 		<%@include file="../include/include_main_sidebar.jsp" %>
-		<%@include file="./ledger_details.jsp" %>
+		
 		<%@include file="../include/include_main_footer.jsp" %>
 	</div>
 	<!-- /.wrapper -->
