@@ -50,7 +50,7 @@
 						<div class="input-group-prepend">
 							<button type="button" class="btn btn-default">날짜</button>
 						</div>
-						<input type="date" name="date" id="selectDate" class="form-control">
+						<input type="date" name="date" id="dateForInsert" class="form-control">
 					</div>
 						
 					<div id="incomeAndExpensesDiv">
@@ -80,22 +80,25 @@
 							</div>
 							<select name="asset" class="form-control">
 								<c:forEach var="asset" items="${assetList }">
-									<option value="현금">${asset.ASSET_NAME }</option>
+									<option value="${asset.ASSET_NAME }">${asset.ASSET_NAME }</option>
 								</c:forEach>
 							</select>
 						</div>
 					</div>
 					
 					<div id="transferDiv" style="display: none;">
-						<div class="input-group mb-3">
+						<div class="input-group mb-2">
 							<div class="input-group-prepend">
 								<button type="button" class="btn btn-default">자산</button>
 							</div>
 							<select name="former_asset" class="form-control">
 								<c:forEach var="asset" items="${assetList }">
-									<option value="현금">${asset.ASSET_NAME }</option>
+									<option value="${asset.ASSET_NAME }">${asset.ASSET_NAME }</option>
 								</c:forEach>
 							</select>
+						</div>
+						<div class="text-center mb-2">
+							<i class="fas fa-arrow-alt-circle-down fa-2x"></i>
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
@@ -103,7 +106,7 @@
 							</div>
 							<select name="latter_asset" class="form-control">
 								<c:forEach var="asset" items="${assetList }">
-									<option value="현금">${asset.ASSET_NAME }</option>
+									<option value="${asset.ASSET_NAME }">${asset.ASSET_NAME }</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -113,7 +116,7 @@
 						<div class="input-group-prepend">
 							<button type="button" class="btn btn-default">금액</button>
 						</div>
-						<input name="amount" type="number" autocomplete="off" 
+						<input name="amount" type="number" id="amountForInsert" autocomplete="off" 
 							min="0" class="form-control">
 					</div>
 				</form>

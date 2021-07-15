@@ -54,6 +54,7 @@ public class SignUpServiceImpl implements SignUpService{
 			Map<String, String> validatorResult = new HashMap<String, String>();
 			
 			for(FieldError error : errors.getFieldErrors()) {
+				// validKeyName 형식: valid_필드명 (예시: valid_user_id)
 				String validKeyName = String.format("valid_%s", error.getField());
 				validatorResult.put(validKeyName, error.getDefaultMessage());
 			}

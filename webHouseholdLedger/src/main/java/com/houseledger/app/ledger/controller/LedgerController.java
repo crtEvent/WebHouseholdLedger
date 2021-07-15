@@ -27,7 +27,7 @@ Logger log = LoggerFactory.getLogger(this.getClass());
 		ledgerInsertDTO.setUser_idx(userVO.getUser_idx());
 		
 		ledgerService.insertLedger(ledgerInsertDTO);
-		log.debug("완료다 gg");
+		
 		return "redirect:/ledger/details.do";
 	}
 	

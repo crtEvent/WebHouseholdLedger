@@ -26,9 +26,30 @@
     
     <select id="ledger.selectLedgerSummary" parameterType="ledgerSelectDTO" resultType="hashmap">
     	<![CDATA[
-    	SELECT SUM(CASE WHEN INCOME_AND_EXPENSES='수입' THEN AMOUNT ELSE 0 END) 'INCOME', SUM(CASE WHEN INCOME_AND_EXPENSES='지출' THEN AMOUNT ELSE 0 END) 'EXPENSES', SUM(CASE WHEN INCOME_AND_EXPENSES='수입' THEN AMOUNT ELSE -AMOUNT END) 'TOTAL'
+    	SELECT 
+    		SUM(
+    			CASE 
+    				WHEN INCOME_AND_EXPENSES='수입' 
+    				THEN AMOUNT 
+    				ELSE 0 END
+    			) 'INCOME', 
+    		SUM(
+    			CASE 
+    				WHEN INCOME_AND_EXPENSES='지출' 
+    				THEN AMOUNT 
+    				ELSE 0 END
+    			) 'EXPENSES', 
+    		SUM(
+    			CASE 
+    				WHEN INCOME_AND_EXPENSES='수입' 
+    				THEN AMOUNT 
+    				WHEN INCOME_AND_EXPENSES='지출' 
+    				THEN -AMOUNT
+    				ELSE 0 END
+    			) 'TOTAL'
     	FROM LEDGER
-    	WHERE USER_IDX = #{user_idx} AND DATE BETWEEN #{start_date} AND #{end_date}
+    	WHERE USER_IDX = #{user_idx}
+    	AND DATE BETWEEN #{start_date} AND #{end_date}
     	]]>
     </select>
     
@@ -46,7 +67,7 @@
     	INSERT INTO LEDGER
     		(USER_IDX, DATE, INCOME_AND_EXPENSES, DESCRIPTION, AMOUNT, FORMER_ASSET, LATTER_ASSET)
     	VALUES
-    		(#{user_idx}, #{date}, #{income_and_expenses}, "#{former_asset} > #{latter_asset}", #{amount}, #{former_asset}, #{latter_asset})
+    		(#{user_idx}, #{date}, #{income_and_expenses}, #{description}, #{amount}, #{former_asset}, #{latter_asset})
     	]]>
     </insert>
 

@@ -80,6 +80,8 @@ public class LedgerServiceImpl implements LedgerService{
 				ledgerDAO.insertIncomeAndExpensesledger(dto);
 				break;
 			case "이동":
+				// description format 예시) 현금 → 신한은행
+				dto.setDescription(dto.getFormer_asset()+" → "+dto.getLatter_asset());
 				ledgerDAO.insertTransferledger(dto);
 				break;
 			default:
