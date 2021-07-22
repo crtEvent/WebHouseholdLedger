@@ -14,5 +14,6 @@ public interface LedgerService {
 	public List<Map<String, Object>> getAssetList(String user_idx) throws Exception;
 	
 	public void insertLedger(LedgerInsertDTO dto) throws Exception;
-
+	
+	public void updateLedger(LedgerInsertDTO dto) throws Exception;
 }

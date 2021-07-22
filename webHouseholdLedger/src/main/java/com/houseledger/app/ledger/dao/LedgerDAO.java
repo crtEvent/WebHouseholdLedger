@@ -41,9 +41,19 @@ public class LedgerDAO extends AbstractDAO{
 		insert("ledger.insertIncomeAndExpensesLedger", dto);
 	}
 	
-	//이동 내역 입력
+	// 이동 내역 입력
 	public void insertTransferledger(LedgerInsertDTO dto) throws Exception{
 		insert("ledger.insertTransferLedger", dto);
 	}
-
+	
+	// 수입/지출 내역 수정
+	public void updateIncomeAndExpensesledger(LedgerInsertDTO dto) throws Exception{
+		update("ledger.updateIncomeAndExpensesLedger", dto);
+	}
+	
+	// 이동 내역 수정
+	public void updateTransferledger(LedgerInsertDTO dto) throws Exception{
+		update("ledger.updateTransferLedger", dto);
+	}
+	
 }

@@ -90,4 +90,28 @@ public class LedgerServiceImpl implements LedgerService{
 		}
 		
 	}
+	
+	// 가계부내역 수정
+	public void updateLedger(LedgerInsertDTO dto) throws Exception {
+		
+		String income_and_expenses = dto.getIncome_and_expenses();
+		
+		switch(income_and_expenses) {
+			case "수입":
+				ledgerDAO.updateIncomeAndExpensesledger(dto);
+				break;
+			case "지출":
+				ledgerDAO.updateIncomeAndExpensesledger(dto);
+				break;
+			case "이동":
+				// description format 예시) 현금 → 신한은행
+				dto.setDescription(dto.getFormer_asset()+" → "+dto.getLatter_asset());
+				ledgerDAO.updateTransferledger(dto);
+				break;
+			default:
+				log.debug("수입/지출/이동 외의 값이 들어왔음 -> 예외처리 배워서 적용하기");
+				break;
+		}
+		
+	}
 }

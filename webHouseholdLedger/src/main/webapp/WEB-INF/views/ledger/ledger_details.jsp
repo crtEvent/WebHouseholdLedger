@@ -155,29 +155,36 @@
 													<tbody>
 														<c:forEach var="row_body"
 															items="${ledgerDetailDTO.ledgerList[status.index] }">
-															<tr id="ledgerTuple${row_body.LEDGER_IDX}"
-																class="border-bottom">
+															<tr class="border-bottom">
+																<input type="hidden" id="ledger_idx" value="${row_body.LEDGER_IDX }">
 																<input type="hidden" id="date" value="${row_body.DATE }">
+																<input type="hidden" id="income_and_expenses" value="${row_body.INCOME_AND_EXPENSES }">
+																<input type="hidden" id="category" value="${row_body.CATEGORY }">
+																<input type="hidden" id="description" value="${row_body.DESCRIPTION }">
+																<input type="hidden" id="asset" value="${row_body.ASSET }">
+																<input type="hidden" id="amount" value="${row_body.AMOUNT }">
+																<input type="hidden" id="former_asset" value="${row_body.FORMER_ASSET }">
+																<input type="hidden" id="latter_asset" value="${row_body.LATTER_ASSET }">
 																<td style="width: 10%;">
-																	<div id="account">${row_body.INCOME_AND_EXPENSES }</div>
+																	<div>${row_body.INCOME_AND_EXPENSES }</div>
 																</td>
 																<td style="width: 20%;">
-																	<div id="category">${row_body.CATEGORY}</div>
+																	<div>${row_body.CATEGORY}</div>
 																</td>
 																<td style="width: 35%;">
-																	<div id="description">${row_body.DESCRIPTION}</div>
+																	<div>${row_body.DESCRIPTION}</div>
 																</td>
 																<td style="width: 20%;">
-																	<div id="asset">${row_body.ASSET}</div>
-																	<div id="amount">${row_body.AMOUNT}</div>
+																	<div>${row_body.ASSET}</div>
+																	<div>${row_body.AMOUNT}</div>
 																</td>
 																<td class="text-center" style="width: 10%;">
 																	<button class="btn btn-primary btn-sm" title="수정"
-																		onclick="fn_openUpdateModal(${row_body.LEDGER_IDX})">
+																		name="btnLedgerUpdate">
 																		<i class="fas fa-pencil-alt"></i>
 																	</button>
 																	<button class="btn btn-danger btn-sm" title="삭제"
-																		onclick="fn_deleteLedger(${row_body.LEDGER_IDX})">
+																		name="btnLedgerDelete">
 																		<i class="fas fa-trash-alt"></i>
 																	</button>
 																</td>
@@ -215,14 +222,15 @@
 		</div>
 		<!-- /.content wrapper -->
 		
-		<%@include file="./insertModal.jsp"%>
+		<%@include file="./ledger_insert_modal.jsp"%>
+		<%@include file="./ledger_update_modal.jsp"%>
 		<%@include file="../include/include_main_footer.jsp"%>
 	</div>
 	<!-- /.wrapper -->
 
 
 	<%@include file="../include/include_main_plugins.jsp"%>
-	<script type="text/javascript" src="<c:url value="/resources/view/ledger/insertModal.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/view/ledger/ledger_modal.js"/>"></script>
 	<!-- daterange picker -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

@@ -9,37 +9,37 @@
 		<div class="modal-content card-info">
 
 			<div class="modal-header">
-				<h4 class="modal-title">가계부 입력</h4>
-				<button type="button" class="close" onclick="fn_closeInsertModal()">
+				<h4 class="modal-title">가계부 내역 입력</h4>
+				<button type="button" class="close" onclick="fn_closeModal()">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 
 			<div class="modal-body">
 				<!-- Insert Form -->
-				<form name="ledgerInputForm" id="ledgerInputForm" method="post">
+				<form name="ledgerInsertForm" id="ledgerInsertForm" method="post">
 					<div class="form-group clearfix">
 						<table class="text-center col-md-12">
 							<tr>
 								<td>
 									<div class="icheck-success d-inline">
-										<input type="radio" name="Income_and_expenses"
-											id="radioIncome" value="수입" checked>
-											<label for="radioIncome"> 수입 </label>
+										<input type="radio" name="income_and_expenses"
+											 id="insertRadioIncome" value="수입" checked>
+											<label for="insertRadioIncome"> 수입 </label>
 									</div>
 								</td>
 								<td>
 									<div class="icheck-danger d-inline">
-										<input type="radio" name="Income_and_expenses"
-											id="radioExpenses" value="지출">
-											<label for="radioExpenses"> 지출 </label>
+										<input type="radio" name="income_and_expenses"
+											id="insertRadioExpenses" value="지출">
+											<label for="insertRadioExpenses"> 지출 </label>
 									</div>
 								</td>
 								<td>
 									<div class="icheck-info d-inline">
-										<input type="radio" name="Income_and_expenses"
-											id="radioTransfer" value="이동">
-											<label for="radioTransfer"> 이동 </label>
+										<input type="radio" name="income_and_expenses"
+											id="insertRadioTransfer" value="이동">
+											<label for="insertRadioTransfer"> 이동 </label>
 									</div>
 								</td>
 							</tr>
@@ -50,10 +50,10 @@
 						<div class="input-group-prepend">
 							<button type="button" class="btn btn-default">날짜</button>
 						</div>
-						<input type="date" name="date" id="dateForInsert" class="form-control">
+						<input type="date" name="date" class="form-control">
 					</div>
 						
-					<div id="incomeAndExpensesDiv">
+					<div class="incomeAndExpensesDiv">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<button type="button" class="btn btn-default">분류</button>
@@ -86,7 +86,7 @@
 						</div>
 					</div>
 					
-					<div id="transferDiv" style="display: none;">
+					<div class="transferDiv" style="display: none;">
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
 								<button type="button" class="btn btn-default">자산</button>
@@ -116,7 +116,7 @@
 						<div class="input-group-prepend">
 							<button type="button" class="btn btn-default">금액</button>
 						</div>
-						<input name="amount" type="number" id="amountForInsert" autocomplete="off" 
+						<input name="amount" type="number" autocomplete="off" 
 							min="0" class="form-control">
 					</div>
 				</form>
@@ -125,7 +125,7 @@
 
 			<div class="modal-footer justify-content-between">
 				<button type="button" class="btn btn-default"
-					onclick="fn_closeInsertModal()">닫기</button>
+					onclick="fn_closeModal()">닫기</button>
 				<button type="button" class="btn btn-primary"
 					onclick="fn_insertLedger()">입력하기</button>
 			</div>

@@ -31,4 +31,14 @@ Logger log = LoggerFactory.getLogger(this.getClass());
 		return "redirect:/ledger/details.do";
 	}
 	
+	@RequestMapping(value="/ledger/update_ledger.do")
+	public String update_ledger(Model model, LedgerInsertDTO ledgerInsertDTO, @SessionAttribute("userSession")UserVO userVO) throws Exception {
+		
+		ledgerInsertDTO.setUser_idx(userVO.getUser_idx());
+		
+		ledgerService.updateLedger(ledgerInsertDTO);
+		
+		return "redirect:/ledger/details.do";
+	}
+	
 }

@@ -5,7 +5,7 @@
 	
 	<select id="ledger.selectLedgerList" parameterType="ledgerSelectDTO" resultType="hashmap">
     	<![CDATA[
-		SELECT LEDGER_IDX, DATE, INCOME_AND_EXPENSES, CATEGORY, DESCRIPTION, AMOUNT, ASSET
+		SELECT LEDGER_IDX, DATE, INCOME_AND_EXPENSES, CATEGORY, DESCRIPTION, AMOUNT, ASSET, FORMER_ASSET, LATTER_ASSET
 		FROM LEDGER
 		WHERE USER_IDX = #{user_idx}
 		AND DATE = #{date}
@@ -70,5 +70,33 @@
     		(#{user_idx}, #{date}, #{income_and_expenses}, #{description}, #{amount}, #{former_asset}, #{latter_asset})
     	]]>
     </insert>
+    
+    <update id="ledger.updateIncomeAndExpensesLedger" parameterType="ledgerInsertDTO">
+    	<![CDATA[
+    	UPDATE LEDGER
+    	SET DATE = #{date},
+    		INCOME_AND_EXPENSES = #{income_and_expenses},
+    		CATEGORY = #{category},
+    		DESCRIPTION = #{description},
+    		AMOUNT = #{amount},
+    		ASSET = #{asset}
+    	WHERE LEDGER_IDX = #{ledger_idx}
+    	AND USER_IDX = #{user_idx}
+    	]]>
+    </update>
+    
+    <update id="ledger.updateTransferLedger" parameterType="ledgerInsertDTO">
+    	<![CDATA[
+    	UPDATE LEDGER
+    	SET DATE = #{date},
+    		INCOME_AND_EXPENSES = #{income_and_expenses},
+    		DESCRIPTION = #{description},
+    		AMOUNT = #{amount},
+    		FORMER_ASSET = #{former_asset},
+    		LATTER_ASSET = #{latter_asset}
+    	WHERE LEDGER_IDX = #{ledger_idx}
+    	AND USER_IDX = #{user_idx}
+    	]]>
+    </update>
 
 </mapper>
