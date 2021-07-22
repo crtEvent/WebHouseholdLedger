@@ -224,6 +224,7 @@
 		
 		<%@include file="./ledger_insert_modal.jsp"%>
 		<%@include file="./ledger_update_modal.jsp"%>
+		<%@include file="./ledger_delete_modal.jsp"%>
 		<%@include file="../include/include_main_footer.jsp"%>
 	</div>
 	<!-- /.wrapper -->

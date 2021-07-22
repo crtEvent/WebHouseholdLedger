@@ -4,6 +4,7 @@
 
 var insertForm = $("#ledgerInsertForm");
 var updateForm = $("#ledgerUpdateForm");
+var deleteForm = $("#ledgerDeleteForm");
 var selIncome = ["월급", "상여금", "펀드/주식", "기타수익"];
 var selExpenses = ["식비","교통비","주거/통신","생활용품","경조사비","지식/문화","의복/미용","의료/건강","여가/유흥","세금/이자","기타비용"];
 
@@ -72,6 +73,7 @@ function fn_openInsertModal(){
 function fn_closeModal(){
 	$("#modal-lg-insert").modal("hide");
 	$("#modal-lg-update").modal("hide");
+	$("#modal-lg-delete").modal("hide");
 }
 
 // [Modal]: 가계부 내역 수정 Modal 열기
@@ -138,16 +140,51 @@ $("[name=btnLedgerUpdate]").click(function(){
 	$("#modal-lg-update").modal("show");
 })
 
+// [DELETE] 가계부 내역 삭제
+$("[name=btnLedgerDelete]").click(function(){
+	
+	var ledger_idx = $(this).closest("tr").find("#ledger_idx").val();
+	deleteForm.find("[name=ledger_idx]").val(ledger_idx);
+	
+	$("#modal-lg-delete").modal("show");
+})
+
 // [INSERT] 가계부 내역 입력
 function fn_insertLedger() {
-	//var form = document.getElementById("ledgerInsertForm");
 	insertForm[0].action = "/app/ledger/insert_ledger.do";
 	insertForm[0].submit();
 }
 
 // [UPDATE] 가계부 내역 수정
 function fn_updateLedger() {
-	//var form = document.getElementById("ledgerInsertForm");
 	updateForm[0].action = "/app/ledger/update_ledger.do";
 	updateForm[0].submit();
 }
+
+// [DELETE] 가계부 내역 삭제
+function fn_deleteLedger() {
+	deleteForm[0].action = "/app/ledger/delete_ledger.do";
+	deleteForm[0].submit();
+	
+	
+	
+	/*// 가계부 삭제를 위한 Form 생성
+	var ledgerDeleteForm = document.createElement('form');
+	ledgerDeleteForm.name = "ledgerDeleteForm";
+	ledgerDeleteForm.method = "post";
+	ledgerDeleteForm.action = "/app/ledger/delete_ledger.do";
+	
+	// ledger_idx값 생성
+	var ledger_idx = $(this).closest("tr").find("#ledger_idx").val();
+	var input = document.createElement('input');
+	input.setAttribute("type","hidden");
+	input.setAttribute("name","ledger_idx");
+	input.setAttribute("value",ledger_idx);
+	
+	ledgerDeleteForm.appendChild(input);
+	document.body.appendChild(ledgerDeleteForm);
+	
+	// submit
+	ledgerDeleteForm.submit();*/
+}
+	

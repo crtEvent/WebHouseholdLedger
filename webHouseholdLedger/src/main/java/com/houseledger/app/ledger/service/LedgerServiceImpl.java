@@ -91,7 +91,7 @@ public class LedgerServiceImpl implements LedgerService{
 		
 	}
 	
-	// 가계부내역 수정
+	// 가계부 내역 수정
 	public void updateLedger(LedgerInsertDTO dto) throws Exception {
 		
 		String income_and_expenses = dto.getIncome_and_expenses();
@@ -113,5 +113,10 @@ public class LedgerServiceImpl implements LedgerService{
 				break;
 		}
 		
+	}
+	
+	// 가계부 내역 삭제
+	public void deleteLedger(LedgerInsertDTO dto) throws Exception {
+		ledgerDAO.deleteLedger(dto);
 	}
 }

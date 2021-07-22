@@ -98,5 +98,13 @@
     	AND USER_IDX = #{user_idx}
     	]]>
     </update>
+    
+    <delete id="ledger.deleteLedger" parameterType="ledgerInsertDTO">
+    	<![CDATA[
+    	DELETE FROM LEDGER
+    	WHERE LEDGER_IDX = #{ledger_idx}
+    	AND USER_IDX = #{user_idx}
+    	]]>
+    </delete>
 
 </mapper>

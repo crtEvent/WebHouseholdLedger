@@ -56,4 +56,8 @@ public class LedgerDAO extends AbstractDAO{
 		update("ledger.updateTransferLedger", dto);
 	}
 	
+	public void deleteLedger(LedgerInsertDTO dto) throws Exception {
+		delete("ledger.deleteLedger", dto);
+	}
+	
 }

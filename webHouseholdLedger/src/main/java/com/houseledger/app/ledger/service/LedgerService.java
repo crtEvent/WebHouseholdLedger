@@ -16,4 +16,6 @@ public interface LedgerService {
 	public void insertLedger(LedgerInsertDTO dto) throws Exception;
 	
 	public void updateLedger(LedgerInsertDTO dto) throws Exception;
+	
+	public void deleteLedger(LedgerInsertDTO dto) throws Exception;
 }

@@ -41,4 +41,14 @@ Logger log = LoggerFactory.getLogger(this.getClass());
 		return "redirect:/ledger/details.do";
 	}
 	
+	@RequestMapping(value="/ledger/delete_ledger.do")
+	public String delete_ledger(Model model, LedgerInsertDTO ledgerInsertDTO, @SessionAttribute("userSession")UserVO userVO) throws Exception {
+		
+		ledgerInsertDTO.setUser_idx(userVO.getUser_idx());
+		
+		ledgerService.deleteLedger(ledgerInsertDTO);
+		
+		return "redirect:/ledger/details.do";
+	}
+	
 }
