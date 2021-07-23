@@ -151,7 +151,8 @@ $("[name=btnLedgerDelete]").click(function(){
 
 // [INSERT] 가계부 내역 입력
 function fn_insertLedger() {
-	insertForm[0].action = "/app/ledger/insert_ledger.do";
+	//var _context = "<c:url value='/'/>";
+	//insertForm[0].action = _context + "ledger/insert_ledger.do";
 	insertForm[0].submit();
 }
 
@@ -165,26 +166,5 @@ function fn_updateLedger() {
 function fn_deleteLedger() {
 	deleteForm[0].action = "/app/ledger/delete_ledger.do";
 	deleteForm[0].submit();
-	
-	
-	
-	/*// 가계부 삭제를 위한 Form 생성
-	var ledgerDeleteForm = document.createElement('form');
-	ledgerDeleteForm.name = "ledgerDeleteForm";
-	ledgerDeleteForm.method = "post";
-	ledgerDeleteForm.action = "/app/ledger/delete_ledger.do";
-	
-	// ledger_idx값 생성
-	var ledger_idx = $(this).closest("tr").find("#ledger_idx").val();
-	var input = document.createElement('input');
-	input.setAttribute("type","hidden");
-	input.setAttribute("name","ledger_idx");
-	input.setAttribute("value",ledger_idx);
-	
-	ledgerDeleteForm.appendChild(input);
-	document.body.appendChild(ledgerDeleteForm);
-	
-	// submit
-	ledgerDeleteForm.submit();*/
 }
 	

@@ -26,12 +26,17 @@ public class LedgerServiceImpl implements LedgerService{
 	
 	public LedgerDetailsDTO getLedgerDetails(LedgerSelectDTO ledgerSelectDTO) throws Exception{
 		
+		LedgerDetailsDTO ledgerDetailDTO = new LedgerDetailsDTO();
+		
 		// start_date, end_date값이 없을 경우 자동 설정
 		if(ledgerSelectDTO.getStart_date() == null || ledgerSelectDTO.getEnd_date() == null) {
 			LocalDate now = LocalDate.now();
 			ledgerSelectDTO.setEnd_date(now.toString()); // 오늘 날짜
 			ledgerSelectDTO.setStart_date(now.minusDays(30).toString()); // 30일 전 날짜
 		}
+		
+		ledgerDetailDTO.setStart_date(ledgerSelectDTO.getStart_date());
+		ledgerDetailDTO.setEnd_date(ledgerSelectDTO.getEnd_date());
 		
 		// 기간 내 가계부 총 수익, 지출 불러오기
 		// (INCOME 총 수익, EXPENDITURE 총 지출, TOTAL 계:수입-지출)
@@ -42,7 +47,7 @@ public class LedgerServiceImpl implements LedgerService{
 		List<Map<String, Object>> ledgerGroup = ledgerDAO.selectLedgerGroup(ledgerSelectDTO);
 		
 		// 날짜 그룹별 가계부 내역(ledgerByDate) 불러온 후 ledgerList에 저장
-		List<List<Map<String, Object>>> ledgerList = new ArrayList();
+		List<List<Map<String, Object>>> ledgerList = new ArrayList<List<Map<String, Object>>>();
 		List<Map<String, Object>> ledgerByDate = null;
 		String date = null;
 		
@@ -53,7 +58,6 @@ public class LedgerServiceImpl implements LedgerService{
 			ledgerList.add(ledgerByDate);
 		}
 		
-		LedgerDetailsDTO ledgerDetailDTO = new LedgerDetailsDTO();
 		ledgerDetailDTO.setLedgerSummary(ledgerSummary);
 		ledgerDetailDTO.setLedgerGroup(ledgerGroup);
 		ledgerDetailDTO.setLedgerList(ledgerList);

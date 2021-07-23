@@ -46,9 +46,11 @@
 							<div class="card">
 								<!-- Card-body -->
 								<div class="card-body">
-									<form name="selectPeriodForm" id="selectPeriodForm">
-										<input type="hidden" name="start_date" id="start_date">
-										<input type="hidden" name="end_date" id="end_date">
+									<form name="ledgerSelectForm" id="ledgerSelectForm">
+										<input type="hidden" name="start_date" id="start_date"
+											 value="${ledgerDetailDTO.start_date }">
+										<input type="hidden" name="end_date" id="end_date"
+											 value="${ledgerDetailDTO.end_date }">
 									</form>
 
 									<div class="row">
@@ -75,8 +77,7 @@
 														class="far fa-calendar-alt"></i>
 													</span>
 												</div>
-												<input type="text"
-													class="form-control float-right text-center"
+												<input type="text" class="form-control float-right text-center"
 													id="selectPeriod">
 											</div>
 										</div>
@@ -232,6 +233,7 @@
 
 	<%@include file="../include/include_main_plugins.jsp"%>
 	<script type="text/javascript" src="<c:url value="/resources/view/ledger/ledger_modal.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/view/ledger/ledger_select.js"/>"></script>
 	<!-- daterange picker -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
