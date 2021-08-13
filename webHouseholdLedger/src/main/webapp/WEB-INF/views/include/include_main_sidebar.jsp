@@ -28,7 +28,7 @@
                with font-awesome or any other icon font library -->
 			   
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<c:url value='/ledger/details.do'/>" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 가계부 내역
@@ -37,7 +37,7 @@
           </li>
 		  
 		  <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<c:url value='/ledger/calendar.do'/>" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
                 가계부 달력

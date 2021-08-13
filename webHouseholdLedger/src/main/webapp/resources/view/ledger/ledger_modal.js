@@ -151,8 +151,7 @@ $("[name=btnLedgerDelete]").click(function(){
 
 // [INSERT] 가계부 내역 입력
 function fn_insertLedger() {
-	//var _context = "<c:url value='/'/>";
-	//insertForm[0].action = _context + "ledger/insert_ledger.do";
+	insertForm[0].action = "/app/ledger/insert_ledger.do";
 	insertForm[0].submit();
 }
 

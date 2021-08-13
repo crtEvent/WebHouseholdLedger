@@ -52,7 +52,7 @@
     	AND DATE BETWEEN #{start_date} AND #{end_date}
     	]]>
     </select>
-    
+   
     <insert id="ledger.insertIncomeAndExpensesLedger" parameterType="ledgerInsertDTO">
     	<![CDATA[
     	INSERT INTO LEDGER
