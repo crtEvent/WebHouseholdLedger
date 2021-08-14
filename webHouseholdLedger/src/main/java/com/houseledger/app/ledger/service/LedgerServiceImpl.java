@@ -93,10 +93,11 @@ public class LedgerServiceImpl implements LedgerService {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
 			ledgerSelectDTO.setDate(now.format(dateTimeFormatter));
 		}
+		ledgerCalendarDTO.setDate(ledgerSelectDTO.getDate());
 		
 		// Main Part(검색한 달)의 데이터 입력 - 1. 변수 설정
 		year = Integer.parseInt(ledgerSelectDTO.getDate().substring(0, 4));
-		month = Integer.parseInt(ledgerSelectDTO.getDate().substring(6, 7)) - 1;
+		month = Integer.parseInt(ledgerSelectDTO.getDate().substring(5)) - 1;
 		calendar.set(year, month, 1);
 		mainPartLastDate = calendar.getActualMaximum(Calendar.DAY_OF_MONTH); // Main Part의 마지막 날짜
 		mainPartfirstDayNumber = calendar.get(Calendar.DAY_OF_WEEK); // Main Part 1일의 요일 번호(1:일 ~ 7:토)
@@ -104,15 +105,13 @@ public class LedgerServiceImpl implements LedgerService {
 		ledgerSelectDTO.setEnd_date(ledgerSelectDTO.getDate() + "-" + mainPartLastDate);
 		ledgerGroup = ledgerDAO.selectLedgerGroup(ledgerSelectDTO);
 		indexOfledgerGroup = ledgerGroup.size() - 1;
-		log.debug("시작 전 indexOfledgerGroup: "+indexOfledgerGroup);
+		
 		// Main Part(검색한 달)의 데이터 입력 - 2. 입력
-		for(int index = 0; index < mainPartLastDate; index++) {log.debug("indexOfledgerGroup: "+indexOfledgerGroup);
-			if(Objects.equals(ledgerGroup.get(indexOfledgerGroup).get("DATE").toString()
+		for(int index = 0; index < mainPartLastDate; index++) {
+			if(indexOfledgerGroup > -1 && Objects.equals(ledgerGroup.get(indexOfledgerGroup).get("DATE").toString()
 					, simpleDateFormat.format(calendar.getTime()))) {
 				calendarDateGroup.add(ledgerGroup.get(indexOfledgerGroup));
-				if(indexOfledgerGroup > 0) {
-					indexOfledgerGroup--;
-				}
+				indexOfledgerGroup--;
 			}else {
 				emptyLedgerGroup = new HashMap<String, Object>();
 				emptyLedgerGroup.put("DATE", simpleDateFormat.format(calendar.getTime()));
@@ -120,12 +119,10 @@ public class LedgerServiceImpl implements LedgerService {
 			}
 			
 			calendar.add(Calendar.DAY_OF_MONTH, 1);
-			
 		}
 		
-		
 		// Front Part(달력의 앞부분)의 데이터 입력 - 1. 변수 설정
-		calendar.set(Calendar.MONTH, month-1);
+		calendar.set(year, month-1, 1);
 		frontPartLastDate = calendar.getActualMaximum(Calendar.DAY_OF_MONTH); // Front Part의 마지막 날짜
 		calendar.set(Calendar.DAY_OF_MONTH, frontPartLastDate);
 		frontPartLastDayNumber = calendar.get(Calendar.DAY_OF_WEEK); // Front Part 마지막 날짜의 요일 번호(1:일 ~ 7:토)
@@ -135,6 +132,7 @@ public class LedgerServiceImpl implements LedgerService {
 			emptyLedgerGroup = new HashMap<String, Object>();
 			emptyLedgerGroup.put("DATE", simpleDateFormat.format(calendar.getTime()));
 			emptyLedgerGroup.put("COLOR","GRAY");
+			
 			calendarDateGroup.add(0, emptyLedgerGroup);
 			calendar.add(Calendar.DAY_OF_MONTH, -1);
 		}
@@ -146,11 +144,10 @@ public class LedgerServiceImpl implements LedgerService {
 		
 		// Back Part(달력의 뒷부분)의 데이터 입력 - 2. 입력
 		for(int index = calendarDateGroupSize; index < 42; index++) {
-			log.debug("들어옴");
 			emptyLedgerGroup = new HashMap<String, Object>();
 			emptyLedgerGroup.put("DATE", simpleDateFormat.format(calendar.getTime()));
 			emptyLedgerGroup.put("COLOR","GRAY");
-			log.debug("emptyLedgerGroup.get(DATE): "+emptyLedgerGroup.get("DATE"));
+			
 			calendarDateGroup.add(emptyLedgerGroup);
 			calendar.add(Calendar.DAY_OF_MONTH, 1);
 		}

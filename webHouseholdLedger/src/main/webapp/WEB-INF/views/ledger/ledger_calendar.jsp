@@ -65,12 +65,12 @@
 							<div class="card-body p-0">
 
 								<!-- Calendar div-->
-								<div id="calendar" class="fc fc-ltr fc-unthemed">
+								<div id="calendar" class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap">
 									
 									<!-- Insert ledger & Select period -->
-									<div class="fc-toolbar fc-header-toolbar">
+									<div class="fc-header-toolbar fc-toolbar fc-toolbar-ltr">
 										<div class="fc-left">
-											<div class="fc-button-group">
+											<div class="btn-group">
 												<button type="button"
 													class="fc-prev-button fc-button fc-button-primary"
 													id="btnPrevMonth">
@@ -84,11 +84,11 @@
 											</div>
 										</div>
 										<div class="fc-center">
-											<h2 id="todayTitle">${fn:substring(ledgerCalendarDTO.date,0,7) }</h2>
+											<h2 class="fc-toolbar-title" id="selectedMonthTitle">${fn:substring(ledgerCalendarDTO.date,0,7) }</h2>
 										</div>
 										<div class="fc-right">
 											<div class="input-group">
-												<form name="selectMonth" id="selectMonth">
+												<form name="selectMonthForm" id="selectMonthForm">
 													<input type="month" name="date" class="form-control"
 														value="${fn:substring(ledgerCalendarDTO.date,0,7) }">
 												</form>
@@ -101,19 +101,33 @@
 									<!-- /.insert ledger & select period -->
 									
 									<!-- Calendar table-->
-									<table>
-										<thead class="fc-head">
+									<table class="fc-scrollgrid table-bordered fc-scrollgrid-liquid">
+										<thead class="fc-col-header">
 											<tr>
-												<th class="fc-day-header fc-widget-header fc-sun"><span>일</span></th>
-												<th class="fc-day-header fc-widget-header fc-mon"><span>월</span></th>
-												<th class="fc-day-header fc-widget-header fc-tue"><span>화</span></th>
-												<th class="fc-day-header fc-widget-header fc-wed"><span>수</span></th>
-												<th class="fc-day-header fc-widget-header fc-thu"><span>목</span></th>
-												<th class="fc-day-header fc-widget-header fc-fri"><span>금</span></th>
-												<th class="fc-day-header fc-widget-header fc-sat"><span>토</span></th>
+												<th class="fc-day-header fc-widget-header fc-sun">
+													<span class="fc-col-header-cell-cushion">일</span>
+												</th>
+												<th class="fc-day-header fc-widget-header fc-mon">
+													<span>월</span>
+												</th>
+												<th class="fc-day-header fc-widget-header fc-tue">
+													<span class="fc-col-header-cell-cushion">화</span>
+												</th>
+												<th class="fc-day-header fc-widget-header fc-wed">
+													<span class="fc-col-header-cell-cushion">수</span>
+												</th>
+												<th class="fc-day-header fc-widget-header fc-thu">
+													<span class="fc-col-header-cell-cushion">목</span>
+												</th>
+												<th class="fc-day-header fc-widget-header fc-fri">
+													<span class="fc-col-header-cell-cushion">금</span>
+												</th>
+												<th class="fc-day-header fc-widget-header fc-sat">
+													<span class="fc-col-header-cell-cushion">토</span>
+												</th>
 											</tr>
 										</thead>
-										<tbody class="fc-body">
+										<tbody class="fc-body" style="width: 811px; height: 650px;">
 											<c:set var="i" value="0" />
 											<c:set var="j" value="7" />
 											<c:forEach var="row" items="${ledgerCalendarDTO.calendarDateGroup }">
@@ -130,9 +144,9 @@
 														<td style="background: #EDEDED;">
 													</c:when>
 												</c:choose>
-
-												<div class="fc-day-number">${fn:substring(row.DATE,8,10) }</div>
-
+												
+												<div class="fc-daygrid-day-number">${fn:substring(row.DATE,8,10) }</div>
+												
 												<c:if test="${not empty row.CNT }">
 													<a
 														class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable"
@@ -145,7 +159,7 @@
 														<span class="fc-time">-</span> <span class="fc-title">${row.EXPENSES }</span>
 													</a>
 												</c:if>
-
+												
 												</td>
 
 												<c:if test="${i%j == j-1 }">

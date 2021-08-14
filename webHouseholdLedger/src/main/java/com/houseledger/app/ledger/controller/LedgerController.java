@@ -1,6 +1,7 @@
 package com.houseledger.app.ledger.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +23,16 @@ Logger log = LoggerFactory.getLogger(this.getClass());
 	LedgerService ledgerService;
 	
 	@RequestMapping(value="/ledger/insert_ledger.do")
-	public String insert_ledger(Model model, LedgerInsertDTO ledgerInsertDTO, @SessionAttribute("userSession")UserVO userVO) throws Exception {
+	public String insert_ledger(Model model, LedgerInsertDTO ledgerInsertDTO, @SessionAttribute("userSession")UserVO userVO, HttpServletRequest request) throws Exception {
 		
 		ledgerInsertDTO.setUser_idx(userVO.getUser_idx());
 		
 		ledgerService.insertLedger(ledgerInsertDTO);
 		
-		return "redirect:/ledger/details.do";
+		// 이전 페이지 URL
+		String referer = request.getHeader("Referer");
+		
+		return "redirect:"+referer;
 	}
 	
 	@RequestMapping(value="/ledger/update_ledger.do")
