@@ -31,7 +31,7 @@
             <a href="<c:url value='/ledger/details.do'/>" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
-                가계부 내역
+				가계부 내역
               </p>
             </a>
           </li>
@@ -40,25 +40,39 @@
             <a href="<c:url value='/ledger/calendar.do'/>" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
-                가계부 달력
+				가계부 달력
               </p>
             </a>
           </li>
 		  
-		  <li class="nav-item">
-            <a href="#" class="nav-link">
+		  <li class="nav-item menu-open">
+            <a href="<c:url value='/stats/category.do'/>" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                가계부 통계
+				가계부 통계
               </p>
             </a>
+            <ul class="nav nav-treeview">
+            	<li class="nav-item">
+            		<a href="<c:url value='/stats/category.do'/>" class="nav-link">
+            			<i class="far fa-circle nav-icon"></i>
+            			<p>분류별 통계</p>
+            		</a>
+            	</li>
+            	<li class="nav-item">
+            		<a href="<c:url value='/stats/yearly.do'/>" class="nav-link">
+            			<i class="far fa-circle nav-icon"></i>
+            			<p>연간 통계</p>
+            		</a>
+            	</li>
+            </ul>
           </li>
 		  
 		  <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-comments"></i>
               <p>
-                Q&A 게시판
+				Q&A 게시판
               </p>
             </a>
           </li>

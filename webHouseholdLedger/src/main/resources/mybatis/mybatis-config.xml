@@ -9,6 +9,7 @@
             <typeAlias type="com.houseledger.app.user.vo.UserVO" alias="userVO"/>
             <typeAlias type="com.houseledger.app.ledger.dto.LedgerSelectDTO" alias="ledgerSelectDTO"/>
             <typeAlias type="com.houseledger.app.ledger.dto.LedgerInsertDTO" alias="ledgerInsertDTO"/>
+            <typeAlias type="com.houseledger.app.stats.dto.StatsSelectDTO" alias="statsSelectDTO"/>
     </typeAliases>
 
 </configuration>

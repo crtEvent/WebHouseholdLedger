@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="stats">
+
+	<select id="stats.selectStatsByCategory" parameterType="statsSelectDTO" resultType="hashmap">
+    	<![CDATA[
+		SELECT 
+			MT1.CATEGORY_NAME, 
+			(CASE WHEN MT2.AMOUNT IS NULL THEN 0 ELSE MT2.AMOUNT END) AMOUNT, 
+			(CASE WHEN MT2.RATIO IS NULL THEN 0 ELSE MT2.RATIO END) RATIO
+		FROM 
+			(SELECT CATEGORY_NAME
+			FROM CATEGORY
+			WHERE INCOME_AND_EXPENSES = #{income_and_expenses}) MT1
+		LEFT OUTER JOIN 
+			(SELECT 
+				T1.CATEGORY, SUM(T1.AMOUNT) AMOUNT, ROUND(SUM(T1.AMOUNT)/MAX(T2.TOTAL_AMT) * 100, 2) RATIO
+			FROM 
+				LEDGER T1,
+				(SELECT SUM(AMOUNT) TOTAL_AMT
+				FROM LEDGER
+				WHERE USER_IDX = #{user_idx}
+				AND INCOME_AND_EXPENSES = #{income_and_expenses}
+				AND DATE BETWEEN #{start_date} AND #{end_date}) T2
+			WHERE USER_IDX = #{user_idx}
+			AND T1.INCOME_AND_EXPENSES = #{income_and_expenses}
+			AND DATE BETWEEN #{start_date} AND #{end_date}
+			GROUP BY CATEGORY) MT2
+		ON 
+			MT1.CATEGORY_NAME = MT2.CATEGORY;
+        ]]>
+    </select>
+    
+    <select id="stats.selectStatsYearly" parameterType="statsSelectDTO" resultType="hashmap">
+    	<![CDATA[
+    	SELECT 
+			SUM(IF(MONTH = '01', TOTAL_AMOUNT, 0)) AS 'JAN',
+			SUM(IF(MONTH = '02', TOTAL_AMOUNT, 0)) AS 'FEB',
+			SUM(IF(MONTH = '03', TOTAL_AMOUNT, 0)) AS 'MAR',
+			SUM(IF(MONTH = '04', TOTAL_AMOUNT, 0)) AS 'APR',
+			SUM(IF(MONTH = '05', TOTAL_AMOUNT, 0)) AS 'MAY',
+			SUM(IF(MONTH = '06', TOTAL_AMOUNT, 0)) AS 'JUN',
+			SUM(IF(MONTH = '07', TOTAL_AMOUNT, 0)) AS 'JUL',
+			SUM(IF(MONTH = '08', TOTAL_AMOUNT, 0)) AS 'AUG',
+			SUM(IF(MONTH = '09', TOTAL_AMOUNT, 0)) AS 'SEP',
+			SUM(IF(MONTH = '10', TOTAL_AMOUNT, 0)) AS 'OCT',
+			SUM(IF(MONTH = '11', TOTAL_AMOUNT, 0)) AS 'NOV',
+			SUM(IF(MONTH = '12', TOTAL_AMOUNT, 0)) AS 'DEC',
+			SUM(TOTAL_AMOUNT) AS TOTAL_YEARLY
+		FROM (
+			SELECT DATE_FORMAT(DATE, "%m") AS MONTH, SUM(AMOUNT) AS TOTAL_AMOUNT
+			FROM LEDGER
+			WHERE USER_IDX = #{user_idx}
+			AND INCOME_AND_EXPENSES = #{income_and_expenses}
+			AND DATE BETWEEN #{start_date} AND #{end_date}
+			GROUP BY DATE_FORMAT(DATE, "%m")) AS SUB_TABLE;
+    	]]>
+    </select>
+
+</mapper>
