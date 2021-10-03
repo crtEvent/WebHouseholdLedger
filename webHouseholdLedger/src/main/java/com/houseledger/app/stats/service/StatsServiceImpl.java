@@ -32,8 +32,9 @@ public class StatsServiceImpl implements StatsService{
 		
 		dto.setUser_idx(user_idx);
 		
-		Calendar calendar = Calendar.getInstance();
-		int year, month;
+		StatsByCategoryDTO statsByCategoryDTO = new StatsByCategoryDTO();
+		//Calendar calendar = Calendar.getInstance();
+		//int year, month;
 		
 		// date값이 없을 경우 자동 설정  || date 형식이 yyyy-MM이 아닐 경우
 		if (dto.getDate() == null || !checkDateFommat(dto.getDate(),"yyyy-MM")) {
@@ -41,22 +42,22 @@ public class StatsServiceImpl implements StatsService{
 			DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
 			dto.setDate(now.format(dateTimeFormatter));
 		}
-		
-		// start_date, end_date값 설정
-		year = Integer.parseInt(dto.getDate().substring(0, 4));
-		month = Integer.parseInt(dto.getDate().substring(5)) - 1;
-		calendar.set(year, month, 1);
-		
-		dto.setStart_date(dto.getDate()+"-01");
-		dto.setEnd_date(dto.getDate()+"-"+calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-		
-		
-		
-		log.debug(dto.getStart_date()+", "+dto.getEnd_date());
-		
-		StatsByCategoryDTO statsByCategoryDTO = new StatsByCategoryDTO();
-		
+		log.debug("dto.getDate(): "+dto.getDate());
 		statsByCategoryDTO.setDate(dto.getDate());
+		// start_date, end_date값 설정
+		/*
+		 * year = Integer.parseInt(dto.getDate().substring(0, 4)); month =
+		 * Integer.parseInt(dto.getDate().substring(5)) - 1; calendar.set(year, month,
+		 * 1);
+		 * 
+		 * dto.setStart_date(dto.getDate()+"-01");
+		 * dto.setEnd_date(dto.getDate()+"-"+calendar.getActualMaximum(Calendar.
+		 * DAY_OF_MONTH));
+		 * 
+		 * 
+		 * 
+		 * log.debug(dto.getStart_date()+", "+dto.getEnd_date());
+		 */
 		
 		List<Map<String, Object>> statsByExpensesCategoryList  = statsDAO.selectStatsByExpensesCategory(dto);
 		List<Map<String, Object>> statsByIncomeCategoryList = statsDAO.selectStatsByIncomeCategory(dto);
@@ -73,6 +74,15 @@ public class StatsServiceImpl implements StatsService{
 		dto.setUser_idx(user_idx);
 		
 		StatsYearlyDTO statsYearlyDTO = new StatsYearlyDTO();
+		
+		// date값이 없을 경우 자동 설정  || date 형식이 yyyy-MM이 아닐 경우
+		if (dto.getDate() == null || !checkDateFommat(dto.getDate(),"yyyy")) {
+			LocalDate now = LocalDate.now();
+			DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy");
+			dto.setDate(now.format(dateTimeFormatter));
+		}
+		log.debug("dto.getDate(): "+dto.getDate());
+		statsYearlyDTO.setDate(dto.getDate());
 		
 		Map<String, Object> statsYearlyByExpenses = statsDAO.selectStatsYearlyByExpenses(dto);
 		Map<String, Object> statsYearlyByIncome = statsDAO.selectStatsYearlyByIncome(dto);

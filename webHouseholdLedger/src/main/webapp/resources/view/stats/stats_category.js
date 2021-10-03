@@ -2,24 +2,24 @@
  * 
  */
 
-window.onload = function() {
+$(document).ready(function(){
 	
 	// Pie Chars - Income Category
 	var incomeListSize = $('input[name=incomeListSize]').val();
-	var strIncomeLabels = [];
-	var strIncomeData = [];
+	var incomeLabelArray = [];
+	var incomeDataArray = [];
 	
 	for(var i = 1; i <= incomeListSize; i++){
-		strIncomeLabels.push($('#incomeDataTable').find('tbody tr:nth-child('+i+') td:nth-child(1)').text());
-		strIncomeData.push($('#incomeDataTable').find('tbody tr:nth-child('+i+') td:nth-child(2)').text());
+		incomeLabelArray.push($('#incomeDataTable').find('tbody tr:nth-child('+i+') td:nth-child(1)').text());
+		incomeDataArray.push($('#incomeDataTable').find('tbody tr:nth-child('+i+') td:nth-child(2)').text());
 	}
 	
 	var incomePieChartCanvas = $('#incomePieChart').get(0).getContext('2d');
 	
 	var incomePieData = {
-			labels: strIncomeLabels,
+			labels: incomeLabelArray,
 			datasets: [{
-				data: strIncomeData,
+				data: incomeDataArray,
 				backgroundColor : Chart.colorschemes.brewer['Spectral11']
 			}]
 	};
@@ -41,20 +41,20 @@ window.onload = function() {
 	
 	// Pie Chars - Expenses Category
 	var expensesListSize = $('input[name=expensesListSize]').val();
-	var strExpensesLabels = [];
-	var strExpensesData = [];
+	var expensesLabelsArray = [];
+	var expensesDataArray = [];
 	
 	for(var i = 1; i <= expensesListSize; i++){
-		strExpensesLabels.push($('#expensesDataTable').find('tbody tr:nth-child('+i+') td:nth-child(1)').text());
-		strExpensesData.push($('#expensesDataTable').find('tbody tr:nth-child('+i+') td:nth-child(2)').text());
+		expensesLabelsArray.push($('#expensesDataTable').find('tbody tr:nth-child('+i+') td:nth-child(1)').text());
+		expensesDataArray.push($('#expensesDataTable').find('tbody tr:nth-child('+i+') td:nth-child(2)').text());
 	}
 	
 	var expensesPieChartCanvas = $('#expensesPieChart').get(0).getContext('2d');
 	
 	var expensesPieData = {
-			labels: strExpensesLabels,
+			labels: expensesLabelsArray,
 			datasets: [{
-				data: strExpensesData,
+				data: expensesDataArray,
 				backgroundColor : Chart.colorschemes.brewer['Spectral11']
 			}]
 	};
@@ -65,4 +65,4 @@ window.onload = function() {
 	      options: pieOptions
 	})
 	
-};
+});

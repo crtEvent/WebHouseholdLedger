@@ -34,7 +34,7 @@ public class StatsController {
 		
 		model.addAttribute("statsYearlyDTO", statsService.getStatsYearly(dto, userVO.getUser_idx()));
 		
-		return "/stats/stats_main";
+		return "/stats/stats_yearly";
 	}
 
 }

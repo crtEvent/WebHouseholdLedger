@@ -10,6 +10,8 @@
 <%@include file="../include/include_main_head.jsp"%>
 <!-- DataTables -->
 <link rel="stylesheet" href="<c:url value="/resources/adminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"/>">
+<!-- bootstrap-datepicker -->
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css"/>" />
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
@@ -26,7 +28,7 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">통계</h1>
+							<h1 class="m-0">분류별 통계</h1>
 						</div>
 						<!-- /.col -->
 					</div>
@@ -48,18 +50,20 @@
 								<!-- Card-body -->
 								<div class="card-body">
 									<div class="row">
-										
-											<div class="input-group w-25 mx-auto">
-												<form name="selectMonthForm" id="selectMonthForm">
-													<input type="month" name="date" class="form-control"
-														value="${fn:substring(statsByCategoryDTO.date,0,7) }">
-												</form>
-												<div class="input-group-append" id="submitSelectMonth">
-													<span class="input-group-text">이동</span>
-												</div>
+									
+										<div class="input-group w-25 mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text">
+													<i class="far fa-calendar-alt"></i>
+												</span>
 											</div>
+											<form name="selectMonthForm" id="selectMonthForm">
+												<input type="text" name="date" id="selectMonth" class="form-control text-center"
+													autocomplete="off" value="${fn:substring(statsByCategoryDTO.date,0,8) }">
+											</form>
+										</div>
 										
-									<div class="row">
+									</div>
 								</div>
 								<!-- /.card-body -->
 							</div>
@@ -73,10 +77,12 @@
 						<div class="col-md-6">
 							<!-- Card - INCOME PIE CHART -->
 							<div class="card card-success card-outline">
+								<!-- Card-header -->
 								<div class="card-header">
 									<h3 class="card-title">수입 통계</h3>
 								</div>
 								<!-- /.card-header -->
+								<!-- Card-body -->
 								<div class="card-body">
 									<div class="pb-3">
 										<canvas id="incomePieChart"
@@ -202,6 +208,9 @@
 	
 	<script type="text/javascript" src="<c:url value="/resources/view/stats/stats_category.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/view/stats/stats_select_month.js"/>"></script>
+	<!-- bootstrap-datepicker -->
+	<script type="text/javascript" src="<c:url value="/resources/plugins/bootstrap-datepicker/bootstrap-datepicker.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/plugins/bootstrap-datepicker/bootstrap-datepicker.ko.js"/>"></script>
 	<!-- Chart.js -->
 	<script src="<c:url value="/resources/adminLTE/plugins/chart.js/Chart.min.js"/>"></script>
 	<script src="<c:url value="/resources/adminLTE/plugins/chart.js/chartjs-plugin-colorschemes.min.js"/>"></script>

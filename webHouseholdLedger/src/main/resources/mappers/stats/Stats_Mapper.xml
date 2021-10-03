@@ -25,7 +25,7 @@
 				AND DATE BETWEEN #{start_date} AND #{end_date}) T2
 			WHERE USER_IDX = #{user_idx}
 			AND T1.INCOME_AND_EXPENSES = #{income_and_expenses}
-			AND DATE BETWEEN #{start_date} AND #{end_date}
+			AND DATE BETWEEN '${date}-01' AND LAST_DAY('${date}-01')
 			GROUP BY CATEGORY) MT2
 		ON 
 			MT1.CATEGORY_NAME = MT2.CATEGORY;
@@ -35,25 +35,25 @@
     <select id="stats.selectStatsYearly" parameterType="statsSelectDTO" resultType="hashmap">
     	<![CDATA[
     	SELECT 
-			SUM(IF(MONTH = '01', TOTAL_AMOUNT, 0)) AS 'JAN',
-			SUM(IF(MONTH = '02', TOTAL_AMOUNT, 0)) AS 'FEB',
-			SUM(IF(MONTH = '03', TOTAL_AMOUNT, 0)) AS 'MAR',
-			SUM(IF(MONTH = '04', TOTAL_AMOUNT, 0)) AS 'APR',
-			SUM(IF(MONTH = '05', TOTAL_AMOUNT, 0)) AS 'MAY',
-			SUM(IF(MONTH = '06', TOTAL_AMOUNT, 0)) AS 'JUN',
-			SUM(IF(MONTH = '07', TOTAL_AMOUNT, 0)) AS 'JUL',
-			SUM(IF(MONTH = '08', TOTAL_AMOUNT, 0)) AS 'AUG',
-			SUM(IF(MONTH = '09', TOTAL_AMOUNT, 0)) AS 'SEP',
-			SUM(IF(MONTH = '10', TOTAL_AMOUNT, 0)) AS 'OCT',
-			SUM(IF(MONTH = '11', TOTAL_AMOUNT, 0)) AS 'NOV',
-			SUM(IF(MONTH = '12', TOTAL_AMOUNT, 0)) AS 'DEC',
+			SUM(IF(MONTH = '01', TOTAL_AMOUNT, 0)) AS '1',
+			SUM(IF(MONTH = '02', TOTAL_AMOUNT, 0)) AS '2',
+			SUM(IF(MONTH = '03', TOTAL_AMOUNT, 0)) AS '3',
+			SUM(IF(MONTH = '04', TOTAL_AMOUNT, 0)) AS '4',
+			SUM(IF(MONTH = '05', TOTAL_AMOUNT, 0)) AS '5',
+			SUM(IF(MONTH = '06', TOTAL_AMOUNT, 0)) AS '6',
+			SUM(IF(MONTH = '07', TOTAL_AMOUNT, 0)) AS '7',
+			SUM(IF(MONTH = '08', TOTAL_AMOUNT, 0)) AS '8',
+			SUM(IF(MONTH = '09', TOTAL_AMOUNT, 0)) AS '9',
+			SUM(IF(MONTH = '10', TOTAL_AMOUNT, 0)) AS '10',
+			SUM(IF(MONTH = '11', TOTAL_AMOUNT, 0)) AS '11',
+			SUM(IF(MONTH = '12', TOTAL_AMOUNT, 0)) AS '12',
 			SUM(TOTAL_AMOUNT) AS TOTAL_YEARLY
 		FROM (
 			SELECT DATE_FORMAT(DATE, "%m") AS MONTH, SUM(AMOUNT) AS TOTAL_AMOUNT
 			FROM LEDGER
 			WHERE USER_IDX = #{user_idx}
 			AND INCOME_AND_EXPENSES = #{income_and_expenses}
-			AND DATE BETWEEN #{start_date} AND #{end_date}
+			AND DATE BETWEEN '${date}-01-01' AND '${date}-12-31'
 			GROUP BY DATE_FORMAT(DATE, "%m")) AS SUB_TABLE;
     	]]>
     </select>
