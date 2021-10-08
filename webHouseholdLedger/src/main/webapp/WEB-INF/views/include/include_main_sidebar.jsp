@@ -69,7 +69,7 @@
           </li>
 		  
 		  <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<c:url value='/qna/list.do'/>" class="nav-link">
               <i class="nav-icon fas fa-comments"></i>
               <p>
 				Q&A 게시판

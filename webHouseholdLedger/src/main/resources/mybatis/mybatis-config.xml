@@ -10,6 +10,7 @@
             <typeAlias type="com.houseledger.app.ledger.dto.LedgerSelectDTO" alias="ledgerSelectDTO"/>
             <typeAlias type="com.houseledger.app.ledger.dto.LedgerInsertDTO" alias="ledgerInsertDTO"/>
             <typeAlias type="com.houseledger.app.stats.dto.StatsSelectDTO" alias="statsSelectDTO"/>
+            <typeAlias type="com.houseledger.app.qnaboard.dto.QnaSelectListDTO" alias="qnaSelectListDTO"/>
     </typeAliases>
 
 </configuration>
