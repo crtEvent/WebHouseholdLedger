@@ -22,6 +22,7 @@ public class QnaBoardController {
 	@RequestMapping(value="/qna/list.do")
 	public String qna_list(Model model, QnaSelectListDTO qnaSelectListDTO) throws Exception {
 		
+		model.addAttribute("pagingDTO", qnaListService.getPaging(qnaSelectListDTO));
 		model.addAttribute("qnaPostList", qnaListService.getQnaPostList(qnaSelectListDTO));
 		
 		return "/qna_board/qna_board_list";

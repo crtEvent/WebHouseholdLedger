@@ -11,6 +11,10 @@ import com.houseledger.app.qnaboard.dto.QnaSelectListDTO;
 @Repository("qnaListDAO")
 public class QnaListDAO extends AbstractDAO{
 	
+	public int countQnaPostList(QnaSelectListDTO qnaSelectListDTO) throws Exception {
+		return (int) selectOne("qnaBoard.countQnaPostList", qnaSelectListDTO);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectQnaPostList(QnaSelectListDTO qnaSelectListDTO) throws Exception {
 		return (List<Map<String, Object>>) selectList("qnaBoard.selectQnaPostList", qnaSelectListDTO);

@@ -2,6 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="qnaBoard">
+
+	<select id="qnaBoard.countQnaPostList" parameterType="qnaSelectListDTO" resultType="int">
+    	<![CDATA[
+        SELECT COUNT(*)
+		FROM QNA_BOARD T1
+		JOIN USERS T2
+		ON T1.USER_IDX = T2.USER_IDX
+		WHERE DELETE_YN = "N"
+		]]>
+		<if test="keyword != null and keyword != ''">
+			<choose>
+			<when test="search_type == 'subject+content'">
+				<![CDATA[
+				AND T1.SUBJECT LIKE '%${keyword}%'
+				OR T1.CONTENT LIKE '%${keyword}%'
+				]]>
+			</when>
+			<when test="search_type == 'subject'">
+				<![CDATA[
+				AND T1.SUBJECT LIKE '%${keyword}%'
+				]]>
+			</when>
+			<when test="search_type == 'content'">
+				<![CDATA[
+				AND T1.CONTENT LIKE '%${keyword}%'
+				]]>
+			</when>
+			<when test="search_type == 'user'">
+				<![CDATA[
+				AND T2.USER_ID LIKE '%${keyword}%'
+				]]>
+			</when>
+			<otherwise></otherwise>
+			</choose>
+		</if>
+		<![CDATA[
+		ORDER BY T1.BOARD_IDX DESC
+        ]]>
+    </select>
 	
 	<select id="qnaBoard.selectQnaPostList" parameterType="qnaSelectListDTO" resultType="hashmap">
     	<![CDATA[
@@ -39,6 +78,7 @@
 		</if>
 		<![CDATA[
 		ORDER BY T1.BOARD_IDX DESC
+		LIMIT #{startPositionOnCurrentPage }, #{numberPostsPerPage }
         ]]>
     </select>
 

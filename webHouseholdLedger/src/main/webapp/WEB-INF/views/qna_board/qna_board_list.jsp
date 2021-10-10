@@ -58,6 +58,7 @@
 									<div class="float-right">
 									<div class="container">
  									<div class="row">
+ 										<form name="searchForm">
 										<div class="">
 											<select name="search_type" class="form-control">
 												<option value="subject+content">제목+내용</option>
@@ -76,6 +77,7 @@
 												<i class="fas fa-search"></i><b> 검색</b>
 											</button>
 										</div>
+										</form>
 									</div>
 									</div>
 									</div>
@@ -121,7 +123,54 @@
 								<!-- /.card-body -->
 
 								<!-- Card-footer -->
-								<div class="card-footer"></div>
+								<div class="card-footer">
+									<form name="linkToPageForm"></form>
+									<ul class="pagination m-0 justify-content-center">
+									
+										<li class="page-item">
+											<a class="page-link" onclick="fn_linkToPage(1)" href="#">처음 </a>
+										</li>
+										
+										<c:if test="${pagingDTO.hasPreviousBlock == true }">
+											<li class="page-item">
+												<a class="page-link" onclick="fn_linkToPage(${param.currentPage-10})" href="#">이전 </a>
+											</li>
+										</c:if>
+
+										<c:forEach var="paging" begin="${pagingDTO.firstPageOfpagingBlock}" end="${pagingDTO.lastPageOfpagingBlock}" step="1" varStatus="status">
+											<c:choose>
+												<c:when test="${pagingDTO.currentPage ==  status.current}">
+													<li class="page-item active">
+														<a class="page-link" onclick="fn_linkToPage(${status.current})" href="#">
+															${status.current}
+														</a>
+													</li>
+												</c:when>
+												<c:otherwise>
+													<li class="page-item">
+														<a class="page-link" onclick="fn_linkToPage(${status.current})" href="#">
+															${status.current}
+														</a>
+													</li>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+
+										<c:if test="${pagingDTO.hasNextBlock == true }">
+											<li class="page-item">
+												<a class="page-link" onclick="fn_linkToPage(${param.currentPage+10})" href="#">다음 </a>
+											</li>
+										</c:if>
+
+										<li class="page-item">
+											<a class="page-link" onclick="fn_linkToPage(${pagingDTO.lastPage})" href="#">
+												끝 
+											</a>
+										</li>
+								
+									</ul>
+									
+								</div>
 								<!-- /.card-footer -->
 
 							</div>
@@ -141,5 +190,7 @@
 	<!-- /.wrapper -->
 
 	<%@include file="../include/include_main_plugins.jsp"%>
+	
+	<script type="text/javascript" src="<c:url value="/resources/view/qna_board/qna_board_list.js"/>"></script>
 </body>
 </html>
