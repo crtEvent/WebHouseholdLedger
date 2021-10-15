@@ -22,7 +22,7 @@
 				FROM LEDGER
 				WHERE USER_IDX = #{user_idx}
 				AND INCOME_AND_EXPENSES = #{income_and_expenses}
-				AND DATE BETWEEN #{start_date} AND #{end_date}) T2
+				AND DATE BETWEEN '${date}-01' AND LAST_DAY('${date}-01')) T2
 			WHERE USER_IDX = #{user_idx}
 			AND T1.INCOME_AND_EXPENSES = #{income_and_expenses}
 			AND DATE BETWEEN '${date}-01' AND LAST_DAY('${date}-01')
