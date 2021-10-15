@@ -24,6 +24,11 @@
 	</div>
 	<div>
 		<p><a href="<c:url value='/stats/category.do'/>">/stats/category.do</p>
+		<p><a href="<c:url value='/stats/yearly.do'/>">/stats/yearly.do</p>
+	</div>
+	<div>
+		<p><a href="<c:url value='/qna/list.do'/>">/qna/list.do</p>
+		<p><a href="<c:url value='/qna/post.do?board_idx=1'/>">//qna/post.do?board_idx=1</p>
 	</div>
 	
 </body>

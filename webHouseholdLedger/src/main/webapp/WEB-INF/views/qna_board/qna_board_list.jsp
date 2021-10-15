@@ -33,6 +33,69 @@
 			<!-- Main content -->
 			<section class="content">
 				<div class="container-fluid">
+					
+					<!-- Qna Post -->
+					<c:if test="${not empty qnaPostDTO }">
+						<!-- Row -->
+						<div class="row">
+							<!-- Col -->
+							<div class="col-12">
+		
+								<!-- Card -->
+								<div class="card card-primary card-outline">
+
+									<!-- Card-header -->
+									<div class="card-header">
+										<h5>${qnaPostDTO.subject }</h5>
+										<h6>
+											<span class="mailbox-read-time float-right">
+												${qnaPostDTO.user_id }, ${qnaPostDTO.reg_date } </span>
+										</h6>
+									</div>
+									<!-- /.card-header -->
+
+									<!-- Card-body -->
+									<div class="card-body p-0">
+										<div class="mailbox-read-message">
+											<p>${qnaPostDTO.content }</p>
+										</div>
+									</div>
+									<!-- /.card-body -->
+
+									<!-- Card-footer -->
+									<div class="card-footer">
+										<div class="float-right">
+											<button type="button" class="btn btn-default" onclick="fn_linkToPost(${qnaPostDTO.nextBoard_idx })">
+												<i class="fas fa-reply"></i> 다음글
+											</button>
+											<button type="button" class="btn btn-default" onclick="fn_linkToList()">
+												<i class="fas fa-bars"></i> 목록으로
+											</button>
+											<button type="button" class="btn btn-default" onclick="fn_linkToPost(${qnaPostDTO.prevBoard_idx })">
+												<i class="fas fa-share"></i> 이전글
+											</button>
+										</div>
+										<c:if test="${userSession.getUser_idx() eq qnaPostDTO.user_idx}">
+											<button type="button" class="btn btn-default">
+												<i class="fas fa-pencil-alt"></i> 수정하기
+											</button>
+											<button type="button" class="btn btn-default">
+												<i class="far fa-trash-alt"></i> 삭제하기
+											</button>
+										</c:if>
+									</div>
+									<!-- /.card-footer -->
+
+								</div>
+								<!-- /.card -->
+
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+				
+					</c:if>
+					<!-- /.qna post -->
 
 					<!-- 게시글 리스트 -->
 					<div class="row">
@@ -102,7 +165,7 @@
 											<c:choose>
 												<c:when test="${fn:length(qnaPostList) > 0}">
 													<c:forEach var="qna_list" items="${qnaPostList }">
-														<tr style="cursor: pointer">
+														<tr style="cursor: pointer" onclick="fn_linkToPost(${qna_list.BOARD_IDX })">
 															<td>${qna_list.BOARD_IDX }</td>
 															<td>${qna_list.SUBJECT }</td>
 															<td>${qna_list.USER_ID }</td>

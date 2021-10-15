@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="qnaPost">
+
+	<select id="qnaPost.checkDelete_yn" parameterType="String" resultType="String">
+		<![CDATA[
+		SELECT DELETE_YN
+		FROM QNA_BOARD
+		WHERE BOARD_IDX = ${value}
+		]]>
+	</select>
+
+	<select id="qnaPost.selectQnaPost" parameterType="String" resultType="qnaPostDTO">
+    	<![CDATA[
+		SELECT 
+			T1.BOARD_IDX, 
+			T1.USER_IDX, 
+			T2.USER_ID, 
+			T1.SUBJECT, 
+			T1.CONTENT, 
+			T1.HIT_CNT, 
+			LEFT(T1.REG_DATE,10) AS REG_DATE
+		FROM QNA_BOARD T1
+		JOIN USERS T2
+		ON T1.USER_IDX = T2.USER_IDX
+		WHERE T1.BOARD_IDX = ${value};
+        ]]>
+    </select>
+    
+	<select id="qnaPost.selectNextQnaPost" parameterType="String" resultType="String">
+		<![CDATA[
+		SELECT BOARD_IDX
+		FROM QNA_BOARD
+		WHERE DELETE_YN = 'N'
+		AND BOARD_IDX > ${value}
+		ORDER BY BOARD_IDX ASC
+		LIMIT 1
+		]]>
+	</select>
+	
+	<select id="qnaPost.selectPrevQnaPost" parameterType="String" resultType="String">
+		<![CDATA[
+		SELECT BOARD_IDX
+		FROM QNA_BOARD
+		WHERE DELETE_YN = 'N'
+		AND BOARD_IDX < ${value}
+		ORDER BY BOARD_IDX DESC
+		LIMIT 1
+		]]>
+	</select>
+	
+	
+
+</mapper>

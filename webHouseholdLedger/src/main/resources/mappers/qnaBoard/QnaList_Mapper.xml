@@ -44,7 +44,7 @@
 	
 	<select id="qnaBoard.selectQnaPostList" parameterType="qnaSelectListDTO" resultType="hashmap">
     	<![CDATA[
-        SELECT T1.BOARD_IDX, T2.USER_ID, T1.SUBJECT, T1.CONTENT, T1.HIT_CNT, LEFT(T1.REG_DATE,10) REG_DATE
+        SELECT T1.BOARD_IDX, T2.USER_ID, T1.SUBJECT, T1.HIT_CNT, LEFT(T1.REG_DATE,10) REG_DATE
 		FROM QNA_BOARD T1
 		JOIN USERS T2
 		ON T1.USER_IDX = T2.USER_IDX

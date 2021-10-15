@@ -37,6 +37,9 @@ public class QnaSelectListDTO {
 	}
 	
 	public void setCurrentPage(int currentPage) {
+		if(currentPage < 1) {
+			currentPage = 1;
+		}
 		this.currentPage = currentPage;
 		this.numberPostsPerPage = 15;
 		this.startPositionOnCurrentPage = (currentPage - 1) * numberPostsPerPage;
