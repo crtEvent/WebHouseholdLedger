@@ -52,5 +52,5 @@ public class QnaBoardController {
 		
 		return "/qna_board/qna_board_list";
 	}
-
+	
 }

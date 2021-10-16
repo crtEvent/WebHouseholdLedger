@@ -34,6 +34,17 @@ function fn_linkToList() {
 	$(location).attr("href","/app/qna/list.do");
 }
 
+$("#doSearchBtn").on("click", function(){
+	var searchForm = $("<form></form>");
+	
+	searchForm.attr("name","searchForm");
+	searchForm.attr("method","get");
+	searchForm.attr("action",url);
+	alert("seelct: "+$("select[name=search_type]").val()+", keyword: "+$("[name=keyword]").val())
+	
+	fn_appendAttrAndSubmitForm(searchForm, board_idx, $("select[name=search_type]").val(), $("[name=keyword]").val(), currentPage);
+})
+
 function fn_appendAttrAndSubmitForm(form, board_idx, search_type, keyword, currentPage) {
 	if(board_idx != '' && board_idx != null){
 		form.append($("<input/>", {type: "hidden", name: "board_idx", value: board_idx}));

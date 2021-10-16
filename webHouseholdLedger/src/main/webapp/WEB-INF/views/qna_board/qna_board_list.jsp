@@ -121,7 +121,6 @@
 									<div class="float-right">
 									<div class="container">
  									<div class="row">
- 										<form name="searchForm">
 										<div class="">
 											<select name="search_type" class="form-control">
 												<option value="subject+content">제목+내용</option>
@@ -140,7 +139,6 @@
 												<i class="fas fa-search"></i><b> 검색</b>
 											</button>
 										</div>
-										</form>
 									</div>
 									</div>
 									</div>
