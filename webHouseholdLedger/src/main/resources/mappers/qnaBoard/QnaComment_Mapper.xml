@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="qnaComment">
+
+	<select id="qnaComment.selectQnaCommentList" parameterType="String" resultType="hashmap">
+		<![CDATA[
+		SELECT 
+			T1.COMMENT_IDX, 
+			T1.BOARD_IDX, 
+			T1.USER_IDX, 
+			T2.USER_ID, 
+			T1.DEPTH, 
+			T1.PARENT_COMMENT_IDX, 
+			IF(T1.PARENT_COMMENT_IDX IS NULL,
+				NULL, 
+				(SELECT PU.USER_ID
+				FROM COMMENT C
+				JOIN COMMENT P
+				ON C.PARENT_COMMENT_IDX = P.COMMENT_IDX
+				JOIN USERS CU
+				ON C.USER_IDX = CU.USER_IDX
+				JOIN USERS PU
+				ON P.USER_IDX = PU.USER_IDX
+				WHERE C.COMMENT_IDX = T1.COMMENT_IDX)) AS PARENT_USER_ID, 
+			T1.BUNDLE_IDX,  
+			T1.COMMENT, 
+			T1.DELETE_YN, 
+			LEFT(T1.REG_DATE,10) REG_DATE, 
+			T1.UPDATE_DATE, 
+			T1.DELETE_DATE
+		FROM COMMENT T1
+		JOIN USERS T2
+		ON T1.USER_IDX = T2.USER_IDX
+		WHERE T1.BOARD_IDX = ${value}
+		ORDER BY T1.BUNDLE_IDX, T1.REG_DATE
+		]]>
+	</select>
+
+</mapper>

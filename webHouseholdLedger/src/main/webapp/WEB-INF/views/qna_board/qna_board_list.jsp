@@ -61,28 +61,169 @@
 										</div>
 									</div>
 									<!-- /.card-body -->
+									
+									<!-- Card-body -->
+									<div class="card-body p-0 mb-2">
+										<div class="mailbox-read-message">
+											<hr>
+											<div class="float-left">
+												<button type="button" class="btn btn-default" onclick="fn_linkToPost(${qnaPostDTO.nextBoard_idx })">
+													<i class="fas fa-reply"></i> 다음글
+												</button>
+												<button type="button" class="btn btn-default" onclick="fn_linkToList()">
+													<i class="fas fa-bars"></i> 목록으로
+												</button>
+												<button type="button" class="btn btn-default" onclick="fn_linkToPost(${qnaPostDTO.prevBoard_idx })">
+													<i class="fas fa-share"></i> 이전글
+												</button>
+											</div>
+											<div class="float-right">
+												<c:if test="${userSession.getUser_idx() eq qnaPostDTO.user_idx}">
+													<button type="button" class="btn btn-default">
+														<i class="fas fa-pencil-alt"></i> 수정하기
+													</button>
+													<button type="button" class="btn btn-default">
+														<i class="far fa-trash-alt"></i> 삭제하기
+													</button>
+												</c:if>
+											</div>
+										</div>
+									</div>
+									<!-- /.card-body -->
 
+									<!-- Card-Body - Comment -->
+									<div class="card-body card-comments">
+									
+										<c:choose>
+											<c:when test="${fn:length(qnaCommentList) > 0 }">
+												<c:forEach var="row_comment"
+													items="${qnaCommentList}" varStatus="status">
+													<c:if test="${row_comment.DELETE_YN eq 'N'}">
+														<c:if test="${row_comment.DEPTH eq 1}">
+														
+															<!-- Card-comment -->
+															<div class="card-comment">
+																<!-- User image -->
+																<img class="img-circle img-sm" src="<c:url value="/resources/adminLTE/dist/img/user2-160x160.jpg"/>" alt="User Image">
+																<div class="comment-text">
+																	<span class="username">
+																		${row_comment.USER_ID}
+																		<span class="text-muted float-right">${row_comment.REG_DATE}</span>
+																	</span>
+																	<div>${row_comment.COMMENT}</div>
+																	<span>
+																		<span class="float-right text-primary" >
+																			<a href="#">답글 달기</a>
+																		</span>
+																	</span>
+																</div>
+															</div>
+															<!-- /card-comment -->
+															
+														</c:if>
+														<c:if test="${row_comment.DEPTH eq 2}">
+														
+															<!-- Card-comment -->
+															<div class="card-comment">
+																<!-- User image -->
+																<img class="img-circle img-sm ml-5" src="<c:url value="/resources/adminLTE/dist/img/user2-160x160.jpg"/>" alt="User Image">
+																<div class="comment-text">
+																	<span class="username ml-5">
+																		${row_comment.USER_ID}
+																		<span class="text-muted float-right">${row_comment.REG_DATE}</span>
+																	</span>
+																	<div class="ml-5">
+																		<span class="text-primary">
+																			@${row_comment.PARENT_USER_ID} 
+																		</span>
+																		${row_comment.COMMENT}
+																	</div>
+																	<span class="ml-5">
+																		<span class="float-right text-primary" >
+																			<a href="#">답글 달기</a>
+																		</span>
+																	</span>
+																</div>
+															</div>
+															<!-- /card-comment -->
+															
+														</c:if>
+													</c:if>
+													<c:if test="${row_comment.DELETE_YN eq 'Y'}">
+														<c:if test="${row_comment.DEPTH eq 1}">
+														
+															<!-- Card-comment -->
+															<div class="card-comment">
+																<!-- User image -->
+																<img class="img-circle img-sm" src="<c:url value="/resources/adminLTE/dist/img/user2-160x160.jpg"/>" alt="User Image">
+																<div class="comment-text">
+																	<span class="username">
+																		${row_comment.USER_ID}
+																		<span class="text-muted float-right">${row_comment.REG_DATE}</span>
+																	</span>
+																	<div>
+																		<span>
+																			<i class="fas fa-exclamation-circle"></i>
+																		</span>
+																		<span class="text-center">
+																			삭제된 댓글 입니다.
+																		</span>
+																	</div>
+																	<span>
+																		<span class="float-right text-secondary" >
+																			답글 달기
+																		</span>
+																	</span>
+																</div>
+															</div>
+															<!-- /card-comment -->
+															
+														</c:if>
+														<c:if test="${row_comment.DEPTH eq 2}">
+															
+															<!-- Card-comment -->
+															<div class="card-comment">
+																<!-- User image -->
+																<img class="img-circle img-sm ml-5" src="<c:url value="/resources/adminLTE/dist/img/user2-160x160.jpg"/>" alt="User Image">
+																<div class="comment-text">
+																	<span class="username ml-5">
+																		<del>${row_comment.USER_ID}</del>
+																		<span class="text-muted float-right">${row_comment.REG_DATE}</span>
+																	</span>
+																	<div class="ml-5">
+																		<span class="text-primary">
+																			@${row_comment.PARENT_USER_ID} 
+																		</span>
+																		<span class="text-center">
+																			<span>
+																				<i class="fas fa-exclamation-circle"></i>
+																			</span>
+																			삭제된 댓글 입니다.
+																		</span>
+																	</div>
+																	<span class="ml-5">
+																		<span class="float-right text-secondary" >
+																			답글 달기
+																		</span>
+																	</span>
+																</div>
+															</div>
+															<!-- /card-comment -->
+															
+														</c:if>
+													</c:if>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<div class="text-center">등록된 댓글이 없습니다.</div>
+											</c:otherwise>
+										</c:choose>
+
+									</div>
+									<!-- /.card-body - comment -->
+									
 									<!-- Card-footer -->
 									<div class="card-footer">
-										<div class="float-right">
-											<button type="button" class="btn btn-default" onclick="fn_linkToPost(${qnaPostDTO.nextBoard_idx })">
-												<i class="fas fa-reply"></i> 다음글
-											</button>
-											<button type="button" class="btn btn-default" onclick="fn_linkToList()">
-												<i class="fas fa-bars"></i> 목록으로
-											</button>
-											<button type="button" class="btn btn-default" onclick="fn_linkToPost(${qnaPostDTO.prevBoard_idx })">
-												<i class="fas fa-share"></i> 이전글
-											</button>
-										</div>
-										<c:if test="${userSession.getUser_idx() eq qnaPostDTO.user_idx}">
-											<button type="button" class="btn btn-default">
-												<i class="fas fa-pencil-alt"></i> 수정하기
-											</button>
-											<button type="button" class="btn btn-default">
-												<i class="far fa-trash-alt"></i> 삭제하기
-											</button>
-										</c:if>
 									</div>
 									<!-- /.card-footer -->
 
@@ -182,10 +323,9 @@
 									</table>
 								</div>
 								<!-- /.card-body -->
-
+								
 								<!-- Card-footer -->
 								<div class="card-footer">
-									<form name="linkToPageForm"></form>
 									<ul class="pagination m-0 justify-content-center">
 									
 										<li class="page-item">

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.houseledger.app.qnaboard.dto.QnaPostDTO;
 import com.houseledger.app.qnaboard.dto.QnaSelectListDTO;
+import com.houseledger.app.qnaboard.service.QnaCommentServiceImpl;
 import com.houseledger.app.qnaboard.service.QnaListServiceImpl;
 import com.houseledger.app.qnaboard.service.QnaPostServiceImpl;
 
@@ -25,6 +26,9 @@ public class QnaBoardController {
 	
 	@Resource(name="qnaPostService")
 	QnaPostServiceImpl qnaPostservice;
+	
+	@Resource(name="qnaCommentService")
+	QnaCommentServiceImpl qnaCommentService;
 	
 	@RequestMapping(value="/qna/list.do")
 	public String qna_list(Model model, QnaSelectListDTO qnaSelectListDTO) throws Exception {
@@ -49,6 +53,7 @@ public class QnaBoardController {
 		model.addAttribute("pagingDTO", qnaListService.getPaging(qnaSelectListDTO));
 		model.addAttribute("qnaPostList", qnaListService.getQnaPostList(qnaSelectListDTO));
 		model.addAttribute("qnaPostDTO", qnaPostDTO);
+		model.addAttribute("qnaCommentList", qnaCommentService.getQnaCommentList(board_idx));
 		
 		return "/qna_board/qna_board_list";
 	}
