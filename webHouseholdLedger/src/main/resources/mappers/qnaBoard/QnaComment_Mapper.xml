@@ -15,8 +15,8 @@
 			IF(T1.PARENT_COMMENT_IDX IS NULL,
 				NULL, 
 				(SELECT PU.USER_ID
-				FROM COMMENT C
-				JOIN COMMENT P
+				FROM QNA_COMMENT C
+				JOIN QNA_COMMENT P
 				ON C.PARENT_COMMENT_IDX = P.COMMENT_IDX
 				JOIN USERS CU
 				ON C.USER_IDX = CU.USER_IDX
@@ -29,12 +29,45 @@
 			LEFT(T1.REG_DATE,10) REG_DATE, 
 			T1.UPDATE_DATE, 
 			T1.DELETE_DATE
-		FROM COMMENT T1
+		FROM QNA_COMMENT T1
 		JOIN USERS T2
 		ON T1.USER_IDX = T2.USER_IDX
-		WHERE T1.BOARD_IDX = ${value}
+		WHERE T1.BOARD_IDX = #{value}
 		ORDER BY T1.BUNDLE_IDX, T1.REG_DATE
 		]]>
 	</select>
+	
+	<select id="qnaComment.selectNextBundle_idx" resultType="String">
+		<![CDATA[
+		SELECT MAX(BUNDLE_IDX)+1
+		FROM QNA_COMMENT
+		]]>
+	</select>
+	
+	<select id="qnaComment.selectParentBundle_idx" parameterType="String" resultType="String">
+		<![CDATA[
+		SELECT BUNDLE_IDX
+		FROM QNA_COMMENT
+		WHERE COMMENT_IDX = #{value}
+		]]>
+	</select>
+	
+	<insert id="qnaComment.insertQnaComment" parameterType="writeQnaCommentDTO">
+		<![CDATA[
+		INSERT INTO QNA_COMMENT
+			(BOARD_IDX, USER_IDX, DEPTH, BUNDLE_IDX, COMMENT)
+		VALUES
+			(#{board_idx}, #{user_idx}, #{depth}, #{bundle_idx}, #{comment})
+		]]>
+	</insert>
+	
+	<insert id="qnaComment.insertQnaReComment" parameterType="writeQnaCommentDTO">
+		<![CDATA[
+		INSERT INTO QNA_COMMENT
+			(BOARD_IDX, USER_IDX, DEPTH, PARENT_COMMENT_IDX, BUNDLE_IDX, COMMENT)
+		VALUES
+			(#{board_idx}, #{user_idx}, #{depth}, #{parent_comment_idx}, #{bundle_idx}, #{comment})
+		]]>
+	</insert>
 
 </mapper>

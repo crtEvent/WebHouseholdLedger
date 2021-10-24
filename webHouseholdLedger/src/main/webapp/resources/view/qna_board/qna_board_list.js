@@ -40,7 +40,6 @@ $("#doSearchBtn").on("click", function(){
 	searchForm.attr("name","searchForm");
 	searchForm.attr("method","get");
 	searchForm.attr("action",url);
-	alert("seelct: "+$("select[name=search_type]").val()+", keyword: "+$("[name=keyword]").val())
 	
 	fn_appendAttrAndSubmitForm(searchForm, board_idx, $("select[name=search_type]").val(), $("[name=keyword]").val(), currentPage);
 })
@@ -61,4 +60,59 @@ function fn_appendAttrAndSubmitForm(form, board_idx, search_type, keyword, curre
 	
 	form.appendTo("body");
 	form.submit();
+}
+
+// 댓글 달기
+function fn_writeComment() {
+	
+	var writeCommentForm = $("<form></form>");
+	
+	writeCommentForm.attr("name","writeCommentForm");
+	writeCommentForm.attr("method","post");
+	writeCommentForm.attr("action","/app/qna/write_comment.do");
+	
+	writeCommentForm.append($("<input/>", {type: "hidden", name: "board_idx", value: board_idx}));
+	writeCommentForm.append($("<input/>", {type: "hidden", name: "comment", value: $("#commentField").val()}));
+	
+	writeCommentForm.appendTo("body");
+	writeCommentForm.submit();
+}
+
+// 답글 달기
+function fn_writeReComment(parent_comment_idx) {
+	
+	var writeRecommentForm = $("<form></form>");
+	
+	writeRecommentForm.attr("name","writeReCommentForm");
+	writeRecommentForm.attr("method","post");
+	writeRecommentForm.attr("action","/app/qna/write_recomment.do");
+	
+	writeRecommentForm.append($("<input/>", {type: "hidden", name: "board_idx", value: board_idx}));
+	writeRecommentForm.append($("<input/>", {type: "hidden", name: "parent_comment_idx", value: parent_comment_idx}));
+	writeRecommentForm.append($("<input/>", {type: "hidden", name: "comment", value: $("#reCommentField"+parent_comment_idx).val()}));
+	
+	writeRecommentForm.appendTo("body");
+	writeRecommentForm.submit();
+}
+
+function fn_checkCommentFieldCharLimit() {
+	var content = $("#commentField").val();
+	$("#charLength").html("("+content.length+" / 최대 1000자)");
+	
+	if(content.length > 1000){
+		alert("최대 1000자까지 입력 가능합니다.");
+		$("#commentField").val(content.substring(0, 1000));
+		$("#charLength").html("(1000 / 최대 1000자)");
+	}
+}
+
+function fn_checkReCommentFieldCharLimit(comment_idx) {
+	var content = $("#reCommentField"+comment_idx).val();
+	$("#charLength"+comment_idx).html("("+content.length+" / 최대 1000자)");
+	
+	if(content.length > 1000){
+		alert("최대 1000자까지 입력 가능합니다.");
+		$("#reCommentField"+comment_idx).val(content.substring(0, 1000));
+		$("#charLength"+comment_idx).html("(1000 / 최대 1000자)");
+	}
 }

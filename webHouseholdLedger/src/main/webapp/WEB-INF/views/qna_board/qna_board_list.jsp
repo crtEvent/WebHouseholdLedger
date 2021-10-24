@@ -90,9 +90,28 @@
 										</div>
 									</div>
 									<!-- /.card-body -->
+									
+									<!-- Card-body - Write-comment -->
+									<div class="card-body p-0 mb-2">
+										<div class="mailbox-read-message">
+											<div class="form-group mb-1">
+           										<label>댓글 쓰기</label>
+           										<textarea id="commentField" 
+           											maxlength="1000" class="form-control" rows="3" placeholder="내용을 입력해 주세요." 
+           											onkeyup="fn_checkCommentFieldCharLimit()"></textarea>
+           									</div>
+           									<div class="text-right">
+           										<span id="charLength">(0 / 최대 1000자)</span>
+           										<button type="button" class="btn btn-default" onclick="fn_writeComment()">
+													댓글등록
+												</button>
+           									</div>
+           								</div>
+									</div>
+									<!-- /.card-body - write-comment-->
 
-									<!-- Card-Body - Comment -->
-									<div class="card-body card-comments">
+									<!-- Card-footer - Comment -->
+									<div class="card-footer card-comments">
 									
 										<c:choose>
 											<c:when test="${fn:length(qnaCommentList) > 0 }">
@@ -113,10 +132,28 @@
 																	<div>${row_comment.COMMENT}</div>
 																	<span>
 																		<span class="float-right text-primary" >
-																			<a href="#">답글 달기</a>
+																			<button class="btn btn-link" data-toggle="collapse" data-target="#reCommentDiv${row_comment.COMMENT_IDX}">
+																				답글 달기
+																			</button>
 																		</span>
 																	</span>
 																</div>
+															</div>
+															<div id="reCommentDiv${row_comment.COMMENT_IDX}" class="card-comment collapse">
+																<div class="mailbox-read-message">
+																	<div class="form-group mb-1">
+           																<label>댓글 쓰기</label>
+           																	<textarea id="reCommentField${row_comment.COMMENT_IDX}" 
+           																		maxlength="1000" class="form-control" rows="3" placeholder="내용을 입력해 주세요."
+           																		 onkeyup="fn_checkReCommentFieldCharLimit(${row_comment.COMMENT_IDX})"></textarea>
+           															</div>
+           															<div class="text-right">
+           																<span id="charLength${row_comment.COMMENT_IDX}">(0 / 최대 1000자)</span>
+           																<button type="button" class="btn btn-default" onclick="fn_writeReComment(${row_comment.COMMENT_IDX})">
+																			댓글등록
+																		</button>
+           															</div>
+           														</div>
 															</div>
 															<!-- /card-comment -->
 															
@@ -140,10 +177,28 @@
 																	</div>
 																	<span class="ml-5">
 																		<span class="float-right text-primary" >
-																			<a href="#">답글 달기</a>
+																			<button class="btn btn-link" data-toggle="collapse" data-target="#reCommentDiv${row_comment.COMMENT_IDX}">
+																				답글 달기
+																			</button>
 																		</span>
 																	</span>
 																</div>
+															</div>
+															<div id="reCommentDiv${row_comment.COMMENT_IDX}" class="card-comment collapse">
+																<div class="mailbox-read-message">
+																	<div class="form-group mb-1">
+           																<label>댓글 쓰기</label>
+           																	<textarea id="reCommentField${row_comment.COMMENT_IDX}" 
+           																		maxlength="1000" class="form-control" rows="3" placeholder="내용을 입력해 주세요."
+           																		 onkeyup="fn_checkReCommentFieldCharLimit(${row_comment.COMMENT_IDX})"></textarea>
+           															</div>
+           															<div class="text-right">
+           																<span id="charLength${row_comment.COMMENT_IDX}">(0 / 최대 1000자)</span>
+           																<button type="button" class="btn btn-default" onclick="fn_writeReComment(${row_comment.COMMENT_IDX})">
+																			댓글등록
+																		</button>
+           															</div>
+           														</div>
 															</div>
 															<!-- /card-comment -->
 															
@@ -220,12 +275,7 @@
 										</c:choose>
 
 									</div>
-									<!-- /.card-body - comment -->
-									
-									<!-- Card-footer -->
-									<div class="card-footer">
-									</div>
-									<!-- /.card-footer -->
+									<!-- /.card-footer - comment -->
 
 								</div>
 								<!-- /.card -->
