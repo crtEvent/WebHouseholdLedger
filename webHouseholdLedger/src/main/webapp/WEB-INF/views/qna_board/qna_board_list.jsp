@@ -299,7 +299,7 @@
 									<!-- Header button -->
 									<div class="input-group-sm float-left">
 										<button type="button" class="btn btn-primary"
-											id="moveWritePageBtn">
+											onclick="fn_linkToWritePage()">
 											<b><i class="fas fa-pencil-alt"></i> 글쓰기</b>
 										</button>
 										<button type="button" class="btn btn-default"

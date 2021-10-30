@@ -29,6 +29,7 @@
 	<div>
 		<p><a href="<c:url value='/qna/list.do'/>">/qna/list.do</p>
 		<p><a href="<c:url value='/qna/post.do?board_idx=1'/>">//qna/post.do?board_idx=1</p>
+		<p><a href="<c:url value='/qna/writePost.do'/>">/qna/writePost.do</p>
 	</div>
 	
 </body>

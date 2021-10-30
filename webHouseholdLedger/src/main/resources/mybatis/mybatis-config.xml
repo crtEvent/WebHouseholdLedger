@@ -13,6 +13,7 @@
             <typeAlias type="com.houseledger.app.qnaboard.dto.QnaSelectListDTO" alias="qnaSelectListDTO"/>
             <typeAlias type="com.houseledger.app.qnaboard.dto.QnaPostDTO" alias="qnaPostDTO"/>
             <typeAlias type="com.houseledger.app.qnaboard.dto.WriteQnaCommentDTO" alias="writeQnaCommentDTO"/>
+            <typeAlias type="com.houseledger.app.qnaboard.dto.WriteQnaPostDTO" alias="writeQnaPostDTO"/>
     </typeAliases>
 
 </configuration>

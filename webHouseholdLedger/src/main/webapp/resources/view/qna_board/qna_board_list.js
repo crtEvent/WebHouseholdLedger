@@ -116,3 +116,7 @@ function fn_checkReCommentFieldCharLimit(comment_idx) {
 		$("#charLength"+comment_idx).html("(1000 / 최대 1000자)");
 	}
 }
+
+function fn_linkToWritePage() {
+	$(location).attr("href", "/app/qna/writePost.do");
+}
