@@ -10,7 +10,7 @@ import com.houseledger.app.qnaboard.dao.QnaPostDAO;
 import com.houseledger.app.qnaboard.dto.QnaPostDTO;
 
 @Service("qnaPostService")
-public class QnaPostServiceImpl {
+public class QnaPostServiceImpl implements QnaPostService {
 	
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	

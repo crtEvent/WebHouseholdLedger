@@ -13,7 +13,7 @@ import com.houseledger.app.qnaboard.dao.QnaCommentDAO;
 import com.houseledger.app.qnaboard.dto.WriteQnaCommentDTO;
 
 @Service("qnaCommentService")
-public class QnaCommentServiceImpl {
+public class QnaCommentServiceImpl implements QnaCommentService {
 	
 Logger log = LoggerFactory.getLogger(this.getClass());
 	

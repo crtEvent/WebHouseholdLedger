@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.houseledger.app.qnaboard.dto.QnaPostDTO;
 import com.houseledger.app.qnaboard.dto.QnaSelectListDTO;
-import com.houseledger.app.qnaboard.service.QnaCommentServiceImpl;
-import com.houseledger.app.qnaboard.service.QnaListServiceImpl;
-import com.houseledger.app.qnaboard.service.QnaPostServiceImpl;
+import com.houseledger.app.qnaboard.service.QnaCommentService;
+import com.houseledger.app.qnaboard.service.QnaListService;
+import com.houseledger.app.qnaboard.service.QnaPostService;
 
 @Controller
 public class QnaBoardController {
@@ -22,13 +22,13 @@ public class QnaBoardController {
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Resource(name="qnaListService")
-	QnaListServiceImpl qnaListService;
+	QnaListService qnaListService;
 	
 	@Resource(name="qnaPostService")
-	QnaPostServiceImpl qnaPostservice;
+	QnaPostService qnaPostservice;
 	
 	@Resource(name="qnaCommentService")
-	QnaCommentServiceImpl qnaCommentService;
+	QnaCommentService qnaCommentService;
 	
 	@RequestMapping(value="/qna/list.do")
 	public String qna_list(Model model, QnaSelectListDTO qnaSelectListDTO) throws Exception {

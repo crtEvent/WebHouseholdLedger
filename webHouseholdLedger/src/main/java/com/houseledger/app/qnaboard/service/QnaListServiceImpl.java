@@ -14,7 +14,7 @@ import com.houseledger.app.qnaboard.dto.PagingDTO;
 import com.houseledger.app.qnaboard.dto.QnaSelectListDTO;
 
 @Service("qnaListService")
-public class QnaListServiceImpl {
+public class QnaListServiceImpl implements QnaListService {
 	
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.houseledger.app.qnaboard.dto.WriteQnaCommentDTO;
-import com.houseledger.app.qnaboard.service.QnaCommentServiceImpl;
+import com.houseledger.app.qnaboard.service.QnaCommentService;
 import com.houseledger.app.user.vo.UserVO;
 
 @Controller
@@ -19,7 +19,7 @@ public class QnaCommentController {
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Resource(name="qnaCommentService")
-	QnaCommentServiceImpl qnaCommentService;
+	QnaCommentService qnaCommentService;
 	
 	@RequestMapping(value="/qna/write_comment.do")
 	public String write_comment(HttpServletRequest request, @SessionAttribute("userSession")UserVO userVO, WriteQnaCommentDTO writeQnaCommentDTO) throws Exception {
