@@ -14,6 +14,7 @@
 		<p><a href="<c:url value='/sample/testLogger.do'/>">/sample/testLogger.do</p>
 		<p><a href="<c:url value='/sample/testDB.do'/>">/sample/testDB.do</p>
 		<p><a href="<c:url value='/sample/testMyBatis.do'/>">/sample/testMyBatis.do</p>
+		<p><a href="<c:url value='/sample/find_root.do'/>">/sample/find_root.do</p>
 		<p><a href="<c:url value='/sample/auto_signin.do'/>">자동 로그인</p>
 	</div>
 	<div>

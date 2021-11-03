@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,6 +100,16 @@ public class SampleConroller {
 		redirectAttributes.addFlashAttribute("signInVO", signInVO);
 		
 		return "redirect:/user/excute_signin.do";
+	}
+	
+	// 경로 찾기
+	@RequestMapping(value="/sample/find_root.do")
+	public String find_root(Model model, HttpServletRequest request) throws Exception{
+		
+		log.debug("request.getSession().getServletContext().getRealPath() : ");
+		log.debug(request.getSession().getServletContext().getRealPath(""));
+		
+		return "";
 	}
 
 }

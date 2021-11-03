@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="qnaFile">
+
+	<insert id="qnaFile.insertQnaFile" parameterType="qnaUploadFileDTO">
+		<![CDATA[
+		INSERT INTO QNA_FILE
+			(BOARD_IDX, 
+			USER_IDX, 
+			ORIGINAL_FILE_NAME, 
+			STORED_FILE_NAME, 
+			FILE_SIZE,
+			PATH)
+		VALUES 
+			(#{board_idx},
+			#{user_idx},
+			#{original_file_name},
+			#{stored_file_name},
+			#{file_size},
+			#{path})
+		]]>
+	</insert>
+	
+</mapper>

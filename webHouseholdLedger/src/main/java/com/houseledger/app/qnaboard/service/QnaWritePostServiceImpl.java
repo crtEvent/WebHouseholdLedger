@@ -13,8 +13,11 @@ public class QnaWritePostServiceImpl implements QnaWritePostService {
 	@Resource(name = "qnaWritePostDAO")
 	QnaWritePostDAO qnaWritePostDAO;
 	
-	public void insertQnaPost(WriteQnaPostDTO writeQnaPostDTO) throws Exception {
+	public String insertQnaPost(WriteQnaPostDTO writeQnaPostDTO) throws Exception {
 		qnaWritePostDAO.insertQnaPost(writeQnaPostDTO);
+		
+		// insert 후 board_idx 추출 (useGeneratedKeys="true" keyProperty="board_idx")
+		return writeQnaPostDTO.getBoard_idx();
 	}
 	
 

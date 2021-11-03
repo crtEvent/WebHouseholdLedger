@@ -41,7 +41,7 @@
 									<h3 class="card-title">Q&A 글쓰기</h3>
 								</div>
 								<!-- /.card-header -->
-
+								<!-- Card-body -->
 								<div class="card-body">
 									<div class="form-group">
 										<input name="subject" class="form-control" placeholder="제목:"
@@ -53,11 +53,13 @@
                     					</textarea>
 									</div>
 									<div class="form-group">
-										<div class="btn btn-default btn-file">
-											<i class="fas fa-paperclip"></i> Attachment <input
-												type="file" name="attachment">
+										<div class="btn btn-default btn-file" onclick="fn_addFile()">
+											<i class="fas fa-paperclip"></i> 파일첨부
 										</div>
 										<p class="help-block">Max. 32MB</p>
+									</div>
+									<div id="fileList">
+										<!--  <input type="file" name=""> 이 들어갈 자리 -->
 									</div>
 								</div>
 								<!-- /.card-body -->

@@ -3,11 +3,11 @@
  
 <mapper namespace="qnaWritePost">
 
-	<select id="qnaWritePost.insertQnaPost" parameterType="writeQnaPostDTO">
+	<insert id="qnaWritePost.insertQnaPost" useGeneratedKeys="true" keyProperty="board_idx" parameterType="writeQnaPostDTO">
 		<![CDATA[
 		INSERT INTO QNA_BOARD(USER_IDX, SUBJECT, CONTENT)
 		VALUES (#{user_idx}, #{subject}, #{content})
 		]]>
-	</select>
+	</insert>
 	
 </mapper>
