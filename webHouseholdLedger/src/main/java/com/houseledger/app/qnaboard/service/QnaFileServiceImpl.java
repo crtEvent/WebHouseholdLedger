@@ -1,7 +1,9 @@
 package com.houseledger.app.qnaboard.service;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -11,7 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.houseledger.app.qnaboard.dao.QnaFileDAO;
-import com.houseledger.app.qnaboard.dto.QnaUploadFileDTO;
+import com.houseledger.app.qnaboard.dto.QnaFileDTO;
+import com.houseledger.app.qnaboard.dto.UploadQnaFileDTO;
 
 @Service("qnaFileService")
 public class QnaFileServiceImpl implements QnaFileService {
@@ -21,12 +24,13 @@ public class QnaFileServiceImpl implements QnaFileService {
 	@Resource(name = "qnaFileDAO")
 	QnaFileDAO qnaFileDAO;
 	
+	// 게시글 insert 시 - 파일 업로드
 	public void uploadAttachedFilesToQnaPost(MultipartHttpServletRequest multipartRequest, String board_idx, String user_idx) throws Exception {
 		
-		QnaUploadFileDTO qnaUploadFileDTO = new QnaUploadFileDTO();
-		qnaUploadFileDTO.setBoard_idx(board_idx);
-		qnaUploadFileDTO.setUser_idx(user_idx);
-		qnaUploadFileDTO.setPath(QNA_ATTACHMENTS_REPO);
+		UploadQnaFileDTO uploadQnaFileDTO = new UploadQnaFileDTO();
+		uploadQnaFileDTO.setBoard_idx(board_idx);
+		uploadQnaFileDTO.setUser_idx(user_idx);
+		uploadQnaFileDTO.setPath(QNA_ATTACHMENTS_REPO);
 		
 		multipartRequest.setCharacterEncoding("utf-8");
 		
@@ -39,7 +43,7 @@ public class QnaFileServiceImpl implements QnaFileService {
 			MultipartFile multiFile = multipartRequest.getFile(fileName); // 업로드 된 파일을 MultipartFile 객체에 임시 저장
 			String originalFileName = multiFile.getOriginalFilename(); // 실제 파일 이름
 			String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 이미지 파일의 확장자
-			String storedFileName = "[" + user_idx + "]" + UUID.randomUUID() + extension; // 저장될 이미지 파일명
+			String storedFileName = user_idx + "-" + UUID.randomUUID(); // 저장될 이미지 파일명
 			
 			File file = new File(QNA_ATTACHMENTS_REPO+"\\"+ fileName);
 			
@@ -50,17 +54,28 @@ public class QnaFileServiceImpl implements QnaFileService {
 					}
 				}
 				// 임시로 저장된 multipartFile을 실제 파일로 전송
-				multiFile.transferTo(new File(QNA_ATTACHMENTS_REPO+"\\"+ storedFileName));
+				multiFile.transferTo(new File(QNA_ATTACHMENTS_REPO+"\\"+ storedFileName + extension));
 				// DB에 저장
-				qnaUploadFileDTO.setOriginal_file_name(originalFileName);
-				qnaUploadFileDTO.setStored_file_name(storedFileName);
-				qnaUploadFileDTO.setFile_size(multiFile.getSize());
+				uploadQnaFileDTO.setOriginal_file_name(originalFileName);
+				uploadQnaFileDTO.setStored_file_name(storedFileName);
+				uploadQnaFileDTO.setExtension(extension);
+				uploadQnaFileDTO.setFile_size(multiFile.getSize());
 				
-				qnaFileDAO.insertQnaFile(qnaUploadFileDTO);
+				qnaFileDAO.insertQnaFile(uploadQnaFileDTO);
 			} // /.if문
 		}// /.while문
 		
 		
+	}
+	
+	// 게시글의 파일 리스트 가져오기
+	public List<HashMap<String, Object>> getQnaFileList(String board_idx) throws Exception {
+		return qnaFileDAO.selectQnaFileList(board_idx);
+	}
+	
+	// 다운로드 할 게시글의 파일 정보 가져오기
+	public QnaFileDTO getQnaFile(String qna_file_idx) throws Exception {
+		return qnaFileDAO.selectQnaFile(qna_file_idx);
 	}
 	
 	

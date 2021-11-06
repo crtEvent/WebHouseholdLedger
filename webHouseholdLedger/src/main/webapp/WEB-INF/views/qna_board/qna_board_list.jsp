@@ -56,15 +56,34 @@
 
 									<!-- Card-body -->
 									<div class="card-body p-0">
-										<div class="mailbox-read-message">
+										<!-- 게시글 본문 -->
+										<div class="mailbox-read-message pb-0">
 											<p>${qnaPostDTO.content }</p>
 										</div>
+										<!-- 첨부파일 리스트 -->
+										<div class="card-footer bg-white pb-0">${contextpath}
+											<c:choose>
+											<c:when test="${fn:length(qnaFileList) > 0 }">
+												<c:forEach var="row_file" items="${qnaFileList}">
+													<span>
+														<a href="/app/qna/file_download.do?qna_file_idx=${row_file.QNA_FILE_IDX}" class="mailbox-attachment-name">
+                    										<i class="fas fa-paperclip"></i>
+                    										 ${row_file.ORIGINAL_FILE_NAME}
+                    								 		<span>(${row_file.FILE_SIZE}KB)</span>
+                    									</a>
+                    									&nbsp&nbsp&nbsp
+													</span>
+												</c:forEach>
+											</c:when>
+											</c:choose>
+										</div>
+										<!-- /.첨부파일 리스트 -->
 									</div>
 									<!-- /.card-body -->
 									
 									<!-- Card-body -->
 									<div class="card-body p-0 mb-2">
-										<div class="mailbox-read-message">
+										<div class="mailbox-read-message pt-0">
 											<hr>
 											<div class="float-left">
 												<button type="button" class="btn btn-default" onclick="fn_linkToPost(${qnaPostDTO.nextBoard_idx })">

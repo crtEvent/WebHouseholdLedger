@@ -1,11 +1,12 @@
 package com.houseledger.app.qnaboard.dto;
 
-public class QnaUploadFileDTO {
+public class UploadQnaFileDTO {
 	
 	private String board_idx;
 	private String user_idx;
 	private String original_file_name;
 	private String stored_file_name;
+	private String extension;
 	private long file_size;
 	private String path;
 	
@@ -32,6 +33,12 @@ public class QnaUploadFileDTO {
 	}
 	public void setStored_file_name(String stored_file_name) {
 		this.stored_file_name = stored_file_name;
+	}
+	public String getExtension() {
+		return extension;
+	}
+	public void setExtension(String extension) {
+		this.extension = extension;
 	}
 	public long getFile_size() {
 		return file_size;
