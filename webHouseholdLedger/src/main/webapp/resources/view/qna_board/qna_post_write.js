@@ -19,6 +19,8 @@ $(document).ready(function(){
 	});
 });
 
+var fileCnt = 1;
+
 //게시글 등록 함수
 function fn_insertQnaPost() {
 	
@@ -32,19 +34,37 @@ function fn_insertQnaPost() {
 	writeQnaPostForm.append($('input[name=subject]'));
 	writeQnaPostForm.append($('textarea[name=content]'));
 	
-	writeQnaPostForm.append($("#fileList").find("input[type=file]"));
+	// input[type=file] 여러개 다 가져옴
+	var inputFiles = $("#fileList").find("input[type=file]");
+	
+	// input[type=file] tag가 있는 경우
+	if(inputFiles.length != 0) {
+		// 파일 값이 없는 input[type=file] tag는 제거
+		for(var i = 0; i < inputFiles.length; i++) {
+			if(inputFiles[i].files[0] == null){
+				inputFiles[i].parentElement.remove();
+			}
+		}
+		writeQnaPostForm.append($("#fileList").find("input[type=file]"));
+	}
 	
 	writeQnaPostForm.appendTo("body");
 	
 	writeQnaPostForm.submit();
 }
 
-var fileCnt = 1;
-
 function fn_addFile() {
+	
+	var inputFiles = $("#fileList").find("input[type=file]");
+	console.log("inputFiles.length: "+inputFiles.length);
+	if(inputFiles.length > 4) {
+		alert("파일 업로드는 한 게시글 당 5개까지입니다.");
+		return;
+	}
+	
 	$("#fileList").append('<div class="mt-1" id="fileDiv'+fileCnt+'"></div>')
 	
-	var inputTag = '<input type="file" name="file'+fileCnt+'">';
+	var inputTag = '<input type="file" name="file'+fileCnt+'" onchange="checkFile(this,'+fileCnt+')">';
 	var cancelBtn = '<button class="btn btn-sm" name="cancel"><i class="fas fa-times-circle"></i></button>';
 
 	$("#fileDiv"+fileCnt).append(inputTag);
@@ -66,7 +86,46 @@ function fn_addFile() {
 	});
 }
 
+// 입력한 파일 삭제
 function fn_deleteFile(obj){
 	obj.parent().remove();
 	
+}
+
+// 파일 유효성 체크
+function checkFile(file, fileCnt){
+	var fileInfo = file.files;
+	var message = "해당 파일은 업로드 할 수 없습니다."
+				+"\n - 업로드 가능한 파일 확장자 : hwp, doc, docx, ppt, pptx, xls, xlsx, txt, csv, jpg, jpeg, gif, png, bmp, pdf"
+				+"\n - 업로드 파일크기 및 개수 : 5MB 이하, 1~5개";
+	
+	// 파일 유효성 검사 - 1. 파일크기는 5MB 이하
+	if(fileInfo[0].size > 5242880){
+		// 파일 크기가 5MB보다 큰 경우 - alert 후 파일 삭제
+		alert(message);
+		$("#fileDiv"+fileCnt).remove();
+	} else{
+		// 파일 크기가 5MB보다 작은 경우 - 2. 확장자 유효성 검사 진행
+		var fileName = fileInfo[0].name;
+		var fileLength = fileName.length;
+		var fileDotIndex = fileName.lastIndexOf(".");
+		var fileExtension = fileName.substring(fileDotIndex+1, fileLength).toLowerCase();
+		
+		// 업로드 가능한 확장자
+		var allowedExtensions = 
+			['hwp', 'doc', 'docx', 'ppt', 'pptx', 
+			'xls', 'xlsx', 'txt', 'csv', 'jpg', 
+			'jpeg', 'gif', 'png', 'bmp', 'pdf'];
+		
+		for(var i = 0; i < allowedExtensions.length; i++) {
+			if(fileExtension == allowedExtensions[i]){
+				// 유효한 확장자인 경우 - 함수 끝
+				return;
+			}
+		}
+		
+		// 유효한 확장자가 아닌 경우 - alert 후 파일 삭제
+		alert(message);
+		$("#fileDiv"+fileCnt).remove();
+	}
 }
