@@ -14,4 +14,6 @@ public interface QnaFileService {
 	public List<HashMap<String, Object>> getQnaFileList(String board_idx) throws Exception;
 	
 	public QnaFileDTO getQnaFile(String qna_file_idx) throws Exception;
+	
+	public void editPreviouslyUploadFiles(MultipartHttpServletRequest multipartRequest, String board_idx) throws Exception;
 }

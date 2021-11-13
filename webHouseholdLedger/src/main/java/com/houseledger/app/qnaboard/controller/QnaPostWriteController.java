@@ -36,9 +36,6 @@ public class QnaPostWriteController {
 	@RequestMapping(value="/qna/insert_post.do")
 	public String insert_qna_post(WriteQnaPostDTO writeQnaPostDTO, @SessionAttribute("userSession")UserVO userVO, MultipartHttpServletRequest multipartRequest) throws Exception {
 		
-		multipartRequest.getSession().getServletContext().getRealPath("");
-		
-		
 		// dto에 user_idx 저장
 		writeQnaPostDTO.setUser_idx(userVO.getUser_idx());
 		

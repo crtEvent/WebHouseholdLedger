@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +80,7 @@ public class QnaFileServiceImpl implements QnaFileService {
 				qnaFileDAO.insertQnaFile(uploadQnaFileDTO);
 			} // /.if문	
 		}// /.while문
-	}
+	}// /.uploadAttachedFilesToQnaPost()
 	
 	// 파일 유효성 검사
 	public boolean checkUploadFileSize(long fileSize) throws Exception {
@@ -111,6 +112,29 @@ public class QnaFileServiceImpl implements QnaFileService {
 		return qnaFileDAO.selectQnaFile(qna_file_idx);
 	}
 	
-	
+	public void editPreviouslyUploadFiles(MultipartHttpServletRequest multipartRequest, String board_idx) throws Exception {
+		
+		// 게시글에 업로드된 파일 임시 삭제
+		qnaFileDAO.deleteAllQnaFilesInPost(board_idx);
+		
+		String[] savedFileIdxFromJsp = multipartRequest.getParameterValues("savedFile");
+		
+		if(savedFileIdxFromJsp == null) {
+			return;
+		}
+		
+		List<String> savedFileIdxFromDB = qnaFileDAO.selectQnaFileidxList(board_idx);
+		
+		for(int i = 0; i < savedFileIdxFromDB.size(); i++) {
+			String qna_file_idx = savedFileIdxFromDB.get(i);
+			for(int a = 0; a < savedFileIdxFromJsp.length; a++) {
+				if(qna_file_idx.equals(savedFileIdxFromJsp[a])) {
+					// 페이지에서 넘어온 file_idx와 DB에 있는 file_idx가 일치하면 해당 파일을 복원
+					qnaFileDAO.restoreQnaFile(qna_file_idx);
+				}
+			}
+		}
+		
+	}// /.editPreviouslyUploadFiles()
 
 }

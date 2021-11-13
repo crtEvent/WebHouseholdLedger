@@ -120,3 +120,18 @@ function fn_checkReCommentFieldCharLimit(comment_idx) {
 function fn_linkToWritePage() {
 	$(location).attr("href", "/app/qna/writePost.do");
 }
+
+function fn_linkToEdit(board_idx) {
+	
+	var linkToEditForm = $("<form></form>");
+	
+	linkToEditForm.attr("name","linkToEditForm");
+	linkToEditForm.attr("method","post");
+	linkToEditForm.attr("action","/app/qna/editPost.do");
+	
+	linkToEditForm.append($("<input/>", {type: "hidden", name: "board_idx", value: board_idx}));
+	
+	linkToEditForm.appendTo("body");
+	linkToEditForm.submit();
+	
+}

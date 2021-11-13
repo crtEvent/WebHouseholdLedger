@@ -16,6 +16,7 @@
             <typeAlias type="com.houseledger.app.qnaboard.dto.WriteQnaPostDTO" alias="writeQnaPostDTO"/>
             <typeAlias type="com.houseledger.app.qnaboard.dto.UploadQnaFileDTO" alias="uploadQnaFileDTO"/>
             <typeAlias type="com.houseledger.app.qnaboard.dto.QnaFileDTO" alias="qnaFileDTO"/>
+            <typeAlias type="com.houseledger.app.qnaboard.dto.EditQnaPostDTO" alias="editQnaPostDTO"/>
     </typeAliases>
 
 </configuration>

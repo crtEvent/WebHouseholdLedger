@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>가계부</title>
+<title>게시판 리스트</title>
 <%@include file="../include/include_main_head.jsp"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 </head>
@@ -61,7 +61,7 @@
 											<p>${qnaPostDTO.content }</p>
 										</div>
 										<!-- 첨부파일 리스트 -->
-										<div class="card-footer bg-white pb-0">${contextpath}
+										<div class="card-footer bg-white pb-0">
 											<c:choose>
 											<c:when test="${fn:length(qnaFileList) > 0 }">
 												<c:forEach var="row_file" items="${qnaFileList}">
@@ -98,7 +98,7 @@
 											</div>
 											<div class="float-right">
 												<c:if test="${userSession.getUser_idx() eq qnaPostDTO.user_idx}">
-													<button type="button" class="btn btn-default">
+													<button type="button" class="btn btn-default" onclick="fn_linkToEdit(${qnaPostDTO.board_idx})">
 														<i class="fas fa-pencil-alt"></i> 수정하기
 													</button>
 													<button type="button" class="btn btn-default">

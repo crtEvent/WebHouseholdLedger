@@ -24,5 +24,18 @@ public class QnaFileDAO extends AbstractDAO{
 	public QnaFileDTO selectQnaFile(String qna_file_idx) throws Exception {
 		return (QnaFileDTO) selectOne("qnaFile.selectQnaFile", qna_file_idx);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<String> selectQnaFileidxList(String board_idx) throws Exception {
+		return selectList("qnaFile.selectQnaFileIdxList", board_idx);
+	}
+	
+	public void deleteAllQnaFilesInPost(String board_idx) throws Exception {
+		update("qnaFile.deleteAllQnaFilesInPost", board_idx);
+	}
+	
+	public void restoreQnaFile(String qna_file_idx) throws Exception {
+		update("qnaFile.restoreQnaFile", qna_file_idx);
+	}
 
 }

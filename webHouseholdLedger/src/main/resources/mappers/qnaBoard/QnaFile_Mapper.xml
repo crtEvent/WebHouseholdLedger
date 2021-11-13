@@ -13,6 +13,7 @@
 			PATH
 		FROM QNA_FILE
 		WHERE BOARD_IDX = #{value}
+		AND DELETE_YN = 'N'
 		]]>
 	</select>
 	
@@ -47,5 +48,29 @@
 			#{path})
 		]]>
 	</insert>
+	
+	<select id="qnaFile.selectQnaFileIdxList" parameterType="String" resultType="String">
+		<![CDATA[
+		SELECT QNA_FILE_IDX
+		FROM QNA_FILE
+		WHERE BOARD_IDX = #{value}
+		]]>
+	</select>
+	
+	<update id="qnaFile.deleteAllQnaFilesInPost" parameterType="String">
+		<![CDATA[
+		UPDATE QNA_FILE
+		SET DELETE_YN = 'Y'
+		WHERE BOARD_IDX = #{value}
+		]]>
+	</update>
+	
+	<update id="qnaFile.restoreQnaFile" parameterType="String">
+		<![CDATA[
+		UPDATE QNA_FILE
+		SET DELETE_YN = 'N'
+		WHERE QNA_FILE_IDX = #{value}
+		]]>
+	</update>
 	
 </mapper>

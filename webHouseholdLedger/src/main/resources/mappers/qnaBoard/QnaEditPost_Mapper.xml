@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="qnaEditPost">
+
+	<select id="qnaEditPost.selectUserIdxOfPost" parameterType="String" resultType="String">
+		<![CDATA[
+		SELECT USER_IDX
+		FROM QNA_BOARD
+		WHERE BOARD_IDX = #{value}
+		]]>
+	</select>
+	
+	<select id="qnaEditPost.selectQnaPostForEdit" parameterType="String" resultType="qnaPostDTO">
+    	<![CDATA[
+		SELECT 
+			BOARD_IDX,  
+			SUBJECT, 
+			CONTENT
+		FROM QNA_BOARD
+		WHERE BOARD_IDX = ${value};
+        ]]>
+    </select>
+	
+	<update id="qnaEditPost.updateQnaPost" parameterType="editQnaPostDTO">
+		<![CDATA[
+		UPDATE QNA_BOARD
+		SET SUBJECT = #{subject},
+			CONTENT = #{content}
+		WHERE BOARD_IDX = #{board_idx}
+		]]>
+	</update>
+	
+
+</mapper>
