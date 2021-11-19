@@ -20,5 +20,4 @@ public class QnaWritePostServiceImpl implements QnaWritePostService {
 		return writeQnaPostDTO.getBoard_idx();
 	}
 	
-
 }

@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.houseledger.app.qnaboard.dto.EditQnaPostDTO;
 import com.houseledger.app.qnaboard.dto.QnaPostDTO;
 import com.houseledger.app.qnaboard.service.QnaEditPostService;
 import com.houseledger.app.qnaboard.service.QnaFileService;
+import com.houseledger.app.qnaboard.service.QnaPostValidationService;
 import com.houseledger.app.user.vo.UserVO;
 
 @Controller
@@ -23,6 +25,9 @@ public class QnaPostEditController {
 	
 Logger log = LoggerFactory.getLogger(this.getClass());
 	
+	@Resource(name= "qnaPostValidationService")
+	QnaPostValidationService qnaPostValidationService;
+
 	@Resource(name = "qnaEditPostService")
 	QnaEditPostService qnaEditPostService;
 	
@@ -60,7 +65,14 @@ Logger log = LoggerFactory.getLogger(this.getClass());
 	public String update_qna_post(EditQnaPostDTO editQnaPostDTO, 
 			@SessionAttribute("userSession")UserVO userVO, 
 			MultipartHttpServletRequest multipartRequest, 
-			HttpServletResponse response) throws Exception {
+			Model model) throws Exception {
+		
+		if(!qnaPostValidationService.checkVaildQnaPost(editQnaPostDTO.getSubject(), editQnaPostDTO.getContent())) {
+			// [제목 5글자 이상 & 내용 2000자 이하]가 아니면
+			// 이전 페이지로 이동
+			model.addAttribute("board_idx", editQnaPostDTO.getBoard_idx());
+			return "forward:/qna/editPost.do";
+		}
 		
 		// 게시글 UPDATE
 		qnaEditPostService.editQnaPost(editQnaPostDTO);
@@ -70,7 +82,7 @@ Logger log = LoggerFactory.getLogger(this.getClass());
 		
 		// 신규 첨부파일 업로드
 		qnaFileService.uploadAttachedFilesToQnaPost(multipartRequest, editQnaPostDTO.getBoard_idx(), userVO.getUser_idx());
-		
+
 		return "redirect:/qna/post.do?board_idx="+editQnaPostDTO.getBoard_idx();
 	}
 }

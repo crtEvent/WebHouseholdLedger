@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +81,7 @@ public class QnaFileServiceImpl implements QnaFileService {
 		}// /.while문
 	}// /.uploadAttachedFilesToQnaPost()
 	
-	// 파일 유효성 검사
+	// 파일 유효성 검사 - 파일 사이즈 검사
 	public boolean checkUploadFileSize(long fileSize) throws Exception {
 		// 파일 크기 - 5MB 이하
 		if(fileSize > 5242880) {
@@ -91,7 +90,7 @@ public class QnaFileServiceImpl implements QnaFileService {
 		return true; // 파일 크기 5MB보다 작은 경우 true
 	}
 	
-	// 파일 유효성 검사
+	// 파일 유효성 검사 - 확장자 검사
 	public boolean checkUploadFileExtension(String extension) throws Exception {
 		// 확장자 유효성 검사
 		for(int i = 0; 0 < ALLOWED_EXTENSION.length; i++) {

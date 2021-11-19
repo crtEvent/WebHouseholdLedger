@@ -1,8 +1,9 @@
 /**
  * 
  */
-/*
+
 $(document).ready(function(){
+	
 	$('#writeContentField').summernote({
 		height: 450,
 		lang: 'ko-KR',
@@ -25,13 +26,15 @@ $(document).ready(function(){
             }
         }
 	});
+	
+	viewContentFieldLength();
 });
 
 function viewContentFieldLength() {
+	
 	var contentFieldLength = $('#writeContentField').summernote('code')
-	.replace(/<\/p>/gi, "")
-	.replace(/<\/br>/gi, "")
-	.replace(/<\/?[^>]+(>|$)/g, "").length;
+	.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "")
+	.replace(/&([a-z0-9]+|#[0-9a-zA-Z]+);/gi, "0").length;
 	
 	if(contentFieldLength > 2000){
     	$('#maxContentLength').html('(<span class="text-danger">'+contentFieldLength+'자</span> / 최대 2,000자)');
@@ -40,52 +43,12 @@ function viewContentFieldLength() {
     $('#maxContentLength').html('(<span>'+contentFieldLength+'자</span> / 최대 2,000자)');
 }
 
-var fileCnt = 1;
-*/
-//게시글 수정 함수
-function fn_updateQnaPost(board_idx) {
-	
-	if(!fn_checkPostWritingField()){
-		return;
-	}
-	
-	var writeQnaPostForm = $("<form></form>");
-	
-	writeQnaPostForm.attr("name","editQnaPostForm");
-	writeQnaPostForm.attr("method","post");
-	writeQnaPostForm.attr("action","/app/qna/update_post.do");
-	writeQnaPostForm.attr("enctype","multipart/form-data");
-	
-	writeQnaPostForm.append($("<input/>", {type: "hidden", name: "board_idx", value: board_idx}));
-	writeQnaPostForm.append($('input[name=subject]'));
-	writeQnaPostForm.append($('textarea[name=content]'));
-	writeQnaPostForm.append($('input[name=savedFile]'));
-	
-	// input[type=file] 여러개 다 가져옴
-	var inputFiles = $("#fileList").find("input[type=file]");
-	
-	// input[type=file] tag가 있는 경우
-	if(inputFiles.length != 0) {
-		// 파일 값이 없는 input[type=file] tag는 제거
-		for(var i = 0; i < inputFiles.length; i++) {
-			if(inputFiles[i].files[0] == null){
-				inputFiles[i].parentElement.remove();
-			}
-		}
-		writeQnaPostForm.append($("#fileList").find("input[type=file]"));
-	}
-	
-	writeQnaPostForm.appendTo("body");
-	
-	writeQnaPostForm.submit();
-}
-/*
 function fn_checkPostWritingField() {
 	var subject = $("input[name=subject]");
 	var subjectLength = subject.val().replace(/s/g,"").length;
 	var content = $("textarea[name=content]");
 	
-	if(subjectLength < 5 && subjectLength > 100){
+	if(subjectLength < 5 || subjectLength > 100){
 		alert("게시글 제목은 5글자 이상 100글자 이하로 작성해 주세요.");
 		subject.focus();
 		return false;
@@ -97,9 +60,8 @@ function fn_checkPostWritingField() {
 	}
 
 	var contentFieldLength = $('#writeContentField').summernote('code')
-	.replace(/<\/p>/gi, "")
-	.replace(/<\/br>/gi, "")
-	.replace(/<\/?[^>]+(>|$)/g, "").length;
+	.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "")
+	.replace(/&([a-z0-9]+|#[0-9a-zA-Z]+);/gi, "0").length;
 	
 	if(contentFieldLength > 2000){
 		alert("게시글 내용은 2,000자를 초과할 수 없습니다.");
@@ -110,6 +72,7 @@ function fn_checkPostWritingField() {
 	return true;
 }
 
+var fileCnt = 1;
 
 function fn_addFile() {
 	
@@ -148,8 +111,7 @@ function fn_addFile() {
 	});
 }
 
-
-// 입력한 파일 삭제
+//입력한 파일 삭제
 function fn_deleteFile(obj){
 	obj.parent().remove();
 	
@@ -161,8 +123,7 @@ $("button[name=cancel]").on("click", function(e){
 	fn_deleteFile($(this));
 });
 
-
-// 파일 유효성 체크
+//파일 유효성 체크
 function checkFile(file, fileCnt){
 	var fileInfo = file.files;
 	var message = "해당 파일은 업로드 할 수 없습니다."
@@ -200,4 +161,3 @@ function checkFile(file, fileCnt){
 		$("#fileDiv"+fileCnt).remove();
 	}
 }
-*/

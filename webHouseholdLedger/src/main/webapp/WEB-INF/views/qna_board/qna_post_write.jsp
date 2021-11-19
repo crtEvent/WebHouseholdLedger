@@ -45,20 +45,23 @@
 								<div class="card-body">
 									<div class="form-group">
 										<input name="subject" class="form-control" placeholder="제목:"
-											minlength="1" maxlength="100">
+											minlength="1" maxlength="100" autocomplete="off">
 									</div>
 									<div class="form-group">
 										<textarea name="content" id="writeContentField"
-											class="form-control" minlength="1" maxlength="1000">
-											</textarea>
+											class="form-control" minlength="1" maxlength="1000"></textarea>
 									</div>
 									<div class="form-group">
 										<div class="btn btn-default btn-file" onclick="fn_addFile()">
 											<i class="fas fa-paperclip"></i> 파일첨부
 										</div>
-										<p class="help-block">Max. 32MB</p>
+										<div class="float-right" id="maxContentLength">(0 / 최대 2,000자)</div>
+										<p class="help-block">
+											업로드 가능한 파일 확장자 : hwp, doc, docx, ppt, pptx, xls, xlsx, txt, csv, jpg, jpeg, gif, png, bmp, pdf<br>
+											업로드 파일크기 및 개수 : 5MB 이하, 1~5개
+										</p>
 									</div>
-									<div id="fileList">
+									<div id="fileList" class="float-left">
 										<!--  <input type="file" name=""> 이 들어갈 자리 -->
 									</div>
 								</div>
@@ -92,6 +95,7 @@
 	<%@include file="../include/include_main_plugins.jsp"%>
 	<script type="text/javascript" src="<c:url value="/resources/plugins/summernote/summernote-bs4.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/plugins/summernote/summernote-ko-KR.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/view/qna_board/qna_post_common.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/view/qna_board/qna_post_write.js"/>"></script>
 </body>
 </html>

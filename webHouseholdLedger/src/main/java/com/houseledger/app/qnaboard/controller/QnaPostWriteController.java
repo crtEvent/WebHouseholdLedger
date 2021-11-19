@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.houseledger.app.qnaboard.dto.WriteQnaPostDTO;
 import com.houseledger.app.qnaboard.service.QnaFileService;
+import com.houseledger.app.qnaboard.service.QnaPostValidationService;
 import com.houseledger.app.qnaboard.service.QnaWritePostService;
 import com.houseledger.app.user.vo.UserVO;
 
@@ -18,6 +19,9 @@ import com.houseledger.app.user.vo.UserVO;
 public class QnaPostWriteController {
 	
 	Logger log = LoggerFactory.getLogger(this.getClass());
+	
+	@Resource(name= "qnaPostValidationService")
+	QnaPostValidationService qnaPostValidationService;
 	
 	@Resource(name = "qnaWritePostService")
 	QnaWritePostService qnaWritePostService;
@@ -35,6 +39,12 @@ public class QnaPostWriteController {
 	// 글쓰기(insert) 기능 실행
 	@RequestMapping(value="/qna/insert_post.do")
 	public String insert_qna_post(WriteQnaPostDTO writeQnaPostDTO, @SessionAttribute("userSession")UserVO userVO, MultipartHttpServletRequest multipartRequest) throws Exception {
+		
+		if(!qnaPostValidationService.checkVaildQnaPost(writeQnaPostDTO.getSubject(), writeQnaPostDTO.getContent())) {
+			// [제목 5글자 이상 & 내용 2000자 이하]가 아니면
+			// 이전 페이지로 이동
+			return "redirect:"+multipartRequest.getHeader("Referer");
+		}
 		
 		// dto에 user_idx 저장
 		writeQnaPostDTO.setUser_idx(userVO.getUser_idx());

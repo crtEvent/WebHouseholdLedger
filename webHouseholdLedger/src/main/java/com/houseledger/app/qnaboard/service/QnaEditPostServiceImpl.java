@@ -47,6 +47,7 @@ public class QnaEditPostServiceImpl implements QnaEditPostService {
 		return qnaPostDTO;
 	}
 	
+	// 게시글 수정 기능
 	public void editQnaPost(EditQnaPostDTO editQnaPostDTO) throws Exception {
 		
 		qnaEditPostDAO.updateQnaPost(editQnaPostDTO);
