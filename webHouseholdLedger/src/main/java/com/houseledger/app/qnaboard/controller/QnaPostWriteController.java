@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.houseledger.app.qnaboard.dto.WriteQnaPostDTO;
 import com.houseledger.app.qnaboard.service.QnaFileService;
+import com.houseledger.app.qnaboard.service.QnaImageFileService;
 import com.houseledger.app.qnaboard.service.QnaPostValidationService;
 import com.houseledger.app.qnaboard.service.QnaWritePostService;
 import com.houseledger.app.user.vo.UserVO;
@@ -28,6 +29,9 @@ public class QnaPostWriteController {
 	
 	@Resource(name = "qnaFileService")
 	QnaFileService qnaFileService;
+	
+	@Resource(name = "qnaImageFileService")
+	QnaImageFileService qnaImageFileService;
 	
 	// 글쓰기 페이지로 이동
 	@RequestMapping(value="/qna/writePost.do")
@@ -51,6 +55,9 @@ public class QnaPostWriteController {
 		
 		// 게시글 insert
 		qnaWritePostService.insertQnaPost(writeQnaPostDTO);
+		
+		// 이미지 파일 처리
+		qnaImageFileService.storeQnaImageFile(userVO.getUser_idx(), writeQnaPostDTO.getContent(), writeQnaPostDTO.getBoard_idx());
 		
 		// 첨부파일 업로드
 		qnaFileService.uploadAttachedFilesToQnaPost(multipartRequest, writeQnaPostDTO.getBoard_idx(), userVO.getUser_idx());

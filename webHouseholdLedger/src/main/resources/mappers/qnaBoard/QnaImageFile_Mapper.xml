@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="qnaImageFile">
+
+	<select id="qnaImageFile.selectTempImagesOfUser" parameterType="String" resultType="hashmap">
+		<![CDATA[
+		SELECT QNA_IMAGE_IDX, STORED_FILE_NAME
+		FROM QNA_IMAGE
+		WHERE USER_IDX = #{user_idx}
+		AND STATE = 'TEMP'
+		]]>
+	</select>
+	
+	<select id="qnaImageFile.selectStoredImagesOfBoard" parameterType="String" resultType="hashmap">
+		<![CDATA[
+		SELECT QNA_IMAGE_IDX, STORED_FILE_NAME
+		FROM QNA_IMAGE
+		WHERE BOARD_IDX = #{board_idx}
+		AND STATE = 'STORED'
+		]]>
+	</select>
+	
+	<update id="qnaImageFile.updateQnaImageStateToStored" parameterType="hashmap">
+		<![CDATA[
+		UPDATE 
+			QNA_IMAGE
+		SET
+			BOARD_IDX = #{board_idx},
+			STATE = 'STORED'
+		WHERE
+			QNA_IMAGE_IDX = #{qna_image_idx}
+		]]>
+	</update>
+	
+	<update id="qnaImageFile.updateQnaImageStateToDeleted" parameterType="String">
+		<![CDATA[
+		UPDATE 
+			QNA_IMAGE
+		SET
+			STATE = 'DELETED'
+		WHERE
+			QNA_IMAGE_IDX = #{qna_image_idx}
+		]]>
+	</update>
+	
+	<insert id="qnaImageFile.insertQnaImageFile" parameterType="uploadQnaImageFileDTO">
+		<![CDATA[
+		INSERT INTO QNA_IMAGE
+			(USER_IDX,
+			ORIGINAL_FILE_NAME, 
+			STORED_FILE_NAME, 
+			EXTENSION, 
+			FILE_SIZE,
+			PATH,
+			STATE)
+		VALUES 
+			(#{user_idx},
+			#{original_file_name},
+			#{stored_file_name},
+			#{extension}, 
+			#{file_size},
+			#{path},
+			#{state})
+		]]>
+	</insert>
+	
+</mapper>

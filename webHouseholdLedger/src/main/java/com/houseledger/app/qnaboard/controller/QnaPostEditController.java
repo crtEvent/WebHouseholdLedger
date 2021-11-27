@@ -17,6 +17,7 @@ import com.houseledger.app.qnaboard.dto.EditQnaPostDTO;
 import com.houseledger.app.qnaboard.dto.QnaPostDTO;
 import com.houseledger.app.qnaboard.service.QnaEditPostService;
 import com.houseledger.app.qnaboard.service.QnaFileService;
+import com.houseledger.app.qnaboard.service.QnaImageFileService;
 import com.houseledger.app.qnaboard.service.QnaPostValidationService;
 import com.houseledger.app.user.vo.UserVO;
 
@@ -33,6 +34,9 @@ Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Resource(name="qnaFileService")
 	QnaFileService qnaFileService;
+	
+	@Resource(name = "qnaImageFileService")
+	QnaImageFileService qnaImageFileService;
 	
 	@RequestMapping(value="/qna/editPost.do")
 	public String qna_edit(Model model, 
@@ -76,6 +80,12 @@ Logger log = LoggerFactory.getLogger(this.getClass());
 		
 		// 게시글 UPDATE
 		qnaEditPostService.editQnaPost(editQnaPostDTO);
+		
+		// 기존 이미지 파일 처리
+		qnaImageFileService.editStoredQnaImageFile(editQnaPostDTO.getBoard_idx(), editQnaPostDTO.getContent());
+		
+		// 새 이미지 파일 처리
+		qnaImageFileService.storeQnaImageFile(userVO.getUser_idx(), editQnaPostDTO.getContent(), editQnaPostDTO.getBoard_idx());
 		
 		// 기존 첨부파일 분류
 		qnaFileService.editPreviouslyUploadFiles(multipartRequest, editQnaPostDTO.getBoard_idx());
