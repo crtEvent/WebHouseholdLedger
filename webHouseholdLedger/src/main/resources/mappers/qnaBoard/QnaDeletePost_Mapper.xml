@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="qnaDeletePost">
+
+	<insert id="qnaDeletePost.deleteQnaPost" parameterType="String">
+		<![CDATA[
+		UPDATE QNA_BOARD
+		SET
+			DELETE_YN = 'Y'
+		WHERE
+			BOARD_IDX = #{value}
+		]]>
+	</insert>
+	
+	<select id="qnaDeletePost.selectUserIdxOfPost" parameterType="String" resultType="String">
+		<![CDATA[
+		SELECT USER_IDX
+		FROM QNA_BOARD
+		WHERE BOARD_IDX = #{value}
+		]]>
+	</select>
+	
+</mapper>

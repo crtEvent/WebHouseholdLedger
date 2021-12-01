@@ -14,7 +14,7 @@ import com.houseledger.app.user.vo.UserVO;
 @Service("signInService")
 public class SignInServiceImpl implements SignInService{
 	
-Logger log = LoggerFactory.getLogger(this.getClass());
+	Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Resource(name="signInDAO")
 	SignInDAO signInDAO;

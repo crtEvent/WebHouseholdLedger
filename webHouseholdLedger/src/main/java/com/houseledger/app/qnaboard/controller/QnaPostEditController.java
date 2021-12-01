@@ -24,7 +24,7 @@ import com.houseledger.app.user.vo.UserVO;
 @Controller
 public class QnaPostEditController {
 	
-Logger log = LoggerFactory.getLogger(this.getClass());
+	Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Resource(name= "qnaPostValidationService")
 	QnaPostValidationService qnaPostValidationService;

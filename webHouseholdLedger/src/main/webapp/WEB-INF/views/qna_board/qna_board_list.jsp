@@ -101,7 +101,7 @@
 													<button type="button" class="btn btn-default" onclick="fn_linkToEdit(${qnaPostDTO.board_idx})">
 														<i class="fas fa-pencil-alt"></i> 수정하기
 													</button>
-													<button type="button" class="btn btn-default">
+													<button type="button" class="btn btn-default" onclick="fn_openDeletePostModal()">
 														<i class="far fa-trash-alt"></i> 삭제하기
 													</button>
 												</c:if>
@@ -303,7 +303,6 @@
 							<!-- /.col -->
 						</div>
 						<!-- /.row -->
-				
 					</c:if>
 					<!-- /.qna post -->
 
@@ -460,7 +459,8 @@
 	<!-- /.wrapper -->
 
 	<%@include file="../include/include_main_plugins.jsp"%>
-	
+	<%@include file="./qna_post_delete_modal.jsp"%>
+	<script type="text/javascript" src="<c:url value="/resources/view/qna_board/qna_post_delete_modal.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/view/qna_board/qna_board_list.js"/>"></script>
 </body>
 </html>

@@ -35,14 +35,14 @@ updateForm.find("input:radio[name=income_and_expenses]").click(function(){
 // input:radio[name=Income_and_expenses]에 따라 Modal form변화
 function fn_changeModalForm(form) {
 	
-	if(form.find("input:radio[name='income_and_expenses'][value='이동']").is(":checked")){console.log("이동 변화");
+	if(form.find("input:radio[name='income_and_expenses'][value='이동']").is(":checked")){
 		form.find(".incomeAndExpensesDiv").hide();
 		form.find(".transferDiv").show();
-	}else if(form.find("input:radio[name='income_and_expenses'][value='수입']").is(":checked")){console.log("수입 변화");
+	}else if(form.find("input:radio[name='income_and_expenses'][value='수입']").is(":checked")){
 		form.find(".transferDiv").hide();
 		form.find(".incomeAndExpensesDiv").show();
 		fn_changeCategoryOption(selIncome, form)
-	}else if(form.find("input:radio[name='income_and_expenses'][value='지출']").is(":checked")){console.log("지출 변화");
+	}else if(form.find("input:radio[name='income_and_expenses'][value='지출']").is(":checked")){
 		form.find(".transferDiv").hide();
 		form.find(".incomeAndExpensesDiv").show();
 		fn_changeCategoryOption(selExpenses, form)
@@ -52,8 +52,7 @@ function fn_changeModalForm(form) {
 
 //category에 option 추가
 function fn_changeCategoryOption(list, form) {
-	console.log("fn_changeCategoryOption");
-	console.log(list);
+	
 	var html;
 	var selList = list;
 	
