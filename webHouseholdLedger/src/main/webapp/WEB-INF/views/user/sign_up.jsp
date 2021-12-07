@@ -11,48 +11,51 @@
 	<div class="register-box">
 		<div class="card card-outline card-primary">
 			<div class="card-header text-center">
-				<a href="#" class="h1"><b>웹 가계부</b></a>
+				<div class="h1"><b>회원가입</b></div>
 			</div>
 			<div class="card-body">
-				<p class="login-box-msg">회원가입</p>
 
 				<form action="<c:url value='/user/excute_signup.do'/>" name="signUpForm" id="signUpForm" method="post">
-					<div class="input-group mb-3">
+					<div class="input-group">
 						<input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디(영문,숫자 조합 5-20자)" autocomplete="off">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-user"></span>
 							</div>
 						</div>
-						<div id="msg_user_id">${valid_user_id }</div>
 					</div>
-					<div class="input-group mb-3">
+					<div class="mb-3" id="msg_user_id">${valid_user_id }</div>
+					
+					<div class="input-group">
 						<input type="email" class="form-control" name="user_email" id="user_email" placeholder="이메일" autocomplete="off">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-envelope"></span>
 							</div>
 						</div>
-						<div id="msg_user_email">${valid_user_email }</div>
 					</div>
-					<div class="input-group mb-3">
+					<div class="mb-3" id="msg_user_email">${valid_user_email }</div>
+					
+					<div class="input-group">
 						<input type="password" class="form-control" name="user_password" id="user_password" placeholder="비밀번호(영문,숫자,특수문자 조합 5-25자)">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock"></span>
 							</div>
 						</div>
-						<div id="msg_user_pw">${valid_user_password }</div>
 					</div>
-					<div class="input-group mb-3">
+					<div class="mb-3" id="msg_user_pw">${valid_user_password }</div>
+					
+					<div class="input-group">
 						<input type="password" class="form-control" name="user_password_check" id="user_password_check" placeholder="비밀번호 다시입력">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock"></span>
 							</div>
 						</div>
-						<div id="msg_user_pw_check">${valid_user_password_check }</div>
 					</div>
+					<div class="mb-3" id="msg_user_pw_check">${valid_user_password_check }</div>
+					
 					<div class="row">
 						<div class="col-12">
 							<div class="icheck-primary">
