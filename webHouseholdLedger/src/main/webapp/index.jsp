@@ -32,6 +32,10 @@
 		<p><a href="<c:url value='/qna/post.do?board_idx=1'/>">//qna/post.do?board_idx=1</p>
 		<p><a href="<c:url value='/qna/writePost.do'/>">/qna/writePost.do</p>
 	</div>
+	<div>
+		<p><a href="<c:url value='/admin/memberManagement.do'/>">/admin/memberManagement.do</p>
+		<p><a href="<c:url value='/admin/getUserManagementList.do'/>">/admin/getUserManagementList.do</p>
+	</div>
 	
 </body>
 </html>

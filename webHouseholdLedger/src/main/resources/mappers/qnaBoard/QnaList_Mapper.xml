@@ -9,7 +9,7 @@
 		FROM QNA_BOARD T1
 		JOIN USERS T2
 		ON T1.USER_IDX = T2.USER_IDX
-		WHERE DELETE_YN = "N"
+		WHERE T1.DELETE_YN = 'N'
 		]]>
 		<if test="keyword != null and keyword != ''">
 			<choose>
@@ -48,7 +48,7 @@
 		FROM QNA_BOARD T1
 		JOIN USERS T2
 		ON T1.USER_IDX = T2.USER_IDX
-		WHERE DELETE_YN = "N"
+		WHERE T1.DELETE_YN = 'N'
 		]]>
 		<if test="keyword != null and keyword != ''">
 			<choose>

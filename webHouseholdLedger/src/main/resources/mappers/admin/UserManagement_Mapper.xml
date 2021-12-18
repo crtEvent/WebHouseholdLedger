@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="userManagement">
+	
+    <select id="userManagement.selectUserList" parameterType="selectUserListDTO" resultType="userManagementInfoDTO">
+    	<![CDATA[
+    	SELECT 
+			T1.USER_IDX,
+			T1.USER_ID, 
+			T1.USER_EMAIL, 
+			T1.REG_DATE, 
+			T1.RECEIVE_MAIL, 
+			T1.DELETE_YN,
+			(SELECT 
+				COUNT(*)
+			FROM 
+				QNA_BOARD ST_BOARD
+			WHERE 
+				ST_BOARD.USER_IDX = T1.USER_IDX
+			AND 
+				ST_BOARD.DELETE_YN = 'N') POST_NUM,
+			(SELECT 
+				COUNT(*)
+			FROM 
+				QNA_COMMENT ST_COMMENT
+			WHERE 
+				ST_COMMENT.USER_IDX = T1.USER_IDX
+			AND 
+				ST_COMMENT.DELETE_YN = 'N') COMMENT_NUM
+		FROM 
+			USERS T1
+    	]]>
+    	<if test="start_date_extended != null 
+    			and start_date_extended != '' 
+    			and end_date_extended != null 
+    			and end_date_extended != ''">
+    		<![CDATA[
+    		WHERE 
+    			T1.REG_DATE BETWEEN #{start_date_extended} AND #{end_date_extended}
+    		]]>
+    	</if>
+    	<if test="user_id != null and user_id != ''">
+    		<![CDATA[
+    		WHERE 
+    			T1.USER_ID LIKE '%${user_id}%'
+    		]]>
+    	</if>
+    	<if test="user_idx != null and user_idx != ''">
+    		<![CDATA[
+    		WHERE 
+    			T1.USER_IDX = #{user_idx}
+    		]]>
+    	</if>
+    </select>
+
+</mapper>

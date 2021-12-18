@@ -18,6 +18,8 @@
             <typeAlias type="com.houseledger.app.qnaboard.dto.UploadQnaImageFileDTO" alias="uploadQnaImageFileDTO"/>
             <typeAlias type="com.houseledger.app.qnaboard.dto.QnaFileDTO" alias="qnaFileDTO"/>
             <typeAlias type="com.houseledger.app.qnaboard.dto.EditQnaPostDTO" alias="editQnaPostDTO"/>
+            <typeAlias type="com.houseledger.app.admin.dto.UserManagementInfoDTO" alias="userManagementInfoDTO"/>
+            <typeAlias type="com.houseledger.app.admin.dto.SelectUserListDTO" alias="selectUserListDTO"/>
     </typeAliases>
 
 </configuration>

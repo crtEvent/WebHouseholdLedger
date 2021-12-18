@@ -17,7 +17,7 @@
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-
+		
 			<!-- Content Header -->
 			<section class="content-header">
 				<div class="container-fluid">

@@ -76,6 +76,17 @@
               </p>
             </a>
           </li>
+          
+          <c:if test="${userSession.user_idx eq 1}">
+          	<li class="nav-item">
+            	<a href="<c:url value='/admin/userManagement.do'/>" class="nav-link">
+            	  <i class="nav-icon fas fa-comments"></i>
+            	  <p>
+					관리자 페이지
+            	  </p>
+            	</a>
+          	</li>
+          </c:if>
 		  
         </ul>
       </nav>

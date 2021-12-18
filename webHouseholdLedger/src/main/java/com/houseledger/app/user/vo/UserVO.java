@@ -8,6 +8,7 @@ public class UserVO {
 	private String user_email;
 	private String reg_date;
 	private String receive_mail;
+	private String delete_yn;
 	
 	public String getUser_idx() {
 		return user_idx;
@@ -45,7 +46,11 @@ public class UserVO {
 	public void setReceive_mail(String receive_mail) {
 		this.receive_mail = receive_mail;
 	}
+	public String getDelete_yn() {
+		return delete_yn;
+	}
+	public void setDelete_yn(String delete_yn) {
+		this.delete_yn = delete_yn;
+	}
 	
-	
-
 }
