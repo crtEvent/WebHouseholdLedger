@@ -17,7 +17,7 @@
           <img src="<c:url value="/resources/adminLTE/dist/img/user2-160x160.jpg"/>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">${userSession.getUser_id() }</a>
+          <a href="#" class="d-block" id="sidebar_user_id_field">${userSession.getUser_id() }</a>
         </div>
       </div>
 
@@ -77,10 +77,19 @@
             </a>
           </li>
           
+          <li class="nav-item">
+            <a href="<c:url value='/my/myinfo.do'/>" class="nav-link">
+              <i class="nav-icon fa fa-user"></i>
+              <p>
+				회원 정보 수정
+              </p>
+            </a>
+          </li>
+          
           <c:if test="${userSession.user_idx eq 1}">
           	<li class="nav-item">
             	<a href="<c:url value='/admin/userManagement.do'/>" class="nav-link">
-            	  <i class="nav-icon fas fa-comments"></i>
+            	  <i class="nav-icon fa fa-lock"></i>
             	  <p>
 					관리자 페이지
             	  </p>

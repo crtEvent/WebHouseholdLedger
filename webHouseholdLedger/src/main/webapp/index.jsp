@@ -36,6 +36,9 @@
 		<p><a href="<c:url value='/admin/memberManagement.do'/>">/admin/memberManagement.do</p>
 		<p><a href="<c:url value='/admin/getUserManagementList.do'/>">/admin/getUserManagementList.do</p>
 	</div>
+	<div>
+		<p><a href="<c:url value='/my/myinfo.do'/>">/my/myinfo.do</p>
+	</div>
 	
 </body>
 </html>
