@@ -4,6 +4,11 @@
 
 $(document).ready(function(){
 	
+	fn_loadJsGrid();
+
+});
+
+function fn_loadJsGrid() {
 	var url = new URL(window.location.href);
 	var urlParams = url.searchParams;
 	console.log("url: "+url+"urlParams: "+urlParams);
@@ -40,6 +45,7 @@ $(document).ready(function(){
 		],
 		rowClick: function(args) {
            //alert("d: "+args.item.user_id);
+           fn_openUpdateUserInfoModal(args.item);
         },
 	});
 	
@@ -77,7 +83,7 @@ $(document).ready(function(){
 		$("#end_date").val(end.format("YYYY-MM-DD"));
 		fn_searchUserList('advenced');
 	});
-});
+}
 
 /* 유저 정보 검색 함수 */
 function fn_searchUserList(type) {
@@ -102,3 +108,27 @@ function fn_searchUserList(type) {
 	
 	searchUserListtForm.submit();
 }
+
+// ----------------------------------------------------------------------------------
+
+/* [Modal] 유저 정보 수정 Modal 열기 */
+function fn_openUpdateUserInfoModal(item) {
+	
+	$('#modal-updateUserInfo').modal('show');
+	
+	$('#user_idx').val(item.user_idx);
+	$('#user_id').val(item.user_id);
+	$('#user_email').val(item.user_email);
+	if(item.receive_mail == 'Y') {
+		$('#receive_mail').attr("checked", true);
+	} else {
+		$('#receive_mail').attr("checked", false);
+	}
+}
+
+//[Modal]: Modal 창 닫기
+function fn_closeModal() {
+	$('#modal-updateUserInfo').modal('hide');
+}
+
+

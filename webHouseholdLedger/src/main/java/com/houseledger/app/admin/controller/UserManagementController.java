@@ -42,7 +42,7 @@ public class UserManagementController {
 			model.addAttribute("end_date", selectUserListDTO.getEnd_date());
 		}
 		
-		return "admin/user_management";
+		return "admin/admin_user_management";
 	}
 	
 	

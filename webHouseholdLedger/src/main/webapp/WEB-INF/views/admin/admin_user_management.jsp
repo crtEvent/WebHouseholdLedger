@@ -131,16 +131,22 @@
 		</div>
 		<!-- /.content wrapper -->
 		
+		<%@include file="./admin_update_user_info_modal.jsp"%>
 		<%@include file="../include/include_main_footer.jsp" %>
 	</div>
 	<!-- /.wrapper -->
 	
 	<%@include file="../include/include_main_plugins.jsp" %>
-	<script type="text/javascript" src="<c:url value="/resources/view/admin/user_management.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/view/admin/admin_user_management.js"/>"></script>
 	<!-- jsGrid -->
 	<script type="text/javascript" src="<c:url value="/resources/plugins/jsGrid/jsgrid.min.js"/>"></script>
 	<!-- Date Range Picker -->
 	<script type="text/javascript" src="<c:url value="/resources/plugins/daterangepicker/moment.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/plugins/daterangepicker/daterangepicker.js"/>"></script>
+	
+	<script type="text/javascript" src="<c:url value="/resources/view/admin/edit_user_info_id.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/view/admin/edit_user_info_email.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/view/admin/edit_user_info_password.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/view/admin/edit_user_info_receive_mail.js"/>"></script>
 </body>
 </html>

@@ -54,7 +54,7 @@
 										<div class="col-sm-12">
 											<div class="col-sm-4 container">
 												<label class="col-form-label" for="user_id">
-													 이름
+													 아이디
 												</label>
 											</div>
 											<div class="input-group col-sm-4 container mb-1" id="div_userId">
