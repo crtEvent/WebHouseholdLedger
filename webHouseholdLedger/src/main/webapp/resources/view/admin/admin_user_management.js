@@ -18,12 +18,13 @@ function fn_loadJsGrid() {
 		width: "100%",
 		height: "auto",
 
-		 autoload:   true,
-		  paging:     true,
-		  pageSize:   15,
-		  pageButtonCount: 5,
-		  pageIndex:  1,
- 
+		autoload:   true,
+		paging:     true,
+		pageSize:   15,
+		pageButtonCount: 5,
+		pageIndex:  1,
+		sorting: true,
+		 
 		controller: {
 			loadData: function() {
 				return $.ajax({
@@ -130,5 +131,3 @@ function fn_openUpdateUserInfoModal(item) {
 function fn_closeModal() {
 	$('#modal-updateUserInfo').modal('hide');
 }
-
-
