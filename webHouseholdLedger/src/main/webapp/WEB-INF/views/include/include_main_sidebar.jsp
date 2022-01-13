@@ -28,7 +28,7 @@
                with font-awesome or any other icon font library -->
 			   
           <li class="nav-item">
-            <a href="<c:url value='/ledger/details.do'/>" class="nav-link">
+            <a href="<c:url value='/ledger/details.do'/>" class="nav-link <c:if test="${menu eq 'ledger'}">active</c:if>">
               <i class="nav-icon fas fa-table"></i>
               <p>
 				가계부 내역
@@ -37,7 +37,7 @@
           </li>
 		  
 		  <li class="nav-item">
-            <a href="<c:url value='/ledger/calendar.do'/>" class="nav-link">
+            <a href="<c:url value='/ledger/calendar.do'/>" class="nav-link <c:if test="${menu eq 'calendar'}">active</c:if>">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
 				가계부 달력
@@ -45,22 +45,23 @@
             </a>
           </li>
 		  
-		  <li class="nav-item menu-open">
-            <a href="<c:url value='/stats/category.do'/>" class="nav-link">
+		  <li class="nav-item <c:if test="${menu eq 'stats'}">menu-open</c:if>">
+            <a href="#" class="nav-link <c:if test="${menu eq 'stats'}">active</c:if>">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
 				가계부 통계
               </p>
+              <i class="fas fa-angle-left right"></i>
             </a>
             <ul class="nav nav-treeview">
             	<li class="nav-item">
-            		<a href="<c:url value='/stats/category.do'/>" class="nav-link">
+            		<a href="<c:url value='/stats/category.do'/>" class="nav-link <c:if test="${subMenu eq 'category'}">active</c:if>">
             			<i class="far fa-circle nav-icon"></i>
             			<p>분류별 통계</p>
             		</a>
             	</li>
             	<li class="nav-item">
-            		<a href="<c:url value='/stats/yearly.do'/>" class="nav-link">
+            		<a href="<c:url value='/stats/yearly.do'/>" class="nav-link <c:if test="${subMenu eq 'yearly'}">active</c:if>">
             			<i class="far fa-circle nav-icon"></i>
             			<p>연간 통계</p>
             		</a>
@@ -69,7 +70,7 @@
           </li>
 		  
 		  <li class="nav-item">
-            <a href="<c:url value='/qna/list.do'/>" class="nav-link">
+            <a href="<c:url value='/qna/list.do'/>" class="nav-link <c:if test="${menu eq 'qna'}">active</c:if>">
               <i class="nav-icon fas fa-comments"></i>
               <p>
 				Q&A 게시판
@@ -78,7 +79,7 @@
           </li>
           
           <li class="nav-item">
-            <a href="<c:url value='/my/myinfo.do'/>" class="nav-link">
+            <a href="<c:url value='/my/myinfo.do'/>" class="nav-link <c:if test="${menu eq 'my'}">active</c:if>">
               <i class="nav-icon fa fa-user"></i>
               <p>
 				회원 정보 수정
@@ -87,13 +88,28 @@
           </li>
           
           <c:if test="${userSession.user_idx eq 1}">
-          	<li class="nav-item">
-            	<a href="<c:url value='/admin/userManagement.do'/>" class="nav-link">
+          	<li class="nav-item <c:if test="${menu eq 'admin'}">menu-open</c:if>">
+            	<a href="#" class="nav-link <c:if test="${menu eq 'admin'}">active</c:if>">
             	  <i class="nav-icon fa fa-lock"></i>
             	  <p>
 					관리자 페이지
             	  </p>
+            	  <i class="fas fa-angle-left right"></i>
             	</a>
+            	<ul class="nav nav-treeview">
+            	<li class="nav-item">
+            		<a href="<c:url value='/admin/userManagement.do'/>" class="nav-link <c:if test="${subMenu eq 'user'}">active</c:if>">
+            			<i class="far fa-circle nav-icon"></i>
+            			<p>회원 관리</p>
+            		</a>
+            	</li>
+            	<li class="nav-item">
+            		<a href="<c:url value='#'/>" class="nav-link <c:if test="${subMenu eq 'email'}">active</c:if>">
+            			<i class="far fa-circle nav-icon"></i>
+            			<p>메일 쓰기</p>
+            		</a>
+            	</li>
+            </ul>
           	</li>
           </c:if>
 		  

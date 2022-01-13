@@ -40,5 +40,33 @@
             <beans:bean id="SignInInterceptor" class="com.houseledger.app.common.auth.SignInInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
+    
+    <!-- MenuInterceptor -->
+	<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/ledger/details.do"/>
+            <mvc:mapping path="/ledger/calendar.do"/>
+            <beans:bean id="LedgerMenuInterceptor" class="com.houseledger.app.common.menu.LedgerMenuInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/stats/category.do"/>
+            <mvc:mapping path="/stats/yearly.do"/>
+            <beans:bean id="StatsMenuInterceptor" class="com.houseledger.app.common.menu.StatsMenuInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/qna/list.do"/>
+            <mvc:mapping path="/qna/post.do"/>
+            <mvc:mapping path="/qna/writePost.do"/>
+            <beans:bean id="QnaMenuInterceptor" class="com.houseledger.app.common.menu.QnaMenuInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/my/myinfo.do"/>
+            <beans:bean id="MyInfoMenuInterceptor" class="com.houseledger.app.common.menu.MyInfoMenuInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/userManagement.do"/>
+            <beans:bean id="AdminMenuInterceptor" class="com.houseledger.app.common.menu.AdminMenuInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 	
 </beans:beans>
