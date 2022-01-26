@@ -104,7 +104,7 @@
             		</a>
             	</li>
             	<li class="nav-item">
-            		<a href="<c:url value='#'/>" class="nav-link <c:if test="${subMenu eq 'email'}">active</c:if>">
+            		<a href="<c:url value='/admin/mail/writeMail.do'/>" class="nav-link <c:if test="${subMenu eq 'email'}">active</c:if>">
             			<i class="far fa-circle nav-icon"></i>
             			<p>메일 쓰기</p>
             		</a>

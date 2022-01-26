@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="writeMail">
+
+	<insert id="writeMail.insertMail" parameterType="writeMailDTO">
+		<![CDATA[
+		INSERT INTO MAIL(MAIL_TO, MAIL_SUBJECT, MAIL_CONTENT, MAIL_STATE)
+		VALUES (#{mail_to}, #{mail_subject}, #{mail_content}, #{mail_state})
+		]]>
+	</insert>
+	
+</mapper>

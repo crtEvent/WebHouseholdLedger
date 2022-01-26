@@ -67,6 +67,12 @@
             <mvc:mapping path="/admin/userManagement.do"/>
             <beans:bean id="AdminMenuInterceptor" class="com.houseledger.app.common.menu.AdminMenuInterceptor" />
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/mail/writeMail.do"/>
+            <mvc:mapping path="/admin/mail/sentMailBox.do"/>
+            <mvc:mapping path="/admin/mail/savedMailFormList.do"/>
+            <mvc:mapping path="/admin/mail/mailMessage.do"/>
+            <beans:bean id="AdminMailMenuInterceptor" class="com.houseledger.app.common.menu.AdminMailMenuInterceptor" />
+        </mvc:interceptor>
     </mvc:interceptors>
-	
 </beans:beans>

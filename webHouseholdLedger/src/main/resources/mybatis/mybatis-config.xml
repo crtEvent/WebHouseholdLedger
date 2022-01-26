@@ -20,6 +20,7 @@
             <typeAlias type="com.houseledger.app.qnaboard.dto.EditQnaPostDTO" alias="editQnaPostDTO"/>
             <typeAlias type="com.houseledger.app.admin.dto.UserManagementInfoDTO" alias="userManagementInfoDTO"/>
             <typeAlias type="com.houseledger.app.admin.dto.SelectUserListDTO" alias="selectUserListDTO"/>
+            <typeAlias type="com.houseledger.app.mail.dto.WriteMailDTO" alias="writeMailDTO"/>
     </typeAliases>
 
 </configuration>
