@@ -34,6 +34,11 @@
 				AND T2.USER_ID LIKE '%${keyword}%'
 				]]>
 			</when>
+			<when test="search_type == 'my'">
+				<![CDATA[
+				AND T2.USER_IDX = ${keyword}
+				]]>
+			</when>
 			<otherwise></otherwise>
 			</choose>
 		</if>
@@ -71,6 +76,11 @@
 			<when test="search_type == 'user'">
 				<![CDATA[
 				AND T2.USER_ID LIKE '%${keyword}%'
+				]]>
+			</when>
+			<when test="search_type == 'my'">
+				<![CDATA[
+				AND T2.USER_IDX = ${keyword}
 				]]>
 			</when>
 			<otherwise></otherwise>

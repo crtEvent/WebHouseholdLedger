@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.houseledger.app.qnaboard.dto.QnaPostDTO;
 import com.houseledger.app.qnaboard.dto.QnaSelectListDTO;
@@ -16,6 +17,7 @@ import com.houseledger.app.qnaboard.service.QnaCommentService;
 import com.houseledger.app.qnaboard.service.QnaFileService;
 import com.houseledger.app.qnaboard.service.QnaListService;
 import com.houseledger.app.qnaboard.service.QnaPostService;
+import com.houseledger.app.user.vo.UserVO;
 
 @Controller
 public class QnaBoardController {
@@ -36,6 +38,18 @@ public class QnaBoardController {
 	
 	@RequestMapping(value="/qna/list.do")
 	public String qna_list(Model model, QnaSelectListDTO qnaSelectListDTO) throws Exception {
+		
+		model.addAttribute("pagingDTO", qnaListService.getPaging(qnaSelectListDTO));
+		model.addAttribute("qnaPostList", qnaListService.getQnaPostList(qnaSelectListDTO));
+		
+		return "/qna_board/qna_board_list";
+	}
+	
+	@RequestMapping(value="/qna/myPostList.do")
+	public String qna_my_post(Model model, QnaSelectListDTO qnaSelectListDTO, @SessionAttribute("userSession")UserVO userVO) throws Exception {
+		
+		qnaSelectListDTO.setSearch_type("my");
+		qnaSelectListDTO.setKeyword(userVO.getUser_idx());
 		
 		model.addAttribute("pagingDTO", qnaListService.getPaging(qnaSelectListDTO));
 		model.addAttribute("qnaPostList", qnaListService.getQnaPostList(qnaSelectListDTO));

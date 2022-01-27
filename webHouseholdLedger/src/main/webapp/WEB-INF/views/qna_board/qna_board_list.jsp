@@ -321,7 +321,7 @@
 											<b><i class="fas fa-pencil-alt"></i> 글쓰기</b>
 										</button>
 										<button type="button" class="btn btn-default"
-											id="moveMyPostPageBtn">
+											id="moveMyPostPageBtn" onclick="fn_linkToMyPostList()">
 											<b>내가 쓴 글</b>
 										</button>
 									</div>

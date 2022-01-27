@@ -135,3 +135,7 @@ function fn_linkToEdit(board_idx) {
 	linkToEditForm.submit();
 	
 }
+
+function fn_linkToMyPostList() {
+	$(location).attr("href", "/app/qna/myPostList.do");
+}
