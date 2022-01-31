@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>가계부</title>
 <%@include file="../include/include_main_head.jsp"%>
-<link rel="stylesheet" href="<c:url value="/resources/plugins/summernote/summernote-bs4.css"/>">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
@@ -96,8 +95,5 @@
 	<!-- /.wrapper -->
 
 	<%@include file="../include/include_main_plugins.jsp"%>
-	<script type="text/javascript" src="<c:url value="/resources/plugins/summernote/summernote-bs4.js"/>"></script>
-	<script type="text/javascript" src="<c:url value="/resources/plugins/summernote/summernote-ko-KR.js"/>"></script>
-	<script type="text/javascript" src="<c:url value="/resources/view/admin/admin_mail_write.js"/>"></script>
 </body>
 </html>

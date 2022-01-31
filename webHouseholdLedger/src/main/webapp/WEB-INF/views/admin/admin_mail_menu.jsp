@@ -16,9 +16,11 @@
 		<!-- /.card-header -->
 		<div class="card-body p-0">
 			<ul class="nav nav-pills flex-column">
-				<li class="nav-item active"><a href="#" class="nav-link"> <i
-						class="fas fa-inbox"></i>&nbsp;&nbsp;&nbsp;보낸 목록
-				</a></li>
+				<li class="nav-item active">
+					<a href="<c:url value='/admin/mail/sentMailBox.do?currentPage=1'/>" class="nav-link">
+						<i class="fas fa-inbox"></i>&nbsp;&nbsp;&nbsp;보낸 목록
+					</a>
+				</li>
 				<li class="nav-item"><a href="#" class="nav-link"> <i
 						class="far fa-envelope"></i>&nbsp;&nbsp;&nbsp;메일 쓰기
 				</a></li>

@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.houseledger.app.mail.dto.SelectMailDTO;
 import com.houseledger.app.mail.dto.WriteMailDTO;
+import com.houseledger.app.mail.service.MailListService;
 import com.houseledger.app.mail.service.SendMailService;
 import com.houseledger.app.mail.service.StoreMailService;
 
@@ -32,6 +34,9 @@ public class MailController {
 	@Autowired
 	private StoreMailService storeMailService;
 	
+	@Autowired
+	private MailListService mailListService;
+	
 	// [페이지] - 메일 쓰기 페이지
 	@RequestMapping(value="/writeMail.do")
 	public String mail_write() throws Exception {
@@ -40,8 +45,12 @@ public class MailController {
 	
 	// [페이지] - 보낸 메일함
 	@RequestMapping(value="/sentMailBox.do")
-	public String  mail_box() throws Exception {
-		return "";
+	public String  sent_mail_box(Model model, SelectMailDTO dto) throws Exception {
+		
+		model.addAttribute("pagingDTO", mailListService.getPaging(dto));
+		model.addAttribute("sentMailList", mailListService.getMailList(dto));
+		
+		return "/admin/admin_mail_sent_list";
 	}
 	
 	// [페이지] - 저장된 메일 양식 목록 페이지

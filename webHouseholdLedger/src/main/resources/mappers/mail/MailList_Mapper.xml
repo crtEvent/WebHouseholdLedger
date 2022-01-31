@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="mailList">
+
+	<select id="mailList.countMailList" parameterType="selectMailDTO" resultType="int">
+    	<![CDATA[
+		SELECT 
+			COUNT(*)
+		FROM
+    		MAIL
+    	]]>
+    	<if test="keyword != null and keyword != ''">
+    		<![CDATA[
+			WHERE MAIL_TO LIKE '%${keyword}%'
+			OR MAIL_SUBJECT LIKE '%${keyword}%'
+			OR FN_STRIP_HTML_TAGS(MAIL_CONTENT) LIKE '%${keyword}%'
+    		]]>
+    	</if>
+		<![CDATA[
+		ORDER BY REG_DATE DESC;
+		]]>
+    </select>
+
+	<select id="mailList.selectMailList" parameterType="selectMailDTO" resultType="hashmap">
+    	<![CDATA[
+		SELECT 
+			MAIL_IDX
+			, MAIL_TO
+			, MAIL_SUBJECT
+			, FN_STRIP_HTML_TAGS(MAIL_CONTENT) MAIL_CONTENT
+			, MAIL_STATE
+			, LEFT(REG_DATE,10) REG_DATE
+		FROM
+    		MAIL
+    	]]>
+    	<if test="keyword != null and keyword != ''">
+    		<![CDATA[
+			WHERE MAIL_TO LIKE '%${keyword}%'
+			OR MAIL_SUBJECT LIKE '%${keyword}%'
+			OR FN_STRIP_HTML_TAGS(MAIL_CONTENT) LIKE '%${keyword}%'
+    		]]>
+    	</if>
+		<![CDATA[
+		ORDER BY REG_DATE DESC
+		LIMIT #{startPositionOnCurrentPage }, #{numberPostsPerPage }
+		]]>
+    </select>
+	
+</mapper>
