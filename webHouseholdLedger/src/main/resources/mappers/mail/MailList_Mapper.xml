@@ -9,12 +9,14 @@
 			COUNT(*)
 		FROM
     		MAIL
+    	WHERE
+    		MAIL_STATE = "SENT"
     	]]>
     	<if test="keyword != null and keyword != ''">
     		<![CDATA[
-			WHERE MAIL_TO LIKE '%${keyword}%'
+			AND (MAIL_TO LIKE '%${keyword}%'
 			OR MAIL_SUBJECT LIKE '%${keyword}%'
-			OR FN_STRIP_HTML_TAGS(MAIL_CONTENT) LIKE '%${keyword}%'
+			OR FN_STRIP_HTML_TAGS(MAIL_CONTENT) LIKE '%${keyword}%')
     		]]>
     	</if>
 		<![CDATA[
@@ -33,12 +35,14 @@
 			, LEFT(REG_DATE,10) REG_DATE
 		FROM
     		MAIL
+    	WHERE
+    		MAIL_STATE = "SENT"
     	]]>
     	<if test="keyword != null and keyword != ''">
     		<![CDATA[
-			WHERE MAIL_TO LIKE '%${keyword}%'
+			AND (MAIL_TO LIKE '%${keyword}%'
 			OR MAIL_SUBJECT LIKE '%${keyword}%'
-			OR FN_STRIP_HTML_TAGS(MAIL_CONTENT) LIKE '%${keyword}%'
+			OR FN_STRIP_HTML_TAGS(MAIL_CONTENT) LIKE '%${keyword}%')
     		]]>
     	</if>
 		<![CDATA[
@@ -46,5 +50,19 @@
 		LIMIT #{startPositionOnCurrentPage }, #{numberPostsPerPage }
 		]]>
     </select>
+    
+    <update id="mailList.deleteMailList" parameterType="java.util.ArrayList">
+    	<![CDATA[
+    	UPDATE MAIL
+		SET MAIL_STATE = "DELETED"
+		WHERE MAIL_IDX IN(
+		]]>
+			<foreach collection="array" item="checkedMail" index="index" separator=",">
+			${checkedMail}
+			</foreach>
+		<![CDATA[
+			);
+    	]]>
+    </update>
 	
 </mapper>

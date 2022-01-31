@@ -20,4 +20,8 @@ public class MailListDAO extends AbstractDAO {
 		return (List<Map<String, Object>>) selectList("mailList.selectMailList", dto);
 	}
 	
+	public void deleteMailList(int[] checkedMail) throws Exception {
+		update("mailList.deleteMailList", checkedMail);
+	}
+	
 }

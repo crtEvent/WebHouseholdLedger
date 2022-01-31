@@ -26,10 +26,16 @@ public class MailListService {
 		return mailListDAO.selectMailList(dto);
 	}
 	
+	// paging 정보 불러오기
 	public PagingDTO getPaging(SelectMailDTO dto) throws Exception {
 		int totalNumberPosts = mailListDAO.countMailList(dto);
 		PagingDTO pagingDTO = new PagingDTO(dto, totalNumberPosts);
 		return pagingDTO;
+	}
+	
+	// mail 리스트 삭제
+	public void deleteMailList(int[] checkedMail) throws Exception {
+		mailListDAO.deleteMailList(checkedMail);
 	}
 
 }

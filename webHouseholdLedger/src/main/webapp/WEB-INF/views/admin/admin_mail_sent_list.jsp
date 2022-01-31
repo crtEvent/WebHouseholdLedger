@@ -48,7 +48,7 @@
 									<div class="card-tools">
 										<div class="input-group input-group-sm">
 											<input type="text" name="keyword" class="form-control"
-												autocomplete="off" placeholder="Search Mail">
+												autocomplete="off" placeholder="Search Mail" value="${param.keyword}">
 											<div class="input-group-append">
 												<div class="btn btn-primary" onclick="fn_doSearch()">
 													<i class="fas fa-search"></i>
@@ -71,7 +71,7 @@
 											<i class="far fa-square"></i>
 										</button>
 										<div class="btn-group">
-											<button type="button" class="btn btn-default btn-sm">
+											<button type="button" class="btn btn-default btn-sm" onclick="fn_deleteMail()">
 												<i class="far fa-trash-alt"></i>
 											</button>
 											<button type="button" class="btn btn-default btn-sm">
@@ -136,13 +136,12 @@
 														<c:forEach var="mail_list" items="${sentMailList }"
 															step="1" varStatus="status">
 															
-															<tr style="cursor: pointer"
-																onclick="fn_linkToMailContent(${mail_list.MAIL_IDX })">
+															<tr style="cursor: pointer">
 																<td style="width: 10%;">
 																	<div class="icheck-primary">
-																		<input type="checkbox" value=""
-																			id="check${status.count}"> <label
-																			for="check${status.count}"></label>
+																		<input type="checkbox" name="chckMail" value="${mail_list.MAIL_IDX }"
+																			id="check${status.count}">
+																		<label for="check${status.count}"></label>
 																	</div>
 																</td>
 																<td class="mailbox-name" style="width: 20%;">

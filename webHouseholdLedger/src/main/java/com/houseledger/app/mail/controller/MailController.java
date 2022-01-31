@@ -96,8 +96,11 @@ public class MailController {
 	}
 	
 	// [기능] - 저장된 메일 양식 삭제
-	@RequestMapping(value="/deleteMailForm.do")
-	public String  delete_mail_form() throws Exception {
-		return "";
+	@RequestMapping(value="/deleteMail.do")
+	public String  delete_mail_form(int[] checkedMail) throws Exception {
+		
+		mailListService.deleteMailList(checkedMail);
+		
+		return "redirect:/admin/mail/sentMailBox.do?currentpage=1";
 	}
 }
