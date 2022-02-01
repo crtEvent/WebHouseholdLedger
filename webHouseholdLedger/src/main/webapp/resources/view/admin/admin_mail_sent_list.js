@@ -44,9 +44,14 @@ function fn_doSearch() {
 
 function fn_deleteMail() {
 	
-	$("input[name='chckMail']:checked").each(function(i) {
+	$("input[name=chckMail]:checked").each(function(i) {
 		checkedMail.push($(this).val());
 	});
+	
+	if(checkedMail.length == 0) {
+		alert("선택한 메일이 없습니다.");
+		return;
+	}
 	
 	var con = confirm("선택한 "+checkedMail.length+"개의 메일을 삭제하시겠 습니까?");
 	
@@ -65,6 +70,23 @@ function fn_deleteMail() {
 	
 	// checkedMail 배열 초기화
 	checkedMail = [];
+}
+
+// 체크박스전체 선택
+function fn_checkAll() {
+	
+	// 이미 전체 선택 버튼 없이 15개 모두 선택되어 있는 경우
+	if($("input[name=chckMail]:checked").length == 15) {
+		$("input[name=chckMail]").prop("checked", false);
+		$("input[name=checkAll]").prop("checked", false);
+		return;
+	}
+	
+	if($("#checkAll").is(":checked")) {
+		$("input[name=chckMail]").prop("checked", true);
+	} else {
+		$("input[name=chckMail]").prop("checked", false);
+	}
 }
 
 function fn_linkToMailContent() {

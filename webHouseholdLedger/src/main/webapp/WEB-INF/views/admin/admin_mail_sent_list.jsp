@@ -68,23 +68,13 @@
 										<!-- Check all button -->
 										<button type="button"
 											class="btn btn-default btn-sm checkbox-toggle">
-											<i class="far fa-square"></i>
+											<!-- <i class="far fa-square"></i> -->
+											<input type="checkbox" name="checkAll" id="checkAll" onclick="fn_checkAll()">
 										</button>
-										<div class="btn-group">
-											<button type="button" class="btn btn-default btn-sm" onclick="fn_deleteMail()">
-												<i class="far fa-trash-alt"></i>
-											</button>
-											<button type="button" class="btn btn-default btn-sm">
-												<i class="fas fa-reply"></i>
-											</button>
-											<button type="button" class="btn btn-default btn-sm">
-												<i class="fas fa-share"></i>
-											</button>
-										</div>
-										<!-- /.btn-group -->
-										<button type="button" class="btn btn-default btn-sm">
-											<i class="fas fa-sync-alt"></i>
+										<button type="button" class="btn btn-default btn-sm" onclick="fn_deleteMail()">
+											<i class="far fa-trash-alt"></i>
 										</button>
+										
 										<div class="float-right">
 											<c:choose>
 												<c:when test="${pagingDTO.startPositionOnCurrentPage + pagingDTO.numberPostsPerPage <  pagingDTO.totalNumberPosts}">
