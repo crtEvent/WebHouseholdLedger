@@ -21,12 +21,16 @@
 						<i class="fas fa-inbox"></i>&nbsp;&nbsp;&nbsp;보낸 목록
 					</a>
 				</li>
-				<li class="nav-item"><a href="#" class="nav-link"> <i
-						class="far fa-envelope"></i>&nbsp;&nbsp;&nbsp;메일 쓰기
-				</a></li>
-				<li class="nav-item"><a href="#" class="nav-link"> <i
-						class="far fa-file-alt"></i>&nbsp;&nbsp;&nbsp;저장된 양식
-				</a></li>
+				<li class="nav-item">
+					<a href="<c:url value='/admin/mail/writeMail.do'/>" class="nav-link">
+						<i class="far fa-envelope"></i>&nbsp;&nbsp;&nbsp;메일 쓰기
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="<c:url value='/admin/mail/savedMailFormList.do?currentPage=1'/>" class="nav-link">
+						<i class="far fa-file-alt"></i>&nbsp;&nbsp;&nbsp;저장된 양식
+					</a>
+				</li>
 			</ul>
 		</div>
 		<!-- /.card-body -->

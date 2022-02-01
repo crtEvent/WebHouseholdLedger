@@ -43,7 +43,7 @@
 							<div class="card card-primary card-outline">
 
 								<div class="card-header">
-									<h3 class="card-title">보낸 메일 목록</h3>
+									<h3 class="card-title">저장된 메일 양식</h3>
 									<!-- Search Bar -->
 									<div class="card-tools">
 										<div class="input-group input-group-sm">
@@ -71,7 +71,7 @@
 											<!-- <i class="far fa-square"></i> -->
 											<input type="checkbox" name="checkAll" id="checkAll" onclick="fn_checkAll()">
 										</button>
-										<button type="button" class="btn btn-default btn-sm" onclick="fn_deleteMail('SENT')">
+										<button type="button" class="btn btn-default btn-sm" onclick="fn_deleteMail('STORED')">
 											<i class="far fa-trash-alt"></i>
 										</button>
 										
@@ -134,10 +134,7 @@
 																		<label for="check${status.count}"></label>
 																	</div>
 																</td>
-																<td class="mailbox-name" style="width: 20%;">
-																	${mail_list.MAIL_TO }
-																</td>
-																<td class="mailbox-subject" style="width: 55%;">
+																<td class="mailbox-subject" style="width: 75%;">
 																	${mail_list.MAIL_SUBJECT }
 																</td>
 																<td class="mailbox-date" style="width: 15%;">

@@ -26,9 +26,28 @@ public class MailListService {
 		return mailListDAO.selectMailList(dto);
 	}
 	
+	// 저장된 mail 양식 불러오기
+	public List<Map<String, Object>> getStoredMailList(SelectMailDTO dto) throws Exception {
+		return mailListDAO.selectStoredMailList(dto);
+	}
+	
 	// paging 정보 불러오기
-	public PagingDTO getPaging(SelectMailDTO dto) throws Exception {
-		int totalNumberPosts = mailListDAO.countMailList(dto);
+	public PagingDTO getPaging(SelectMailDTO dto, String mail_state) throws Exception {
+		
+		int totalNumberPosts;
+		
+		switch(mail_state) {
+		case "SENT":
+			totalNumberPosts = mailListDAO.countMailList(dto);
+			break;
+		case "STORED":
+			totalNumberPosts = mailListDAO.countStoredMailList(dto);
+			break;
+		default:
+			totalNumberPosts = 0;
+			break;
+		}
+		
 		PagingDTO pagingDTO = new PagingDTO(dto, totalNumberPosts);
 		return pagingDTO;
 	}

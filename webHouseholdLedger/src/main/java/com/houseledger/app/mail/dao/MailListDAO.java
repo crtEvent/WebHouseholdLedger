@@ -20,6 +20,15 @@ public class MailListDAO extends AbstractDAO {
 		return (List<Map<String, Object>>) selectList("mailList.selectMailList", dto);
 	}
 	
+	public int countStoredMailList(SelectMailDTO dto) throws Exception {
+		return (int) selectOne("mailList.countStoredMailList", dto);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectStoredMailList(SelectMailDTO dto) throws Exception {	
+		return (List<Map<String, Object>>) selectList("mailList.selectStoredMailList", dto);
+	}
+	
 	public void deleteMailList(int[] checkedMail) throws Exception {
 		update("mailList.deleteMailList", checkedMail);
 	}

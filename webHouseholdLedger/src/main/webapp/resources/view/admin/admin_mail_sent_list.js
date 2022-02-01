@@ -42,7 +42,9 @@ function fn_doSearch() {
 	
 }
 
-function fn_deleteMail() {
+// 게시글 삭제 기능
+//  - mail_state는 'SENT' or 'STORED'값 허용. 예외는 controller에서 처리함
+function fn_deleteMail(mail_state) {
 	
 	$("input[name=chckMail]:checked").each(function(i) {
 		checkedMail.push($(this).val());
@@ -63,6 +65,7 @@ function fn_deleteMail() {
 		deleteMailForm.attr("action", "/app/admin/mail/deleteMail.do");
 		
 		deleteMailForm.append($("<input/>", {type: "hidden", name: "checkedMail", value: checkedMail}));
+		deleteMailForm.append($("<input/>", {type: "hidden", name: "mail_state", value: mail_state}));
 		
 		deleteMailForm.appendTo("body");
 		deleteMailForm.submit();

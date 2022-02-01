@@ -51,6 +51,54 @@
 		]]>
     </select>
     
+    <select id="mailList.countStoredMailList" parameterType="selectMailDTO" resultType="int">
+    	<![CDATA[
+		SELECT 
+			COUNT(*)
+		FROM
+    		MAIL
+    	WHERE
+    		MAIL_STATE = "STORED"
+    	]]>
+    	<if test="keyword != null and keyword != ''">
+    		<![CDATA[
+			AND (MAIL_TO LIKE '%${keyword}%'
+			OR MAIL_SUBJECT LIKE '%${keyword}%'
+			OR FN_STRIP_HTML_TAGS(MAIL_CONTENT) LIKE '%${keyword}%')
+    		]]>
+    	</if>
+		<![CDATA[
+		ORDER BY REG_DATE DESC;
+		]]>
+    </select>
+    
+    <select id="mailList.selectStoredMailList" parameterType="selectMailDTO" resultType="hashmap">
+    	<![CDATA[
+		SELECT 
+			MAIL_IDX
+			, MAIL_TO
+			, MAIL_SUBJECT
+			, FN_STRIP_HTML_TAGS(MAIL_CONTENT) MAIL_CONTENT
+			, MAIL_STATE
+			, LEFT(REG_DATE,10) REG_DATE
+		FROM
+    		MAIL
+    	WHERE
+    		MAIL_STATE = "STORED"
+    	]]>
+    	<if test="keyword != null and keyword != ''">
+    		<![CDATA[
+			AND (MAIL_TO LIKE '%${keyword}%'
+			OR MAIL_SUBJECT LIKE '%${keyword}%'
+			OR FN_STRIP_HTML_TAGS(MAIL_CONTENT) LIKE '%${keyword}%')
+    		]]>
+    	</if>
+		<![CDATA[
+		ORDER BY REG_DATE DESC
+		LIMIT #{startPositionOnCurrentPage }, #{numberPostsPerPage }
+		]]>
+    </select>
+    
     <update id="mailList.deleteMailList" parameterType="java.util.ArrayList">
     	<![CDATA[
     	UPDATE MAIL

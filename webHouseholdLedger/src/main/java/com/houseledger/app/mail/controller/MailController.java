@@ -47,16 +47,20 @@ public class MailController {
 	@RequestMapping(value="/sentMailBox.do")
 	public String  sent_mail_box(Model model, SelectMailDTO dto) throws Exception {
 		
-		model.addAttribute("pagingDTO", mailListService.getPaging(dto));
-		model.addAttribute("sentMailList", mailListService.getMailList(dto));
+		model.addAttribute("pagingDTO", mailListService.getPaging(dto, "SENT"));
+		model.addAttribute("mailList", mailListService.getMailList(dto));
 		
 		return "/admin/admin_mail_sent_list";
 	}
 	
 	// [페이지] - 저장된 메일 양식 목록 페이지
 	@RequestMapping(value="/savedMailFormList.do")
-	public String  mail_form_list() throws Exception {
-		return "";
+	public String  mail_form_list(Model model, SelectMailDTO dto) throws Exception {
+		
+		model.addAttribute("pagingDTO", mailListService.getPaging(dto, "STORED"));
+		model.addAttribute("mailList", mailListService.getStoredMailList(dto));
+		
+		return "/admin/admin_mail_stored_list";
 	}
 	
 	// [페이지] - 메세지 페이지
@@ -97,10 +101,18 @@ public class MailController {
 	
 	// [기능] - 저장된 메일 양식 삭제
 	@RequestMapping(value="/deleteMail.do")
-	public String  delete_mail_form(int[] checkedMail) throws Exception {
+	public String  delete_mail_form(int[] checkedMail, String mail_state, HttpServletRequest request) throws Exception {
 		
 		mailListService.deleteMailList(checkedMail);
 		
-		return "redirect:/admin/mail/sentMailBox.do?currentpage=1";
+		switch(mail_state != null? mail_state : "null") {
+		case "SENT":
+			return "redirect:/admin/mail/sentMailBox.do?currentpage=1";
+		case "STORED":
+			return "redirect:/admin/mail/savedMailFormList.do?currentpage=1";
+		default:
+			return "redirect:"+ request.getHeader("Referer");
+		}
+		
 	}
 }
