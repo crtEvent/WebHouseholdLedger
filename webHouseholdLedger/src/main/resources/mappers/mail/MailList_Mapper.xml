@@ -19,9 +19,6 @@
 			OR FN_STRIP_HTML_TAGS(MAIL_CONTENT) LIKE '%${keyword}%')
     		]]>
     	</if>
-		<![CDATA[
-		ORDER BY REG_DATE DESC;
-		]]>
     </select>
 
 	<select id="mailList.selectMailList" parameterType="selectMailDTO" resultType="hashmap">
@@ -46,7 +43,7 @@
     		]]>
     	</if>
 		<![CDATA[
-		ORDER BY REG_DATE DESC
+		ORDER BY MAIL_IDX DESC
 		LIMIT #{startPositionOnCurrentPage }, #{numberPostsPerPage }
 		]]>
     </select>
@@ -67,9 +64,6 @@
 			OR FN_STRIP_HTML_TAGS(MAIL_CONTENT) LIKE '%${keyword}%')
     		]]>
     	</if>
-		<![CDATA[
-		ORDER BY REG_DATE DESC;
-		]]>
     </select>
     
     <select id="mailList.selectStoredMailList" parameterType="selectMailDTO" resultType="hashmap">
@@ -94,7 +88,7 @@
     		]]>
     	</if>
 		<![CDATA[
-		ORDER BY REG_DATE DESC
+		ORDER BY MAIL_IDX DESC
 		LIMIT #{startPositionOnCurrentPage }, #{numberPostsPerPage }
 		]]>
     </select>

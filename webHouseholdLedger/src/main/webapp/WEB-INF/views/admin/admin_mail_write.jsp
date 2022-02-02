@@ -72,8 +72,8 @@
               					
               					<div class="card-footer">
                 					<div class="float-right">
-                  						<button type="button" class="btn btn-default"><i class="far fa-file-alt"></i> 양식 저장</button>
-                  						<button type="submit" class="btn btn-primary" onclick="fn_sendMail('SENT')"><i class="far fa-envelope"></i> 보내기</button>
+                  						<button type="button" class="btn btn-default" onclick="fn_storeMailForm()"><i class="far fa-file-alt"></i> 양식 저장</button>
+                  						<button type="submit" class="btn btn-primary" onclick="fn_sendMail()"><i class="far fa-envelope"></i> 보내기</button>
                 					</div>
                 					<button type="reset" class="btn btn-default"><i class="fas fa-times"></i> 리셋</button>
               					</div><!-- /.card-footer -->

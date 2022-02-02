@@ -100,7 +100,7 @@ function fn_checkMailValid() {
 }
 
 // 메일 보내기 함수
-function fn_sendMail(mail_state) {
+function fn_sendMail() {
 	
 	if(!fn_checkMailValid()) {
 		return;
@@ -108,8 +108,7 @@ function fn_sendMail(mail_state) {
 	
 	var param = {mail_to : $('input[name=mail_to]').val(), 
 			mail_subject : $('input[name=mail_subject]').val(), 
-			mail_content : $('textarea[name=mail_content]').val(), 
-			mail_state : mail_state};
+			mail_content : $('textarea[name=mail_content]').val()};
 	
 	$.ajax({
 		url: '/app/admin/mail/sendMail.do',
@@ -129,4 +128,38 @@ function fn_sendMail(mail_state) {
 			location.replace('/app/admin/mail/mailMessage.do?mail_message=fail');
 		}
 	})
+}
+
+// 메일 양식 저장
+function fn_storeMailForm(){
+	
+	// 글자수만 검사
+	var contentFieldLength = $('#writeContentField').summernote('code')
+	.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "")
+	.replace(/&([a-z0-9]+|#[0-9a-zA-Z]+);/gi, "0").length;
+	
+	if(contentFieldLength > 2000){
+		alert("게시글 내용은 2,000자를 초과할 수 없습니다.");
+		content.focus();
+		return;
+	}
+	
+	var param = {mail_subject : $('input[name=mail_subject]').val(), 
+				mail_content : $('textarea[name=mail_content]').val()};
+	
+	$.ajax({
+		url: '/app/admin/mail/saveMailForm.do',
+		type: 'post',
+		data: param,
+		success: function(result) {
+			if(result){
+				// 알림
+				alert("양식이 저장되었습니다.");
+			}
+		},
+		error: function() {
+			alert("양식이 저장되지 않았습니다. 다시 시도해 주세요.");
+		}
+	})
+	
 }

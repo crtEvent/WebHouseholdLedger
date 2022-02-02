@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.houseledger.app.mail.dao.WriteMailDAO;
+import com.houseledger.app.mail.dao.InsertMailDAO;
 import com.houseledger.app.mail.dto.WriteMailDTO;
 
 @Service("storeMailService")
@@ -14,10 +14,18 @@ public class StoreMailService {
 
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	@Resource(name = "writeMailDAO")
-	WriteMailDAO writeMailDAO;
+	@Resource(name = "insertMailDAO")
+	InsertMailDAO insertMailDAO;
 	
-	public void storeMailToDB(WriteMailDTO writeMailDTO) throws Exception {
-		writeMailDAO.insertMail(writeMailDTO);
+	public void storeSentMailToDB(WriteMailDTO writeMailDTO) throws Exception {
+		writeMailDTO.setMail_state("SENT");
+		insertMailDAO.insertMail(writeMailDTO);
 	}
+	
+	public void storeMailFormToDB(WriteMailDTO writeMailDTO) throws Exception {
+		writeMailDTO.setMail_to("");
+		writeMailDTO.setMail_state("STORED");
+		insertMailDAO.insertMail(writeMailDTO);
+	}
+	
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.sym.Name;
 import com.houseledger.app.mail.dto.SelectMailDTO;
 import com.houseledger.app.mail.dto.WriteMailDTO;
 import com.houseledger.app.mail.service.MailListService;
@@ -75,13 +76,13 @@ public class MailController {
 	// [기능] - 메일 보내기
 	@PostMapping(value="/sendMail.do")
 	@ResponseBody
-	public boolean sendMail(RedirectAttributes redirect, WriteMailDTO writeMailDTO) throws Exception {
+	public boolean sendMail(WriteMailDTO writeMailDTO) throws Exception {
 		
 		// 메일 보내기
 		if(sendMailService.sendMail(writeMailDTO)) {
 			// 메일 보내기 성공일 경우 
 			// 메일 DB에 저장
-			storeMailService.storeMailToDB(writeMailDTO);
+			storeMailService.storeSentMailToDB(writeMailDTO);
 			return true;
 		};
 		return false;
@@ -89,8 +90,12 @@ public class MailController {
 	
 	// [기능] - 메일 양식 저장
 	@RequestMapping(value="/saveMailForm.do")
-	public String  save_mail_form() throws Exception {
-		return "";
+	@ResponseBody
+	public boolean save_mail_form(WriteMailDTO writeMailDTO) throws Exception {
+		
+		storeMailService.storeMailFormToDB(writeMailDTO);
+		
+		return true;
 	}
 	
 	// [기능] - 저장된 메일 양식 불러오기
