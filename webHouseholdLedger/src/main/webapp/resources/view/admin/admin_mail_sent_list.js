@@ -92,7 +92,28 @@ function fn_checkAll() {
 	}
 }
 
-function fn_linkToMailContent() {
+function fn_linkToMail(mail_idx, mail_state) {
 	
+	let linkToMailURL;
+	
+	if(mail_state == "SENT") {
+		linkToMailURL = "/app/admin/mail/readSentMail.do";
+	} else if(mail_state == "STORED") {
+		linkToMailURL = "/app/admin/mail/readStoredMail.do";
+	} else {
+		alert("함수 입력값이 잘못되었 습니다.");
+		return;
+	}
+	
+	var linkToMailForm = $("<form></form>");
+	
+	linkToMailForm.attr("name", "linkToMailForm");
+	linkToMailForm.attr("method", "get");
+	linkToMailForm.attr("action", linkToMailURL);
+	
+	linkToMailForm.append($("<input/>", {type: "hidden", name: "mail_idx", value: mail_idx}));
+	
+	linkToMailForm.appendTo("body");
+	linkToMailForm.submit();
 }
 

@@ -134,7 +134,7 @@
 																		<label for="check${status.count}"></label>
 																	</div>
 																</td>
-																<td class="mailbox-subject" style="width: 75%;">
+																<td class="mailbox-subject" style="width: 75%;" onclick="fn_linkToMail(${mail_list.MAIL_IDX }, 'STORED')">
 																	${mail_list.MAIL_SUBJECT }
 																</td>
 																<td class="mailbox-date" style="width: 15%;">

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="readMail">
+
+	<select id="readMail.selectMail" parameterType="hashmap" resultType="mailDTO">
+    	<![CDATA[
+		SELECT 
+			MAIL_IDX, MAIL_TO, MAIL_SUBJECT, MAIL_CONTENT, MAIL_STATE, LEFT(REG_DATE,10) AS REG_DATE
+		FROM
+    		MAIL
+    	WHERE
+    		MAIL_STATE = #{mail_state}
+    	AND
+    		MAIL_IDX = #{mail_idx}
+    	]]>
+    </select>
+    
+    <select id="readMail.selectNextMail" parameterType="hashmap" resultType="String">
+		<![CDATA[
+		SELECT 
+			MAIL_IDX
+		FROM 
+			MAIL
+		WHERE 
+			MAIL_STATE = #{mail_state}
+		AND 
+			MAIL_IDX > #{mail_idx}
+		ORDER BY MAIL_IDX ASC
+		LIMIT 1
+		]]>
+	</select>
+	
+	<select id="readMail.selectPrevMail" parameterType="hashmap" resultType="String">
+		<![CDATA[
+		SELECT 
+			MAIL_IDX
+		FROM 
+			MAIL
+		WHERE 
+			MAIL_STATE = #{mail_state}
+		AND 
+			MAIL_IDX < #{mail_idx}
+		ORDER BY MAIL_IDX DESC
+		LIMIT 1
+		]]>
+	</select>
+	
+</mapper>

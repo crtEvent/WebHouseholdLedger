@@ -20,6 +20,7 @@ import com.fasterxml.jackson.core.sym.Name;
 import com.houseledger.app.mail.dto.SelectMailDTO;
 import com.houseledger.app.mail.dto.WriteMailDTO;
 import com.houseledger.app.mail.service.MailListService;
+import com.houseledger.app.mail.service.ReadMailService;
 import com.houseledger.app.mail.service.SendMailService;
 import com.houseledger.app.mail.service.StoreMailService;
 
@@ -38,6 +39,9 @@ public class MailController {
 	@Autowired
 	private MailListService mailListService;
 	
+	@Autowired
+	private ReadMailService readMailService;
+	
 	// [페이지] - 메일 쓰기 페이지
 	@RequestMapping(value="/writeMail.do")
 	public String mail_write() throws Exception {
@@ -54,6 +58,15 @@ public class MailController {
 		return "/admin/admin_mail_sent_list";
 	}
 	
+	// [페이지] - 보낸 메일 읽기 페이지
+	@RequestMapping(value="/readSentMail.do")
+	public String read_sent_mail(Model model, String mail_idx) throws Exception {
+		
+		model.addAttribute("mailDTO", readMailService.getMail(mail_idx, "SENT"));
+		
+		return "/admin/admin_mail_read";
+	}
+	
 	// [페이지] - 저장된 메일 양식 목록 페이지
 	@RequestMapping(value="/savedMailFormList.do")
 	public String  mail_form_list(Model model, SelectMailDTO dto) throws Exception {
@@ -62,6 +75,15 @@ public class MailController {
 		model.addAttribute("mailList", mailListService.getStoredMailList(dto));
 		
 		return "/admin/admin_mail_stored_list";
+	}
+	
+	// [페이지] - 저장된 메일 양식 읽기 페이지
+	@RequestMapping(value="/readStoredMail.do")
+	public String read_stored_mail(Model model, String mail_idx) throws Exception {
+		
+		model.addAttribute("mailDTO", readMailService.getMail(mail_idx, "STORED"));
+		
+		return "/admin/admin_mail_read";
 	}
 	
 	// [페이지] - 메세지 페이지

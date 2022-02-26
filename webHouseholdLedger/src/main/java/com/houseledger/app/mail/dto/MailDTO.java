@@ -8,6 +8,8 @@ public class MailDTO {
 	private String mail_content;
 	private String mail_state;
 	private String reg_date;
+	private String nextMail_idx;
+	private String prevMail_idx;
 	
 	public String getMail_idx() {
 		return mail_idx;
@@ -44,6 +46,18 @@ public class MailDTO {
 	}
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
+	}
+	public String getNextMail_idx() {
+		return nextMail_idx;
+	}
+	public void setNextMail_idx(String nextMail_idx) {
+		this.nextMail_idx = nextMail_idx;
+	}
+	public String getPrevMail_idx() {
+		return prevMail_idx;
+	}
+	public void setPrevMail_idx(String prevMail_idx) {
+		this.prevMail_idx = prevMail_idx;
 	}
 
 }

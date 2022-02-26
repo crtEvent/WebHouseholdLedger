@@ -22,6 +22,7 @@
             <typeAlias type="com.houseledger.app.admin.dto.SelectUserListDTO" alias="selectUserListDTO"/>
             <typeAlias type="com.houseledger.app.mail.dto.WriteMailDTO" alias="writeMailDTO"/>
             <typeAlias type="com.houseledger.app.mail.dto.SelectMailDTO" alias="selectMailDTO"/>
+            <typeAlias type="com.houseledger.app.mail.dto.MailDTO" alias="mailDTO"/>
     </typeAliases>
 
 </configuration>

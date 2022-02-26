@@ -137,7 +137,7 @@
 																<td class="mailbox-name" style="width: 20%;">
 																	${mail_list.MAIL_TO }
 																</td>
-																<td class="mailbox-subject" style="width: 55%;">
+																<td class="mailbox-subject" style="width: 55%;" onclick="fn_linkToMail(${mail_list.MAIL_IDX }, 'SENT')">
 																	${mail_list.MAIL_SUBJECT }
 																</td>
 																<td class="mailbox-date" style="width: 15%;">
