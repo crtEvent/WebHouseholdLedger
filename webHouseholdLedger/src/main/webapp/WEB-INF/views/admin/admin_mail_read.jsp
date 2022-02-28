@@ -41,7 +41,7 @@
 						<div class="col-md-9">
 							<div class="card card-primary card-outline">
 
-								<div class="card-body p-0">
+								<div class="card-body p-0" id="printArea">
 								
 									<div class="mailbox-read-info">
 										<h5>${mailDTO.mail_subject}</h5>
@@ -57,16 +57,17 @@
 												<i class="far fa-trash-alt"></i>
 											</button>
 											<button type="button" class="btn btn-default btn-sm" 
-												data-container="body" title="Reply">
+												data-container="body" title="Reply" onclick="fn_linkToMail(${mailDTO.nextMail_idx})">
 												<i class="fas fa-reply"></i>
 											</button>
 											<button type="button" class="btn btn-default btn-sm" 
-												data-container="body" title="Forward">
+												data-container="body" title="Forward" onclick="fn_linkToMail(${mailDTO.prevMail_idx})">
 												<i class="fas fa-share"></i>
 											</button>
 										</div>
 										<!-- /.btn-group -->
-										<button type="button" class="btn btn-default btn-sm" title="Print">
+										<button type="button" class="btn btn-default btn-sm"
+											 title="Print" onclick="printMail()">
 											<i class="fas fa-print"></i>
 										</button>
 									</div>
@@ -90,7 +91,9 @@
 										</button>
  									</div>
 									<button type="button" class="btn btn-default"><i class="far fa-trash-alt"></i> 삭제</button>
-									<button type="button" class="btn btn-default"><i class="fas fa-print"></i> 인쇄</button>
+									<button type="button" class="btn btn-default" onclick="printMail()">
+										<i class="fas fa-print"></i> 인쇄
+									</button>
 								</div>
 								<!-- /.card-footer -->
 								
@@ -115,5 +118,6 @@
 	
 	<%@include file="../include/include_main_plugins.jsp" %>
 	<script type="text/javascript" src="<c:url value="/resources/view/admin/admin_mail_read.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/view/admin/print_mail.js"/>"></script>
 </body>
 </html>
