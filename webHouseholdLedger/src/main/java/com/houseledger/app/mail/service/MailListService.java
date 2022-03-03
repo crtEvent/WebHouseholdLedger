@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.houseledger.app.common.board.dto.PagingDTO;
 import com.houseledger.app.mail.dao.MailListDAO;
+import com.houseledger.app.mail.dto.MailDTO;
 import com.houseledger.app.mail.dto.SelectMailDTO;
 
 @Service("mailListService")
@@ -29,6 +30,11 @@ public class MailListService {
 	// 저장된 mail 양식 불러오기
 	public List<Map<String, Object>> getStoredMailList(SelectMailDTO dto) throws Exception {
 		return mailListDAO.selectStoredMailList(dto);
+	}
+	
+	// 저장된 mail 양식 불러오기 - 메일 쓰기 페이지의 양식 불러오기 Modal용
+	public List<MailDTO> getStoredMailListAll() throws Exception {
+		return mailListDAO.selectStoredMailListAll();
 	}
 	
 	// paging 정보 불러오기

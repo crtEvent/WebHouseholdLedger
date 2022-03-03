@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.houseledger.app.common.dao.AbstractDAO;
+import com.houseledger.app.mail.dto.MailDTO;
 import com.houseledger.app.mail.dto.SelectMailDTO;
 
 @Repository("mailListDAO")
@@ -27,6 +28,11 @@ public class MailListDAO extends AbstractDAO {
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectStoredMailList(SelectMailDTO dto) throws Exception {	
 		return (List<Map<String, Object>>) selectList("mailList.selectStoredMailList", dto);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<MailDTO> selectStoredMailListAll() throws Exception {	
+		return (List<MailDTO>) selectList("mailList.selectStoredMailListAll");
 	}
 	
 	public void deleteMailList(int[] checkedMail) throws Exception {

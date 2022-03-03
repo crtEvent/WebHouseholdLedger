@@ -1,6 +1,8 @@
 package com.houseledger.app.mail.controller;
 
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.sym.Name;
+import com.houseledger.app.mail.dto.MailDTO;
 import com.houseledger.app.mail.dto.SelectMailDTO;
 import com.houseledger.app.mail.dto.WriteMailDTO;
 import com.houseledger.app.mail.service.MailListService;
@@ -142,4 +145,15 @@ public class MailController {
 		}
 		
 	}
+	
+	// [Ajax] - 저장된 메일 양식 리스트 반환
+	@RequestMapping("/getStoredMailList.do")
+	@ResponseBody
+	public List<MailDTO> get_stored_mail() throws Exception {
+		
+		List<MailDTO> list = mailListService.getStoredMailListAll();
+		
+		return list;
+	}
+	
 }

@@ -93,6 +93,24 @@
 		]]>
     </select>
     
+    <select id="mailList.selectStoredMailListAll" resultType="mailDTO">
+    	<![CDATA[
+    	SELECT 
+			MAIL_IDX
+			, MAIL_TO
+			, MAIL_SUBJECT
+			, MAIL_CONTENT
+			, MAIL_STATE
+			, LEFT(REG_DATE,10) REG_DATE
+		FROM
+    		MAIL
+    	WHERE
+    		MAIL_STATE = "STORED"
+    	ORDER BY 
+    		MAIL_IDX DESC
+    	]]>
+    </select>
+    
     <update id="mailList.deleteMailList" parameterType="java.util.ArrayList">
     	<![CDATA[
     	UPDATE MAIL

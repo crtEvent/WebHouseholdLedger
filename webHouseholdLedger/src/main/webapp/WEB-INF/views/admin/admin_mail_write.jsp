@@ -7,6 +7,9 @@
 <title>가계부</title>
 <%@include file="../include/include_main_head.jsp"%>
 <link rel="stylesheet" href="<c:url value="/resources/plugins/summernote/summernote-bs4.css"/>">
+<!-- jsGrid -->
+<link rel="stylesheet" href="<c:url value="/resources/plugins/jsGrid/jsgrid.min.css"/>">
+<link rel="stylesheet" href="<c:url value="/resources/plugins/jsGrid/jsgrid-theme.min.css"/>">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
@@ -72,10 +75,10 @@
               					
               					<div class="card-footer">
                 					<div class="float-right">
-                  						<button type="button" class="btn btn-default" onclick="fn_storeMailForm()"><i class="far fa-file-alt"></i> 양식 저장</button>
+                  						<button type="button" class="btn btn-default" onclick="fn_storeMailForm()"><i class="fas fa-save"></i> 양식 저장</button>
                   						<button type="submit" class="btn btn-primary" onclick="fn_sendMail()"><i class="far fa-envelope"></i> 보내기</button>
                 					</div>
-                					<button type="reset" class="btn btn-default"><i class="fas fa-times"></i> 리셋</button>
+                					<button type="reset" class="btn btn-default" onclick="fn_openStoredMailListModal()"><i class="far fa-file-alt"></i> 양식 불러오기</button>
               					</div><!-- /.card-footer -->
               					
             				</div>
@@ -89,14 +92,19 @@
 
 		</div>
 		<!-- /.content-wrapper -->
-
+		
+		<%@include file="./admin_mail_stored_list_modal.jsp"%>
 		<%@include file="../include/include_main_footer.jsp"%>
 	</div>
 	<!-- /.wrapper -->
 
 	<%@include file="../include/include_main_plugins.jsp"%>
+	<!-- jsGrid -->
+	<script type="text/javascript" src="<c:url value="/resources/plugins/jsGrid/jsgrid.min.js"/>"></script>
+	
 	<script type="text/javascript" src="<c:url value="/resources/plugins/summernote/summernote-bs4.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/plugins/summernote/summernote-ko-KR.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/view/admin/admin_mail_write.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/view/admin/admin_mail_stored_list_modal.js"/>"></script>
 </body>
 </html>

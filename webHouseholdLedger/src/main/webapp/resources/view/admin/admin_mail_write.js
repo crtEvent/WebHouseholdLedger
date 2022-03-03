@@ -74,14 +74,14 @@ function fn_checkMailValid() {
 	
 	/* subject: 제목 체크 */
 	if(subjectLength < 5 || subjectLength > 100){
-		alert("게시글 제목은 5글자 이상 100글자 이하로 작성해 주세요.");
+		alert("메일 제목은 5글자 이상 100글자 이하로 작성해 주세요.");
 		subject.focus();
 		return false;
 	}
 	
 	/* content: 내용 체크 */
 	if(content.val().length == 0){
-		alert("게시글 내용을 작성해 주세요.");
+		alert("메일 내용을 작성해 주세요.");
 		content.focus();
 		return false;
 	}
@@ -91,7 +91,7 @@ function fn_checkMailValid() {
 	.replace(/&([a-z0-9]+|#[0-9a-zA-Z]+);/gi, "0").length;
 	
 	if(contentFieldLength > 2000){
-		alert("게시글 내용은 2,000자를 초과할 수 없습니다.");
+		alert("메일 내용은 2,000자를 초과할 수 없습니다.");
 		content.focus();
 		return false;
 	}
@@ -132,14 +132,24 @@ function fn_sendMail() {
 
 // 메일 양식 저장
 function fn_storeMailForm(){
+	var subject = $("input[name=mail_subject]");
+	var subjectLength = subject.val().replace(/s/g,"").length;
 	
+	/* subject: 제목 체크 */
+	if(subjectLength < 5 || subjectLength > 100){
+		alert("메일 제목은 5글자 이상 100글자 이하로 작성해 주세요.");
+		subject.focus();
+		return;
+	}
+	
+	/* content: 내용 체크 */
 	// 글자수만 검사
 	var contentFieldLength = $('#writeContentField').summernote('code')
 	.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "")
 	.replace(/&([a-z0-9]+|#[0-9a-zA-Z]+);/gi, "0").length;
 	
 	if(contentFieldLength > 2000){
-		alert("게시글 내용은 2,000자를 초과할 수 없습니다.");
+		alert("메일 내용은 2,000자를 초과할 수 없습니다.");
 		content.focus();
 		return;
 	}
