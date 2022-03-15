@@ -3,6 +3,8 @@ package com.houseledger.app.ledger.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.houseledger.app.ledger.dto.LedgerSelectDTO;
 import com.houseledger.app.ledger.dto.LedgerCalendarDTO;
 import com.houseledger.app.ledger.dto.LedgerDetailsDTO;
@@ -21,4 +23,6 @@ public interface LedgerService {
 	public void updateLedger(LedgerInsertDTO dto) throws Exception;
 	
 	public void deleteLedger(LedgerInsertDTO dto) throws Exception;
+	public List<Map<String, Object>> downloadExcel(LedgerSelectDTO dto) throws Exception;
+	public void ledgerDownloadToExcel(HttpServletResponse response, LedgerSelectDTO dto) throws Exception;
 }

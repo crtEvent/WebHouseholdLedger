@@ -1,5 +1,7 @@
 package com.houseledger.app.ledger.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +13,19 @@ import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -214,5 +228,92 @@ public class LedgerServiceImpl implements LedgerService {
 	// 가계부 내역 삭제
 	public void deleteLedger(LedgerInsertDTO dto) throws Exception {
 		ledgerDAO.deleteLedger(dto);
+	}
+	
+	// 
+	public List<Map<String, Object>> downloadExcel(LedgerSelectDTO dto) throws Exception {
+		return ledgerDAO.selectLedgerListByPeriod(dto);
+	}
+	
+	// 가계부엑셀 다운로드
+	public void ledgerDownloadToExcel(HttpServletResponse response, LedgerSelectDTO dto) throws Exception {
+		
+		// DTO에서 필요한 값 - user_idx, start_date, end_date
+		
+		List<Map<String, Object>> ledgerList = ledgerDAO.selectLedgerListByPeriod(dto);
+		
+		Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("가계부 내역");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+        
+        // 헤드 셀 스타일 - 회색 배경, 가운데 정렬, Bold
+        CellStyle headStyle = wb.createCellStyle();
+        headStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headStyle.setAlignment(HorizontalAlignment.CENTER);
+        Font headFont = wb.createFont();
+        headFont.setBold(true);
+        headStyle.setFont(headFont);
+        
+        // 일반 셀 스타일 - 가운데 정렬
+        CellStyle bodyStyle = wb.createCellStyle();
+        bodyStyle.setAlignment(HorizontalAlignment.CENTER);
+        
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellStyle(headStyle);
+        cell.setCellValue("날짜");
+        cell = row.createCell(1);
+        cell.setCellStyle(headStyle);
+        cell.setCellValue("수입/지출");
+        cell = row.createCell(2);
+        cell.setCellStyle(headStyle);
+        cell.setCellValue("분류");
+        cell = row.createCell(3);
+        cell.setCellStyle(headStyle);
+        cell.setCellValue("내용");
+        cell = row.createCell(4);
+        cell.setCellStyle(headStyle);
+        cell.setCellValue("금액");
+        cell = row.createCell(5);
+        cell.setCellStyle(headStyle);
+        cell.setCellValue("자산");
+        
+        for(Map<String, Object> list : ledgerList) {
+        	row = sheet.createRow(rowNum++);
+        	cell = row.createCell(0);
+        	cell.setCellStyle(bodyStyle);
+            cell.setCellValue(list.get("DATE") != null ? list.get("DATE").toString() : "");
+            cell = row.createCell(1);
+            cell.setCellStyle(bodyStyle);
+            cell.setCellValue(list.get("INCOME_AND_EXPENSES") != null ? list.get("INCOME_AND_EXPENSES").toString() : "");
+            cell = row.createCell(2);
+            cell.setCellStyle(bodyStyle);
+            cell.setCellValue(list.get("CATEGORY") != null ? list.get("CATEGORY").toString() : "");
+            cell = row.createCell(3);
+            cell.setCellStyle(bodyStyle);
+            cell.setCellValue(list.get("DESCRIPTION") != null ? list.get("DESCRIPTION").toString() : "");
+            cell = row.createCell(4);
+            cell.setCellValue(list.get("AMOUNT") != null ? Double.parseDouble(list.get("AMOUNT").toString()) : 0);
+            cell = row.createCell(5);
+            cell.setCellStyle(bodyStyle);
+            cell.setCellValue(list.get("ASSET") != null ? list.get("ASSET").toString() : "");
+        }
+        
+        // cell 넓이 설정
+        sheet.setColumnWidth(0, 3000);
+        sheet.setColumnWidth(3, 5000);
+        
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=HouseLedger.xlsx");
+        
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+        
 	}
 }

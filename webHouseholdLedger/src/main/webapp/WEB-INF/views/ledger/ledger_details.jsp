@@ -55,16 +55,19 @@
 
 									<div class="row">
 										<div class="btn-group col-md-5 container">
-											<button type="button" class="btn btn-default"
+											<button type="button" class="btn btn-default w-75"
 												onclick="fn_openInsertModal()">가계부 입력</button>
+											<button type="button" class="btn btn-default"
+												onclick="fn_downloadExcel()">
+												<i class="fas fa-file-download"></i> &nbsp;다운로드
+											</button>
 										</div>
 									</div>
 
 									<div class="row">
 										<div class="btn-group col-md-5 container">
 											<button type="button" id="btnOneMnth" class="btn btn-default">1개월</button>
-											<button type="button" id="btnThreeMnth"
-												class="btn btn-default">3개월</button>
+											<button type="button" id="btnThreeMnth" class="btn btn-default">3개월</button>
 											<button type="button" id="btnSixMnth" class="btn btn-default">6개월</button>
 										</div>
 									</div>
@@ -82,7 +85,7 @@
 											</div>
 										</div>
 									</div>
-
+									
 								</div>
 								<!-- /.card-body -->
 							</div>

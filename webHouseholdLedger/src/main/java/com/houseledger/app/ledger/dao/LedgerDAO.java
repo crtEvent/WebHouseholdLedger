@@ -18,6 +18,12 @@ public class LedgerDAO extends AbstractDAO{
 		return (List<Map<String, Object>>) selectList("ledger.selectLedgerList", dto);
 	}
 	
+	// 기간내 가계부 내역 불러오기
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectLedgerListByPeriod(LedgerSelectDTO dto) throws Exception{
+		return (List<Map<String, Object>>) selectList("ledger.selectLedgerListByPeriod", dto);
+	}
+	
 	// 날짜별 가계부 그룹 불러오기
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectLedgerGroup(LedgerSelectDTO dto) throws Exception{

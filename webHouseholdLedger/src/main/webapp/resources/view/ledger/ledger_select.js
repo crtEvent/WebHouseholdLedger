@@ -52,4 +52,24 @@ window.onload = function() {
 		selectForm.method = "get";
 		selectForm.submit();
 	}
+	
+}
+
+//엑셀 다운로드
+function fn_downloadExcel() {
+	
+	var form = $("<form></form>");
+	
+	form.attr("name","downloadExcelForm");
+	form.attr("method","get");
+	form.attr("action","/app/ledger/download_excel.do");
+	
+	form.append($("<input/>", {type: "hidden", name: "start_date", value: $("#ledgerSelectForm").find("#start_date").val()}));
+	form.append($("<input/>", {type: "hidden", name: "end_date", value: $("#ledgerSelectForm").find("#end_date").val()}));
+	
+	form.appendTo("body");
+	form.submit();
+	
+	$('form[name=downloadExcelForm]').remove();
+	
 }

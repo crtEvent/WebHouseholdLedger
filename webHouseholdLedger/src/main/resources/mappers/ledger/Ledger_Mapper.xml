@@ -13,6 +13,16 @@
         ]]>
     </select>
     
+    <select id="ledger.selectLedgerListByPeriod" parameterType="ledgerSelectDTO" resultType="hashmap">
+    	<![CDATA[
+		SELECT LEDGER_IDX, DATE, INCOME_AND_EXPENSES, CATEGORY, DESCRIPTION, AMOUNT, ASSET, FORMER_ASSET, LATTER_ASSET
+		FROM LEDGER
+		WHERE USER_IDX = #{user_idx}
+		AND DATE BETWEEN #{start_date} AND #{end_date}
+		ORDER BY DATE DESC;
+        ]]>
+    </select>
+    
     <select id="ledger.selectLedgerGroup" parameterType="ledgerSelectDTO" resultType="hashmap">
     	<![CDATA[
     	SELECT DATE, COUNT(*) 'CNT', SUM(CASE WHEN INCOME_AND_EXPENSES='수입' THEN AMOUNT ELSE 0 END) 'INCOME', SUM(CASE WHEN INCOME_AND_EXPENSES='지출' THEN AMOUNT ELSE 0 END) 'EXPENSES'
