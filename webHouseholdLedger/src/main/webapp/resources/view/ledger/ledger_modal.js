@@ -14,10 +14,24 @@ $(document).ready(function(){
 	insertForm.find("[name=amount]").val(0);
 })
 
-// amount 유효성 검사: 숫자만 입력 가능
-$("[name=amount]").keyup(function(event){
+// description 유효성 검사: 45 자리수 제한
+$("[name=description]").keyup(function(event) {
+	var inputVal = $(this).val();
+	if(inputVal.length > 45) {
+    	alert("내용은 45자리수 까지만 입력 가능합니다.");
+    	$(this).val(inputVal.slice(0, 45));
+    }
+});
+
+// amount 유효성 검사: 숫자만 입력 가능 & 15 자리수 제한
+$("[name=amount]").keyup(function(event) {
     var inputVal = $(this).val();
     $(this).val(inputVal.replace(/[^0-9]/gi,''));
+    
+    if(inputVal.length > 15) {
+    	alert("금액 값은 15자리수 까지만 입력 가능합니다.");
+    	$(this).val(inputVal.slice(0, 15));
+    }
 });
 
 insertForm.find("input:radio[name=income_and_expenses]").click(function(){

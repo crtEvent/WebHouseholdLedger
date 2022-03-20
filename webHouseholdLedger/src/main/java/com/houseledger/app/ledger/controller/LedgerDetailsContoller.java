@@ -33,6 +33,7 @@ public class LedgerDetailsContoller {
 	@Resource(name="ledgerService")
 	LedgerService ledgerService;
 	
+	// [페이지]: 가계부 내역 페이지
 	@RequestMapping(value="/ledger/details.do")
 	public String ledger_details(Model model, LedgerSelectDTO ledgerSelectDTO, @SessionAttribute("userSession")UserVO userVO) throws Exception {
 		
@@ -44,7 +45,7 @@ public class LedgerDetailsContoller {
 		return "ledger/ledger_details";
 	}
 	
-	// 가계부 엑셀 다운로드
+	// [기능]: 가계부 엑셀 다운로드
 	@RequestMapping(value="/ledger/download_excel.do")
 	public void download_excel(HttpServletResponse response, LedgerSelectDTO dto, @SessionAttribute("userSession")UserVO userVO) throws Exception {
 		

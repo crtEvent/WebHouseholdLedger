@@ -71,7 +71,7 @@
 								<button type="button" class="btn btn-default">내용</button>
 							</div>
 							<input name="description" type="text" autocomplete="off"
-								class="form-control">
+								maxlength="45" class="form-control">
 						</div>
 
 						<div class="input-group mb-3">
@@ -117,7 +117,7 @@
 							<button type="button" class="btn btn-default">금액</button>
 						</div>
 						<input name="amount" type="number" autocomplete="off" 
-							min="0" class="form-control">
+							max="100000000000000" min="0" class="form-control">
 					</div>
 				</form>
 				<!-- /.insert-form -->

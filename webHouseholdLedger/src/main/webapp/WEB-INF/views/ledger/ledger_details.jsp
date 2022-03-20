@@ -159,7 +159,7 @@
 													<tbody>
 														<c:forEach var="row_body"
 															items="${ledgerDetailDTO.ledgerList[status.index] }">
-															<tr class="border-bottom">
+															<tr class="border-bottom text-break">
 																<input type="hidden" id="ledger_idx" value="${row_body.LEDGER_IDX }">
 																<input type="hidden" id="date" value="${row_body.DATE }">
 																<input type="hidden" id="income_and_expenses" value="${row_body.INCOME_AND_EXPENSES }">
