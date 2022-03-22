@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>가계부</title>
 <%@include file="../include/include_main_head.jsp" %>
+<link rel="stylesheet" href="<c:url value="/resources/view/my/css/edit_my_info.css" />">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
@@ -48,7 +49,7 @@
 									
 								<!-- Card-body -->
 								<div class="card-body">
-									
+								
 									<!-- 아이디 -->
 									<div class="row">
 										<div class="col-sm-12">
@@ -104,6 +105,7 @@
 											</div>
 											<div class="col-sm-4 container d-none" id="div_editUserPassword">
 												<input type="password" class="form-control mb-2" id="old_user_password" placeholder="현재 비밀번호">
+												<div class="container mb-2" id="msg_old_user_pw"></div>
 												<input type="password" class="form-control mb-1" id="new_user_password" placeholder="새 비밀번호(영문,숫자,특수문자 조합 5-25자)">
 												<div class="container mb-2" id="msg_user_pw"></div>
 												<input type="password" class="form-control mb-1" id="new_user_password_check" placeholder="새 비밀번호 다시입력">
