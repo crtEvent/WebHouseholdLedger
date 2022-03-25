@@ -9,9 +9,20 @@ import com.houseledger.app.common.dao.AbstractDAO;
 @Repository("editMyInfoDAO")
 public class EditMyInfoDAO extends AbstractDAO{
 	
+	// 유저 이미지 변경
+	public String updateUserImage(String user_image, String user_idx) throws Exception {
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("user_image", user_image);
+		params.put("user_idx", user_idx);
+		
+		update("editUserInfo.updateUserImage", params);
+		
+		return params.get("user_image");
+	}
+	
 	// 아이디 변경
 	public String updateUserId(String user_id, String user_idx) throws Exception {
-		HashMap<String, String> params = new HashMap();
+		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("user_id", user_id);
 		params.put("user_idx", user_idx);
 		
@@ -22,7 +33,7 @@ public class EditMyInfoDAO extends AbstractDAO{
 	
 	// 이메일 변경
 	public String updateUserEmail(String user_email, String user_idx) throws Exception {
-		HashMap<String, String> params = new HashMap();
+		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("user_email", user_email);
 		params.put("user_idx", user_idx);
 		
@@ -33,7 +44,7 @@ public class EditMyInfoDAO extends AbstractDAO{
 	
 	// 비밀번호 변경
 	public String updateUserPassword(String user_password, String user_idx) throws Exception {
-		HashMap<String, String> params = new HashMap();
+		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("user_password", user_password);
 		params.put("user_idx", user_idx);
 		
@@ -49,7 +60,7 @@ public class EditMyInfoDAO extends AbstractDAO{
 	
 	// 이메일 수신 여부 변경
 	public void updateReceiveMail(String receive_mail, String user_idx) throws Exception {
-		HashMap<String, String> params = new HashMap();
+		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("receive_mail", receive_mail);
 		params.put("user_idx", user_idx);
 		

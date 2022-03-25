@@ -4,15 +4,12 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.houseledger.app.my.service.EditMyInfoService;
 import com.houseledger.app.user.vo.UserVO;
@@ -31,6 +28,28 @@ public class EditMyInfoController {
 	public String editMyInfoPage() throws Exception {
 		
 		return "my/edit_my_info";
+	}
+	
+	// 유저 이미지 변경
+	@RequestMapping("/editUserImage.do")
+	@ResponseBody
+	public String editUserImage(String user_image, HttpServletRequest request) throws Exception {
+		
+		// userSession 불러오기
+		HttpSession session = request.getSession();
+		UserVO userVO = (UserVO) session.getAttribute("userSession");
+		
+		// 유저 이미지 변경 & 수정된 이미지 값 받아오기
+		String changedUser_image = editMyInfoService.editUserImage(user_image, userVO.getUser_idx());
+		
+		// userSession 삭제
+		session.removeAttribute("userSession");
+		
+		// 변경된 userSession 생성
+		userVO.setUser_image(changedUser_image);
+		session.setAttribute("userSession", userVO);
+		
+		return changedUser_image;
 	}
 	
 	// 아이디 수정

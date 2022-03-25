@@ -6,6 +6,7 @@ public class UserVO {
 	private String user_id;
 	private String user_password;
 	private String user_email;
+	private String user_image;
 	private String reg_date;
 	private String receive_mail;
 	private String delete_yn;
@@ -33,6 +34,12 @@ public class UserVO {
 	}
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
+	}
+	public String getUser_image() {
+		return user_image;
+	}
+	public void setUser_image(String user_image) {
+		this.user_image = user_image;
 	}
 	public String getReg_date() {
 		return reg_date;

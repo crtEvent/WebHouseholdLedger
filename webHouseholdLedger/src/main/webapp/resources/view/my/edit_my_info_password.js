@@ -96,7 +96,7 @@ function fn_enableEditUserPassword() {
 }
 
 /* 비밀번호 수정 취소 */
-function fn_cancelEdituserPassword() {
+function fn_cancelEditUserPassword() {
 	
 	$('#old_user_password').val('');
 	$('#new_user_password').val('');
@@ -146,7 +146,7 @@ function fn_editUserPassword() {
 			
 			if(data == true) {
 				alert('비밀번호가 성공적으로 바뀌었습니다.');
-				fn_cancelEdituserPassword();
+				fn_cancelEditUserPassword();
 			} else {
 				$('#msg_old_user_pw').text('기존 비밀번호가 일치하지 않습니다. 다시 시도해 주세요.');
 				check_old_pw = false;

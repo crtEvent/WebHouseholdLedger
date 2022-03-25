@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+.my-frame {
+	/*width:165px;*/
+	height: 165px;
+	background: #ffffff;
+	top: 50px;
+	left: 50px;
+}
+
+.my-img-wrapper {
+	width: 165px;
+	height: 165px;
+	position: absolute;
+	cursor: pointer;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.my-img-wrapper-default {
+	width: 165px;
+	height: 165px;
+	position: absolute;
+	cursor: default;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.my-img-wrapper img {
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+	width: inherit;
+	height: inherit;
+}
+
+.my-img-wrapper-default img {
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+	width: inherit;
+	height: inherit;
+}
+
+.my-darkness {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: inherit;
+	height: inherit;
+	background: #000000;
+	opacity: 0;
+	transition: all .6s linear;
+}
+
+.my-btn-plus {
+	position: absolute;
+	top: 56px;
+	left: 56px;
+	background: red;
+	width: 55px;
+	height: 55px;
+	border-radius: 50%;
+	text-align: center;
+	opacity: 0;
+	transform: scale(2);
+	transition: all .3s linear;
+}
+
+.my-btn-plus span {
+	font-size: 2.3em;
+	color: #ffffff;
+	user-select: none;
+}
+
+.my-img-wrapper:hover .my-darkness {
+	opacity: 0.4;
+}
+
+.my-img-wrapper:hover .my-btn-plus {
+	opacity: 1;
+	transform: scale(1);
+}

@@ -13,10 +13,10 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="<c:url value="/resources/adminLTE/dist/img/user2-160x160.jpg"/>" class="img-circle elevation-2" alt="User Image">
+        <div class="image sidebar-img-wrapper">
+          <img id="sidebar_user_image_field" src="${userSession.getUser_image() }" class="img-circle elevation-2 " alt="User Image">
         </div>
-        <div class="info">
+        <div class="info ml-3">
           <a href="#" class="d-block" id="sidebar_user_id_field">${userSession.getUser_id() }</a>
         </div>
       </div>

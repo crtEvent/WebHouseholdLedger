@@ -142,7 +142,7 @@
 															<!-- Card-comment -->
 															<div class="card-comment">
 																<!-- User image -->
-																<img class="img-circle img-sm" src="<c:url value="/resources/adminLTE/dist/img/user2-160x160.jpg"/>" alt="User Image">
+																<img class="img-circle img-sm" src="<c:url value="${row_comment.USER_IMAGE}"/>" alt="User Image">
 																<div class="comment-text">
 																	<span class="username">
 																		${row_comment.USER_ID}
@@ -182,7 +182,7 @@
 															<!-- Card-comment -->
 															<div class="card-comment">
 																<!-- User image -->
-																<img class="img-circle img-sm ml-5" src="<c:url value="/resources/adminLTE/dist/img/user2-160x160.jpg"/>" alt="User Image">
+																<img class="img-circle img-sm ml-5" src="<c:url value="${row_comment.USER_IMAGE}"/>" alt="User Image">
 																<div class="comment-text">
 																	<span class="username ml-5">
 																		${row_comment.USER_ID}
@@ -229,7 +229,7 @@
 															<!-- Card-comment -->
 															<div class="card-comment">
 																<!-- User image -->
-																<img class="img-circle img-sm" src="<c:url value="/resources/adminLTE/dist/img/user2-160x160.jpg"/>" alt="User Image">
+																<img class="img-circle img-sm" src="<c:url value="/resources/image/user_image_deleted.png"/>" alt="User Image">
 																<div class="comment-text">
 																	<span class="username">
 																		${row_comment.USER_ID}

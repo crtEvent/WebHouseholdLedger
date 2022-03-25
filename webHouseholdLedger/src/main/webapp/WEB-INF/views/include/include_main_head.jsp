@@ -16,4 +16,5 @@
   <link rel="stylesheet" href="<c:url value="/resources/adminLTE/dist/css/adminlte.min.css" />">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="<c:url value="/resources/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" />">
-  
+  <!-- sidbar_extend CSS -->
+  <link rel="stylesheet" href="<c:url value="/resources/view/include/css/sidebar_extend.css" />">

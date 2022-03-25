@@ -3,22 +3,22 @@
  
 <mapper namespace="signUp">
 	
-    <insert id="signUp.insertUser" parameterType="signUpVO">
-    <![CDATA[
-    	INSERT INTO USERS
-    		(USER_ID, USER_PASSWORD, USER_EMAIL, RECEIVE_MAIL)
-    	VALUES
-    		(#{user_id}, #{user_password}, #{user_email}, #{receive_mail})
-    	]]>
-    </insert>
-    
-    <select id="signUp.checkDuplicateUserId" parameterType="String" resultType="int">
-    <![CDATA[
-    	SELECT COUNT(*)
-    	FROM USERS
-    	WHERE USER_ID = #{user_id}
-    ]]>
-    </select>
+	<insert id="signUp.insertUser" parameterType="signUpVO">
+		<![CDATA[
+		INSERT INTO USERS
+			(USER_ID, USER_PASSWORD, USER_EMAIL, RECEIVE_MAIL, USER_IMAGE)
+		VALUES
+			(#{user_id}, #{user_password}, #{user_email}, #{receive_mail}, #{user_image})
+		]]>
+	</insert>
+	    
+	<select id="signUp.checkDuplicateUserId" parameterType="String" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*)
+		FROM USERS
+		WHERE USER_ID = #{user_id}
+		]]>
+	</select>
 
 
 </mapper>

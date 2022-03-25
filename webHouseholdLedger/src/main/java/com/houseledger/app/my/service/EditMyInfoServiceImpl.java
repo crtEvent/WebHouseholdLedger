@@ -18,6 +18,11 @@ public class EditMyInfoServiceImpl implements EditMyInfoService {
 	@Resource(name = "editMyInfoDAO")
 	EditMyInfoDAO editMyInfoDAO;
 	
+	// 유저 이미지 변경 & 변경된 이미지 리턴
+	public String editUserImage(String user_image, String user_idx) throws Exception {
+		return editMyInfoDAO.updateUserImage(user_image, user_idx);
+	}
+	
 	// 아이디 변경 & 변경된 아이디 리턴
 	public String editUserId(String user_id, String user_idx) throws Exception {
 		return editMyInfoDAO.updateUserId(user_id, user_idx);

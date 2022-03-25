@@ -2,6 +2,9 @@ package com.houseledger.app.my.service;
 
 public interface EditMyInfoService {
 	
+	// 유저 이미지 변경
+	public String editUserImage(String user_image, String user_idx) throws Exception;
+	
 	// 아이디 변경
 	public String editUserId(String user_id, String user_idx) throws Exception;
 	

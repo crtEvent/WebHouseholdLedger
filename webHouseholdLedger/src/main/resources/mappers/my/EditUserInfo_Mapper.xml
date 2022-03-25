@@ -3,6 +3,21 @@
  
 <mapper namespace="editUserInfo">
 
+	<update id="editUserInfo.updateUserImage" parameterType="hashmap">
+		<![CDATA[
+		UPDATE USERS
+		SET USER_IMAGE = #{user_image}
+		WHERE USER_IDX = #{user_idx}
+		]]>
+		<selectKey keyColumn="USER_IMAGE" keyProperty="user_image" resultType="String" order="AFTER">
+		<![CDATA[
+		SELECT USER_IMAGE
+		FROM USERS
+		WHERE USER_IDX = #{user_idx}
+		]]>
+		</selectKey>
+	</update>
+
 	<update id="editUserInfo.updateUserId" parameterType="hashmap" >
 		<![CDATA[
 		UPDATE USERS
