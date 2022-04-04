@@ -4,12 +4,143 @@
 <mapper namespace="asset">
 	
     <select id="asset.selectAssetList" parameterType="String" resultType="hashmap">
-    <![CDATA[
-    	SELECT ASSET_IDX, ASSET_NAME, AMOUNT, REG_DATE
+    	<![CDATA[
+    	SELECT ASSET_IDX, ASSET_NAME
     	FROM ASSET
     	WHERE USER_IDX = #{user_idx}
-    ]]>
+    	]]>
     </select>
-
-
+    
+    <select id="asset.selectAssetDetailedList" parameterType="String" resultType="hashmap">
+		<![CDATA[
+		SELECT 
+			ASSET_IDX
+			, ASSET_ORDER
+			, ASSET_TYPE
+			, CONNECTION_ASSET_IDX
+			, ASSET_NAME
+			, INITIAL_AMOUNT
+			, REG_DATE
+			, CASE 
+				WHEN 
+					ASSET_TYPE = "현금" OR ASSET_TYPE = "신용"
+        		THEN 
+					(SELECT 
+						SUM(CASE 
+								WHEN INCOME_AND_EXPENSES='수입' 
+								THEN AMOUNT 
+								WHEN INCOME_AND_EXPENSES='지출' 
+								THEN -AMOUNT
+							ELSE 0 END)
+					FROM LEDGER L
+					WHERE L.ASSET_IDX = A.ASSET_IDX)
+             		+ A.INITIAL_AMOUNT
+				WHEN 
+					ASSET_TYPE = "통장"
+				THEN 
+					(SELECT 
+						SUM(CASE
+								WHEN INCOME_AND_EXPENSES='수입' 
+								THEN AMOUNT 
+								WHEN INCOME_AND_EXPENSES='지출' 
+								THEN -AMOUNT
+							ELSE 0 END)
+					FROM LEDGER L
+					WHERE L.ASSET_IDX = A.ASSET_IDX)
+             		+ A.INITIAL_AMOUNT
+             		+ (SELECT 
+						IF(COUNT(*)=0
+						, 0
+						, SUM(CASE
+								WHEN INCOME_AND_EXPENSES='수입' 
+								THEN AMOUNT 
+								WHEN INCOME_AND_EXPENSES='지출' 
+								THEN -AMOUNT
+							  ELSE 0 END))
+					   FROM LEDGER L
+                	   JOIN ASSET JA
+                	   ON L.ASSET_IDX = JA.ASSET_IDX
+					   WHERE JA.CONNECTION_ASSET_IDX = A.ASSET_IDX
+                	   AND JA.ASSET_TYPE = "체크")
+				END AS BALANCE
+		FROM ASSET A
+		WHERE USER_IDX = #{user_idx}
+		ORDER BY ASSET_ORDER ASC;
+		]]>
+	</select>
+	
+	<select id="asset.selectCurrentAsset" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT
+			ASSET_IDX, USER_IDX, ASSET_ORDER,ASSET_TYPE, CONNECTION_ASSET_IDX, ASSET_NAME, INITIAL_AMOUNT, REG_DATE
+		FROM 
+			ASSET
+		WHERE
+			USER_IDX = #{user_idx}
+		AND
+			ASSET_IDX = #{asset_idx}
+		]]>
+	</select>
+	
+	<select id="asset.selectPrevAssetOrder" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT 
+			ASSET_IDX, ASSET_ORDER
+		FROM 
+			ASSET
+		WHERE 
+			USER_IDX = #{user_idx}
+		AND 
+			ASSET_ORDER
+			 < (SELECT 
+			 		T.ASSET_ORDER 
+			 	FROM 
+			 		ASSET T 
+			 	WHERE 
+			 		T.USER_IDX = #{user_idx} 
+			 	AND 
+			 		T.ASSET_IDX = #{asset_idx})
+		ORDER BY 
+			ASSET_ORDER DESC
+		LIMIT 1 
+		]]>
+	</select>
+	
+	<select id="asset.selectNextAssetOrder" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT 
+			ASSET_IDX, ASSET_ORDER
+		FROM 
+			ASSET
+		WHERE 
+			USER_IDX = #{user_idx}
+		AND 
+			ASSET_ORDER
+			 > (SELECT 
+			 		T.ASSET_ORDER 
+			 	FROM 
+			 		ASSET T 
+			 	WHERE 
+			 		T.USER_IDX =  #{user_idx}
+			 	AND 
+			 		T.ASSET_IDX = #{asset_idx})
+		ORDER BY 
+			ASSET_ORDER
+		LIMIT 1
+		]]>
+	</select>
+	
+	<update id="asset.updateAssetOrder" parameterType="hashmap">
+		<![CDATA[
+		UPDATE 
+			ASSET
+		SET
+			ASSET_ORDER = #{asset_order}
+		WHERE
+			USER_IDX = #{user_idx}
+		AND	
+			ASSET_IDX = #{asset_idx}
+		]]>
+	</update>
+	
 </mapper>

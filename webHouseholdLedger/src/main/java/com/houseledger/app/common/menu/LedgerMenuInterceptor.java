@@ -22,6 +22,9 @@ public class LedgerMenuInterceptor extends HandlerInterceptorAdapter {
 		case "/ledger/calendar.do":
 			menu = "calendar";
 			break;
+		case "/ledger/editMyAsset.do":
+			menu = "asset";
+			break;
 		default:
 			break;
 		}

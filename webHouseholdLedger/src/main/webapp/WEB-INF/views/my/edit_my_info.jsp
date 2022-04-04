@@ -23,7 +23,7 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-lg-6">
-							<h1 class="m-0">가계부</h1>
+							<h1 class="m-0">회원 정보 수정</h1>
 						</div>
 						<!-- /.col -->
 					</div>

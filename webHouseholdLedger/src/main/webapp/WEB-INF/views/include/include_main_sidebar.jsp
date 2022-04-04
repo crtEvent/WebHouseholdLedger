@@ -68,6 +68,15 @@
             	</li>
             </ul>
           </li>
+          
+          <li class="nav-item">
+            <a href="<c:url value='/ledger/editMyAsset.do'/>" class="nav-link <c:if test="${menu eq 'asset'}">active</c:if>">
+              <i class="nav-icon fas fa-comments"></i>
+              <p>
+				자산 목록 관리
+              </p>
+            </a>
+          </li>
 		  
 		  <li class="nav-item">
             <a href="<c:url value='/qna/list.do'/>" class="nav-link <c:if test="${menu eq 'qna'}">active</c:if>">
