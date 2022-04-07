@@ -26,42 +26,45 @@
 					ASSET_TYPE = "현금" OR ASSET_TYPE = "신용"
         		THEN 
 					(SELECT 
-						SUM(CASE 
+						IFNULL(SUM(CASE 
 								WHEN INCOME_AND_EXPENSES='수입' 
 								THEN AMOUNT 
 								WHEN INCOME_AND_EXPENSES='지출' 
 								THEN -AMOUNT
-							ELSE 0 END)
+							   ELSE 0 END), 0)
 					FROM LEDGER L
-					WHERE L.ASSET_IDX = A.ASSET_IDX)
+					WHERE L.ASSET_IDX = A.ASSET_IDX
+					AND L.USER_IDX = #{user_idx})
              		+ A.INITIAL_AMOUNT
 				WHEN 
 					ASSET_TYPE = "통장"
 				THEN 
 					(SELECT 
-						SUM(CASE
+						IFNULL(SUM(CASE
 								WHEN INCOME_AND_EXPENSES='수입' 
 								THEN AMOUNT 
 								WHEN INCOME_AND_EXPENSES='지출' 
 								THEN -AMOUNT
-							ELSE 0 END)
+							ELSE 0 END), 0)
 					FROM LEDGER L
-					WHERE L.ASSET_IDX = A.ASSET_IDX)
+					WHERE L.ASSET_IDX = A.ASSET_IDX
+					AND L.USER_IDX = #{user_idx})
              		+ A.INITIAL_AMOUNT
              		+ (SELECT 
 						IF(COUNT(*)=0
 						, 0
-						, SUM(CASE
+						, IFNULL(SUM(CASE
 								WHEN INCOME_AND_EXPENSES='수입' 
 								THEN AMOUNT 
 								WHEN INCOME_AND_EXPENSES='지출' 
 								THEN -AMOUNT
-							  ELSE 0 END))
+							  ELSE 0 END), 0))
 					   FROM LEDGER L
                 	   JOIN ASSET JA
                 	   ON L.ASSET_IDX = JA.ASSET_IDX
 					   WHERE JA.CONNECTION_ASSET_IDX = A.ASSET_IDX
-                	   AND JA.ASSET_TYPE = "체크")
+                	   AND JA.ASSET_TYPE = "체크"
+                	   AND L.USER_IDX = #{user_idx})
 				END AS BALANCE
 		FROM ASSET A
 		WHERE USER_IDX = #{user_idx}
@@ -143,4 +146,51 @@
 		]]>
 	</update>
 	
+	<select id="asset.selectBankAssetList" parameterType="String" resultType="hashmap">
+		<![CDATA[
+		SELECT 
+			ASSET_IDX, ASSET_NAME
+		FROM 
+			ASSET
+		WHERE
+			USER_IDX = #{user_idx}
+		AND
+			ASSET_TYPE = "통장"
+		ORDER BY 
+			ASSET_ORDER
+			]]>
+	</select>
+	
+	<select id="asset.selectLastAssetOrder" parameterType="String" resultType="int">
+		<![CDATA[
+		SELECT 
+			ASSET_ORDER
+		FROM 
+			ASSET
+		WHERE 
+			USER_IDX = #{user_idx}
+		ORDER BY 
+			ASSET_ORDER DESC
+		LIMIT 1
+		]]>
+	</select>
+	
+	<insert id="asset.insertAsset" parameterType="assetInsertDTO">
+		<![CDATA[
+		INSERT INTO 
+			ASSET(USER_IDX
+				, ASSET_ORDER
+				, ASSET_TYPE
+				, CONNECTION_ASSET_IDX
+				, ASSET_NAME
+				, INITIAL_AMOUNT)
+		VALUES
+			(#{user_idx}
+			, #{asset_order}
+			, #{asset_type}
+			, #{connection_asset_idx}
+			, #{asset_name}
+			, #{initial_amount})
+		]]>
+	</insert>
 </mapper>
