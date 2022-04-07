@@ -1,14 +1,21 @@
 package com.houseledger.app.ledger.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.houseledger.app.ledger.dto.AssetInsertDTO;
 import com.houseledger.app.ledger.service.AssetService;
 import com.houseledger.app.user.vo.UserVO;
 
@@ -57,5 +64,26 @@ public class AssetController {
 			return false;
 		}
 		
+	}
+	
+	// [기능]: 통장 자산 목록 불러오기
+	@RequestMapping(value="/ledger/getBankAssetList.do")
+	@ResponseBody
+	public List<Map<String, Object>> getBankAssetList(@SessionAttribute("userSession")UserVO userVO) throws Exception {
+		return assetService.getBankAssetList(userVO.getUser_idx());
+	}
+	
+	// [기능]: 자산 추가하기
+	@RequestMapping(value="/ledger/insertAsset.do")
+	public String insertAsset(AssetInsertDTO dto , @SessionAttribute("userSession")UserVO userVO, HttpServletRequest request) throws Exception {
+		
+		dto.setUser_idx(userVO.getUser_idx());
+		
+		assetService.insertAsset(dto);
+		
+		// 이전 페이지 URL
+		String referer = request.getHeader("Referer");
+		
+		return "redirect:"+referer;
 	}
 }

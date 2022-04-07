@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.houseledger.app.common.dao.AbstractDAO;
+import com.houseledger.app.ledger.dto.AssetInsertDTO;
 
 @Repository("assetDAO")
 public class AssetDAO extends AbstractDAO {
@@ -42,12 +43,29 @@ public class AssetDAO extends AbstractDAO {
 		return (Map<String, Object>) selectOne("asset.selectNextAssetOrder", map);
 	}
 	
+	// 자산 순서 변경
 	public void updateAssetOrder(String asset_idx, String asset_order, String user_idx) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("asset_order", asset_order);
 		map.put("asset_idx", asset_idx);
 		map.put("user_idx", user_idx);
 		update("asset.updateAssetOrder", map);
+	}
+	
+	// 통장 자산 리스트 불러오기
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectBankAssetList(String user_idx) throws Exception {
+		return selectList("asset.selectBankAssetList", user_idx);
+	}
+	
+	// 마지막 자산 순서 불러오기
+	public Integer selectLastAssetOrder(String user_idx) throws Exception {
+		return (Integer) selectOne("asset.selectLastAssetOrder", user_idx);
+	}
+	
+	// 자산 추가
+	public void insertAsset(AssetInsertDTO dto) throws Exception {
+		insert("asset.insertAsset", dto);
 	}
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.houseledger.app.ledger.dao.AssetDAO;
+import com.houseledger.app.ledger.dto.AssetInsertDTO;
 
 @Service
 public class AssetServiceImpl implements AssetService {
@@ -57,6 +58,50 @@ public class AssetServiceImpl implements AssetService {
 		
 		// 다음 asset_order는 현재 asset_order로 바꾸기
 		assetDAO.updateAssetOrder(nextAssetIdx, currentAssetOrder, user_idx);
+	}
+	
+	// 통장 목록 불러오기
+	public List<Map<String, Object>> getBankAssetList(String user_idx) throws Exception {
+		return assetDAO.selectBankAssetList(user_idx);
+	}
+	
+	// 마지막 자산 순서 불러오기
+	public Integer getLastAssetOrder(String user_idx) throws Exception {
+		return assetDAO.selectLastAssetOrder(user_idx);
+	}
+	
+	// AssetInsertDTO 값 설정
+	public void checkAssetInsertDTO(AssetInsertDTO dto) {
+		
+		// initial_amount가 없을 경우 또는 asset_type이 "체크"인 경우initial_amount는 "0"
+		if(dto.getInitial_amount().isEmpty() 
+				|| dto.getInitial_amount() == null 
+				|| dto.getAsset_type().contentEquals("체크")) {
+			dto.setInitial_amount("0");
+		}
+		
+		// asset_type이 "현금", "통장"인 경우 connection_asset_idx은 null값으로 지정
+		if(dto.getAsset_type().equals("현금") || dto.getAsset_type().equals("통장")) {
+			dto.setConnection_asset_idx(null);
+		}
+		
+	}
+	
+	// 자산 추가
+	public void insertAsset(AssetInsertDTO dto) throws Exception {
+			
+		checkAssetInsertDTO(dto);
+		
+		// 마지막 자산 순서 구하기
+		String order = Integer.toString(getLastAssetOrder(dto.getUser_idx())+1);
+		if(order == null) {
+			order = "0";
+		}
+		dto.setAsset_order(order);
+		
+		// insert
+		assetDAO.insertAsset(dto);
+			
 	}
 	
 
