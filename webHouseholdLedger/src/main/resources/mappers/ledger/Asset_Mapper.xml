@@ -2,6 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="asset">
+
+	<select id="asset.selectAssetOne" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT 
+			ASSET_IDX
+			, USER_IDX
+			, ASSET_ORDER
+			, ASSET_TYPE
+			, CONNECTION_ASSET_IDX
+			, ASSET_NAME
+			, INITIAL_AMOUNT, REG_DATE
+		FROM 
+			ASSET
+		WHERE
+			ASSET_IDX = #{asset_idx}
+		AND
+			USER_IDX = #{user_idx}
+		]]>
+	</select>
 	
     <select id="asset.selectAssetList" parameterType="String" resultType="hashmap">
     	<![CDATA[
@@ -193,4 +212,45 @@
 			, #{initial_amount})
 		]]>
 	</insert>
+	
+	<update id="asset.updateAsset" parameterType="assetUpdateDTO">
+		<![CDATA[
+		UPDATE 
+			ASSET
+		SET 
+		]]>
+		<choose>
+			<when test="asset_type == '현금'">
+				<![CDATA[
+				ASSET_NAME = #{asset_name}
+				, INITIAL_AMOUNT = #{initial_amount}
+				]]>
+			</when>
+			<when test="asset_type == '통장'">
+				<![CDATA[
+				ASSET_NAME = #{asset_name}
+				, INITIAL_AMOUNT = #{initial_amount}
+				]]>
+			</when>
+			<when test="asset_type == '체크'">
+				<![CDATA[
+				ASSET_NAME = #{asset_name}
+				, CONNECTION_ASSET_IDX = #{connection_asset_idx}
+				]]>
+			</when>
+			<when test="asset_type == '신용'">
+				<![CDATA[
+				ASSET_NAME = #{asset_name}
+				, INITIAL_AMOUNT = #{initial_amount}
+				, CONNECTION_ASSET_IDX = #{connection_asset_idx}
+				]]>
+			</when>
+		</choose>
+		<![CDATA[
+		WHERE
+			USER_IDX = #{user_idx}
+		AND
+			ASSET_IDX = #{asset_idx}
+		]]>
+	</update>
 </mapper>

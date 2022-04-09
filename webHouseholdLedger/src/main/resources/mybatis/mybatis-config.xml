@@ -24,6 +24,7 @@
             <typeAlias type="com.houseledger.app.mail.dto.SelectMailDTO" alias="selectMailDTO"/>
             <typeAlias type="com.houseledger.app.mail.dto.MailDTO" alias="mailDTO"/>
             <typeAlias type="com.houseledger.app.ledger.dto.AssetInsertDTO" alias="assetInsertDTO"/>
+            <typeAlias type="com.houseledger.app.ledger.dto.AssetUpdateDTO" alias="assetUpdateDTO"/>
     </typeAliases>
 
 </configuration>

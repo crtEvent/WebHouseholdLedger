@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.houseledger.app.ledger.dao.AssetDAO;
 import com.houseledger.app.ledger.dto.AssetInsertDTO;
+import com.houseledger.app.ledger.dto.AssetUpdateDTO;
 
 @Service
 public class AssetServiceImpl implements AssetService {
@@ -20,6 +21,11 @@ public class AssetServiceImpl implements AssetService {
 
 	@Resource(name = "assetDAO")
 	AssetDAO assetDAO;
+	
+	// 자산 정보 불러오기
+	public Map<String, Object> getAssetOne(String asset_idx, String user_idx) throws Exception {
+		return assetDAO.selectAssetOne(asset_idx, user_idx);
+	}
 	
 	// 자산 목록 디테일 불러오기
 	public List<Map<String, Object>> getAssetDetailedList(String user_idx) throws Exception {
@@ -104,5 +110,8 @@ public class AssetServiceImpl implements AssetService {
 			
 	}
 	
-
+	// 자산 수정
+	public void updateAsset(AssetUpdateDTO dto) throws Exception {
+		assetDAO.updateAsset(dto);
+	}
 }

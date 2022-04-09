@@ -2,6 +2,7 @@
  * 
  */
 var insertForm = $("#assetInsertForm");
+var updateForm = $("#assetUpdateForm");
 
 /* 자산 추가 Modal창 열기 */
 function fn_openInsertModal(){
@@ -11,9 +12,10 @@ function fn_openInsertModal(){
 /* Modal창 닫기 */
 function fn_closeModal(){
 	$("#insert-asset-modal").modal("hide");
+	$("#update-asset-modal").modal("hide");
 }
 
-//input:radio[name=asset_type]에 따라 Modal form변화
+// [INSERT MODAL FORM 변화]: input:radio[name=asset_type]에 따라 Modal form변화
 insertForm.find("input:radio[name=asset_type]").click(function(){
 	
 	if(insertForm.find("input:radio[name='asset_type'][value='현금']").is(":checked")){
@@ -44,8 +46,125 @@ insertForm.find("input:radio[name=asset_type]").click(function(){
 	
 });
 
+// 자산 수정 Modal창 열기
+function openUpdateModal(asset_idx) {
+	
+	$.ajax({
+		url: '/app/ledger/getAssetOne.do',
+		data: {asset_idx: asset_idx},
+		type: 'post',
+		success: function(result){
+			// asset_idx 설정
+			updateForm.find('input[name=asset_idx]').val(result.ASSET_IDX);
+			
+			// asset_type 에 따라 Form 변경
+			let asset_type = result.ASSET_TYPE;
+			switch(asset_type) {
+			case "현금":
+				// 체크박스 활성/비활성
+				updateForm.find("input:radio[name=asset_type][value='현금']").prop("disabled", false);
+				updateForm.find("input:radio[name=asset_type][value='통장']").prop("disabled", true);
+				updateForm.find("input:radio[name=asset_type][value='체크']").prop("disabled", true);
+				updateForm.find("input:radio[name=asset_type][value='신용']").prop("disabled", true);
+				
+				// asset_type 체크
+				updateForm.find("input:radio[name=asset_type][value='현금']").prop("checked", true);
+				
+				// updateForm 변경
+				updateForm.find("#updateCashAssetsDiv").show();
+				updateForm.find("#updateCardAssetsDiv").hide();
+				
+				// 연결 통장 목록 제거
+				fn_deleteBankAssetList();
+				
+				// 값 설정
+				updateForm.find('input[name=asset_name]').val(result.ASSET_NAME);
+				updateForm.find('input[name=initial_amount]').val(result.INITIAL_AMOUNT);
+				
+				break;
+			case "통장":
+				// 체크박스 활성/비활성
+				updateForm.find("input:radio[name=asset_type][value='현금']").prop("disabled", true);
+				updateForm.find("input:radio[name=asset_type][value='통장']").prop("disabled", false);
+				updateForm.find("input:radio[name=asset_type][value='체크']").prop("disabled", true);
+				updateForm.find("input:radio[name=asset_type][value='신용']").prop("disabled", true);
+				
+				// asset_type 체크
+				updateForm.find("input:radio[name=asset_type][value='통장']").prop("checked", true);
+				
+				// updateForm 변경
+				updateForm.find("#updateCashAssetsDiv").show();
+				updateForm.find("#updateCardAssetsDiv").hide();
+				
+				// 연결 통장 목록 제거
+				fn_deleteBankAssetList();
+				
+				// 값 설정
+				updateForm.find('input[name=asset_name]').val(result.ASSET_NAME);
+				updateForm.find('input[name=initial_amount]').val(result.INITIAL_AMOUNT);
+				
+				break;
+			case "체크":
+				// 체크박스 활성/비활성
+				updateForm.find("input:radio[name=asset_type][value='현금']").prop("disabled", true);
+				updateForm.find("input:radio[name=asset_type][value='통장']").prop("disabled", true);
+				updateForm.find("input:radio[name=asset_type][value='체크']").prop("disabled", false);
+				updateForm.find("input:radio[name=asset_type][value='신용']").prop("disabled", true);
+				
+				// asset_type 체크
+				updateForm.find("input:radio[name=asset_type][value='체크']").prop("checked", true);
+				
+				// updateForm 변경
+				updateForm.find("#updateCashAssetsDiv").hide();
+				updateForm.find("#updateCardAssetsDiv").show();
+				
+				// 연결 통장 목록 제거
+				fn_deleteBankAssetList();
+				// 연결 통장 목록 보여주기
+				fn_getBankAssetList(result.CONNECTION_ASSET_IDX);
+				
+				// 값 설정
+				updateForm.find('input[name=asset_name]').val(result.ASSET_NAME);
+				updateForm.find('input[name=initial_amount]').val('0');
+				
+				break;
+			case "신용":
+				// 체크박스 활성/비활성
+				updateForm.find("input:radio[name=asset_type][value='현금']").prop("disabled", true);
+				updateForm.find("input:radio[name=asset_type][value='통장']").prop("disabled", true);
+				updateForm.find("input:radio[name=asset_type][value='체크']").prop("disabled", true);
+				updateForm.find("input:radio[name=asset_type][value='신용']").prop("disabled", false);
+				
+				// asset_type 체크
+				updateForm.find("input:radio[name=asset_type][value='신용']").prop("checked", true);
+				
+				// updateForm 변경
+				updateForm.find("#updateCashAssetsDiv").show();
+				updateForm.find("#updateCardAssetsDiv").show();
+				
+				// 연결 통장 목록 제거
+				fn_deleteBankAssetList();
+				// 연결 통장 목록 보여주기
+				fn_getBankAssetList(result.CONNECTION_ASSET_IDX);
+				
+				// 값 설정
+				updateForm.find('input[name=asset_name]').val(result.ASSET_NAME);
+				updateForm.find('input[name=initial_amount]').val(result.INITIAL_AMOUNT);
+				break;
+			}
+			
+			$("#update-asset-modal").modal("show");
+			
+		}, // success끝 
+		error: function(){
+			alert("요청이 실패했거나 서비스가 제시간에 응답하지 못했습니다. 다시 시도해주세요.");
+		}
+	}); // ajax 끝
+	
+}
+
 // 연결 통장 목록 불러오기 - insert modal의 select tag에 붙이기
-function fn_getBankAssetList() {
+function fn_getBankAssetList(connection_asset_idx) {
 	
 	var $select = $('select[name=connection_asset_idx]');
 	var $option;
@@ -57,12 +176,16 @@ function fn_getBankAssetList() {
 			$(result).each(function(){
 				$option = '<option value="'+this.ASSET_IDX+'">'+this.ASSET_NAME+'</option>';
 				$select.append($option);
-			});
-		},
+			}); // each 끝
+			
+			if(connection_asset_idx != undefined) {
+				updateForm.find('[name=connection_asset_idx]').val(connection_asset_idx).prop("selected", true);
+			}
+		}, // success 끝
 		error: function(){
 			
 		}
-	});
+	}); // ajax 끝
 	
 };
 
@@ -73,7 +196,7 @@ function fn_deleteBankAssetList() {
 
 // 자산 추가 submit 하기
 function fn_insertAsset() {
-	if(!fn_validAssetName()){
+	if(!fn_validAssetName(insertForm)){
 		return;
 	}
 	
@@ -81,18 +204,28 @@ function fn_insertAsset() {
 	insertForm[0].submit();
 }
 
+// 자산 수정 submit 하기
+function fn_updateAsset() {
+	if(!fn_validAssetName(updateForm)){
+		return;
+	}
+	
+	updateForm[0].action = "/app/ledger/updateAsset.do";
+	updateForm[0].submit();
+}
+
 // 유효성 검사: 자산 이름
-function fn_validAssetName() {
-	var nameLength = $('input[name=asset_name]').val().length;
-	alert(nameLength);
+function fn_validAssetName(from) {
+	var nameLength = from.find('input[name=asset_name]').val().length;
+	
 	if(nameLength == 0) {
 		alert("자산 이름을 입력해 주세요.");
-		$('input[name=asset_name]').focus();
+		from.find('input[name=asset_name]').focus();
 		return false;
 	}
 	if(nameLength > 45) {
 		alert("자산 이름은 45자 이내로 작성해 주세요.");
-		$('input[name=asset_name]').focus();
+		from.find('input[name=asset_name]').focus();
 		return false;
 	}
 	return true;

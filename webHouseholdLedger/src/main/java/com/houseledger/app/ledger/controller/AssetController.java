@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.houseledger.app.ledger.dto.AssetInsertDTO;
+import com.houseledger.app.ledger.dto.AssetUpdateDTO;
 import com.houseledger.app.ledger.service.AssetService;
 import com.houseledger.app.user.vo.UserVO;
 
@@ -34,6 +35,13 @@ public class AssetController {
 		model.addAttribute("assetDetailedList", assetService.getAssetDetailedList(userVO.getUser_idx()));
 		
 		return "ledger/edit_my_asset";
+	}
+	
+	// [기능]: 자산 정보 불러오기
+	@RequestMapping(value="/ledger/getAssetOne.do")
+	@ResponseBody
+	public Map<String, Object> getAssetOne(String asset_idx, @SessionAttribute("userSession")UserVO userVO) throws Exception {
+		return assetService.getAssetOne(asset_idx, userVO.getUser_idx());
 	}
 	
 	// [기능]: 자산 순서 바꾸기 - 순위 Up
@@ -80,6 +88,20 @@ public class AssetController {
 		dto.setUser_idx(userVO.getUser_idx());
 		
 		assetService.insertAsset(dto);
+		
+		// 이전 페이지 URL
+		String referer = request.getHeader("Referer");
+		
+		return "redirect:"+referer;
+	}
+	
+	// [기능]: 자산 수정하기
+	@RequestMapping(value="/ledger/updateAsset.do")
+	public String updateAsset(AssetUpdateDTO dto , @SessionAttribute("userSession")UserVO userVO, HttpServletRequest request) throws Exception {
+		
+		dto.setUser_idx(userVO.getUser_idx());
+		
+		assetService.updateAsset(dto);
 		
 		// 이전 페이지 URL
 		String referer = request.getHeader("Referer");

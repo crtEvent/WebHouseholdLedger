@@ -8,9 +8,18 @@ import org.springframework.stereotype.Repository;
 
 import com.houseledger.app.common.dao.AbstractDAO;
 import com.houseledger.app.ledger.dto.AssetInsertDTO;
+import com.houseledger.app.ledger.dto.AssetUpdateDTO;
 
 @Repository("assetDAO")
 public class AssetDAO extends AbstractDAO {
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectAssetOne(String asset_idx, String user_idx) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("asset_idx", asset_idx);
+		map.put("user_idx", user_idx);
+		return (Map<String, Object>) selectOne("asset.selectAssetOne", map);
+	}
 	
 	// 자산 목록 디테일 불러오기
 	@SuppressWarnings("unchecked")
@@ -66,6 +75,11 @@ public class AssetDAO extends AbstractDAO {
 	// 자산 추가
 	public void insertAsset(AssetInsertDTO dto) throws Exception {
 		insert("asset.insertAsset", dto);
+	}
+	
+	// 자산 수정
+	public void updateAsset(AssetUpdateDTO dto) throws Exception {
+		update("asset.updateAsset", dto);
 	}
 	
 }

@@ -83,7 +83,7 @@
 																	<i class="fas fa-arrow-alt-circle-down"></i>
 																</button>
 																<button class="btn btn-primary btn-sm" title="수정"
-																	name="btnUpdateAsset">
+																	name="btnUpdateAsset" onclick="openUpdateModal(${row_body.ASSET_IDX })">
 																	<i class="fas fa-pencil-alt"></i>
 																</button>
 																<button class="btn btn-danger btn-sm" title="삭제"
@@ -111,6 +111,7 @@
 		<!-- /.content wrapper -->
 		
 		<%@include file="./asset_insert_modal.jsp"%>
+		<%@include file="./asset_update_modal.jsp"%>
 		<%@include file="../include/include_main_footer.jsp" %>
 	</div>
 	<!-- /.wrapper -->
