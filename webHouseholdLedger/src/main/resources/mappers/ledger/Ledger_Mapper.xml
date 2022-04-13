@@ -5,21 +5,80 @@
 	
 	<select id="ledger.selectLedgerList" parameterType="ledgerSelectDTO" resultType="hashmap">
     	<![CDATA[
-		SELECT LEDGER_IDX, DATE, INCOME_AND_EXPENSES, CATEGORY, DESCRIPTION, AMOUNT, ASSET, FORMER_ASSET, LATTER_ASSET
-		FROM LEDGER
-		WHERE USER_IDX = #{user_idx}
-		AND DATE = #{date}
-		ORDER BY DATE DESC;
+		SELECT 
+			L.LEDGER_IDX
+			, L.DATE
+			, L.INCOME_AND_EXPENSES
+			, L.CATEGORY
+			, (CASE
+				WHEN INCOME_AND_EXPENSES = '수입' OR INCOME_AND_EXPENSES = '지출' 
+                THEN L.DESCRIPTION
+                WHEN INCOME_AND_EXPENSES = '이동'
+                THEN CONCAT(
+					(SELECT FL.ASSET_NAME
+                    FROM ASSET FL
+                    WHERE FL.ASSET_IDX = L.FORMER_ASSET)
+                    , ' → '
+                    , (SELECT LL.ASSET_NAME
+                    FROM ASSET LL
+                    WHERE LL.ASSET_IDX = L.LATTER_ASSET))
+				END) DESCRIPTION
+			, L.AMOUNT
+			, L.ASSET_IDX
+			, A.ASSET_NAME AS ASSET
+			, L.FORMER_ASSET
+			, L.LATTER_ASSET
+		FROM 
+			LEDGER L
+		LEFT JOIN 
+			ASSET A
+		ON 
+			L.ASSET_IDX = A.ASSET_IDX
+		WHERE 
+			L.USER_IDX = #{user_idx}
+		AND 
+			L.DATE = #{date}
+		ORDER BY 
+			L.DATE DESC;
         ]]>
     </select>
     
     <select id="ledger.selectLedgerListByPeriod" parameterType="ledgerSelectDTO" resultType="hashmap">
     	<![CDATA[
-		SELECT LEDGER_IDX, DATE, INCOME_AND_EXPENSES, CATEGORY, DESCRIPTION, AMOUNT, ASSET, FORMER_ASSET, LATTER_ASSET
-		FROM LEDGER
-		WHERE USER_IDX = #{user_idx}
-		AND DATE BETWEEN #{start_date} AND #{end_date}
-		ORDER BY DATE DESC;
+		SELECT 
+			L.LEDGER_IDX
+			, L.DATE
+			, L.INCOME_AND_EXPENSES
+			, L.CATEGORY
+			, (CASE
+				WHEN INCOME_AND_EXPENSES = '수입' OR INCOME_AND_EXPENSES = '지출' 
+                THEN L.DESCRIPTION
+                WHEN INCOME_AND_EXPENSES = '이동'
+                THEN CONCAT(
+					(SELECT FL.ASSET_NAME
+                    FROM ASSET FL
+                    WHERE FL.ASSET_IDX = L.FORMER_ASSET)
+                    , ' → '
+                    , (SELECT LL.ASSET_NAME
+                    FROM ASSET LL
+                    WHERE LL.ASSET_IDX = L.LATTER_ASSET))
+				END) DESCRIPTION
+			, L.AMOUNT
+			, A.ASSET_NAME AS ASSET
+			, L.FORMER_ASSET
+			, L.LATTER_ASSET
+		FROM 
+			LEDGER L
+        LEFT JOIN 
+       		ASSET A
+        ON 
+        	L.ASSET_IDX = A.ASSET_IDX
+		WHERE 
+			L.USER_IDX = #{user_idx}
+		AND 
+			L.DATE BETWEEN #{start_date} AND #{end_date}
+		ORDER BY 
+			L.DATE DESC;
         ]]>
     </select>
     
@@ -66,9 +125,9 @@
     <insert id="ledger.insertIncomeAndExpensesLedger" parameterType="ledgerInsertDTO">
     	<![CDATA[
     	INSERT INTO LEDGER
-    		(USER_IDX, DATE, INCOME_AND_EXPENSES, CATEGORY, DESCRIPTION, AMOUNT, ASSET)
+    		(USER_IDX, DATE, INCOME_AND_EXPENSES, CATEGORY, DESCRIPTION, AMOUNT, ASSET_IDX)
     	VALUES
-    		(#{user_idx}, #{date}, #{income_and_expenses}, #{category}, #{description}, #{amount}, #{asset})
+    		(#{user_idx}, #{date}, #{income_and_expenses}, #{category}, #{description}, #{amount}, #{asset_idx})
     	]]>
     </insert>
     

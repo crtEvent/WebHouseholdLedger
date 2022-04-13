@@ -43,7 +43,8 @@ public class LedgerServiceImpl implements LedgerService {
 
 	@Resource(name = "ledgerDAO")
 	LedgerDAO ledgerDAO;
-
+	
+	// 가계부목록 디테일
 	public LedgerDetailsDTO getLedgerDetails(LedgerSelectDTO ledgerSelectDTO) throws Exception {
 
 		LedgerDetailsDTO ledgerDetailDTO = new LedgerDetailsDTO();
@@ -84,7 +85,8 @@ public class LedgerServiceImpl implements LedgerService {
 
 		return ledgerDetailDTO;
 	}
-
+	
+	// 가계부 달력으로 보기
 	public LedgerCalendarDTO getLedgerCalendar(LedgerSelectDTO ledgerSelectDTO) throws Exception {
 
 		LedgerCalendarDTO ledgerCalendarDTO = new LedgerCalendarDTO();

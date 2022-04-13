@@ -80,9 +80,9 @@
 							<div class="input-group-prepend">
 								<button type="button" class="btn btn-default">자산</button>
 							</div>
-							<select name="asset" class="form-control">
+							<select name="asset_idx" class="form-control">
 								<c:forEach var="asset" items="${assetList }">
-									<option value="${asset.ASSET_NAME }">${asset.ASSET_NAME }</option>
+									<option value="${asset.ASSET_IDX }">${asset.ASSET_NAME }</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -95,7 +95,7 @@
 							</div>
 							<select name="former_asset" class="form-control">
 								<c:forEach var="asset" items="${assetList }">
-									<option value="${asset.ASSET_NAME }">${asset.ASSET_NAME }</option>
+									<option value="${asset.ASSET_IDX }">${asset.ASSET_NAME }</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -108,7 +108,7 @@
 							</div>
 							<select name="latter_asset" class="form-control">
 								<c:forEach var="asset" items="${assetList }">
-									<option value="${asset.ASSET_NAME }">${asset.ASSET_NAME }</option>
+									<option value="${asset.ASSET_IDX }">${asset.ASSET_NAME }</option>
 								</c:forEach>
 							</select>
 						</div>

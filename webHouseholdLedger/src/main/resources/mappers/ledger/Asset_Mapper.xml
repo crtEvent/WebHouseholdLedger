@@ -24,7 +24,7 @@
 	
     <select id="asset.selectAssetList" parameterType="String" resultType="hashmap">
     	<![CDATA[
-    	SELECT ASSET_IDX, ASSET_NAME
+    	SELECT ASSET_IDX, CONCAT(ASSET_NAME,' (',ASSET_TYPE,')') ASSET_NAME
     	FROM ASSET
     	WHERE USER_IDX = #{user_idx}
     	]]>
@@ -55,6 +55,28 @@
 					WHERE L.ASSET_IDX = A.ASSET_IDX
 					AND L.USER_IDX = #{user_idx})
              		+ A.INITIAL_AMOUNT
+             		+ (
+						SELECT 
+							IFNULL(SUM(LL.AMOUNT),0)
+						FROM 
+							LEDGER LL
+						WHERE 
+							LL.USER_IDX = #{user_idx}
+            			AND 
+            				LL.INCOME_AND_EXPENSES = '이동'
+						AND 
+							LL.LATTER_ASSET = A.ASSET_IDX)
+           			 - (
+						SELECT 
+							IFNULL(SUM(FL.AMOUNT),0)
+						FROM 
+							LEDGER FL
+						WHERE 
+							FL.USER_IDX = #{user_idx}
+           			 	AND 
+           			 		FL.INCOME_AND_EXPENSES = '이동'
+						AND 
+							FL.FORMER_ASSET = A.ASSET_IDX)
 				WHEN 
 					ASSET_TYPE = "통장"
 				THEN 
@@ -84,6 +106,28 @@
 					   WHERE JA.CONNECTION_ASSET_IDX = A.ASSET_IDX
                 	   AND JA.ASSET_TYPE = "체크"
                 	   AND L.USER_IDX = #{user_idx})
+                	+ (
+						SELECT 
+							IFNULL(SUM(LL.AMOUNT),0)
+						FROM 
+							LEDGER LL
+						WHERE 
+							LL.USER_IDX = #{user_idx}
+            			AND 
+            				LL.INCOME_AND_EXPENSES = '이동'
+						AND 
+							LL.LATTER_ASSET = A.ASSET_IDX)
+           			- (
+						SELECT 
+							IFNULL(SUM(FL.AMOUNT),0)
+						FROM 
+							LEDGER FL
+						WHERE 
+							FL.USER_IDX = #{user_idx}
+           			 	AND 
+           			 		FL.INCOME_AND_EXPENSES = '이동'
+						AND 
+							FL.FORMER_ASSET = A.ASSET_IDX)
 				END AS BALANCE
 		FROM ASSET A
 		WHERE USER_IDX = #{user_idx}

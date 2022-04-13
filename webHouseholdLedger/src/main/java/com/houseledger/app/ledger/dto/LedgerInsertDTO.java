@@ -9,6 +9,7 @@ public class LedgerInsertDTO {
 	private String category;
 	private String description;
 	private String amount;
+	private String asset_idx;
 	private String asset;
 	private String former_asset;
 	private String latter_asset;
@@ -54,6 +55,12 @@ public class LedgerInsertDTO {
 	}
 	public void setAmount(String amount) {
 		this.amount = amount;
+	}
+	public String getAsset_idx() {
+		return asset_idx;
+	}
+	public void setAsset_idx(String asset_idx) {
+		this.asset_idx = asset_idx;
 	}
 	public String getAsset() {
 		return asset;
