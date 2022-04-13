@@ -41,6 +41,34 @@
         </mvc:interceptor>
     </mvc:interceptors>
     
+	<!-- AuthUserInterceptor -->
+	<mvc:interceptors>
+        <mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/user/**"/>
+			<mvc:exclude-mapping path="/sample/**"/>
+			<mvc:exclude-mapping path="/admin/**"/>
+			<mvc:exclude-mapping path="/resources/**"/>
+			<beans:bean id="AuthUserInterceptor" class="com.houseledger.app.common.auth.AuthUserInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- AuthAdminInterceptor -->
+	<mvc:interceptors>
+        <mvc:interceptor>
+			<mvc:mapping path="/admin/**"/>
+			<beans:bean id="AuthAdminInterceptor" class="com.houseledger.app.common.auth.AuthAdminInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- AuthSignInInterceptor -->
+	<mvc:interceptors>
+        <mvc:interceptor>
+			<mvc:mapping path="/user/**"/>
+			<beans:bean id="AuthSignInInterceptor" class="com.houseledger.app.common.auth.AuthSignInInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+    
     <!-- MenuInterceptor -->
 	<mvc:interceptors>
         <mvc:interceptor>
