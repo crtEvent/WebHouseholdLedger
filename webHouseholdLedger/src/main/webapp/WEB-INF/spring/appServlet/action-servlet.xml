@@ -65,6 +65,9 @@
 	<mvc:interceptors>
         <mvc:interceptor>
 			<mvc:mapping path="/user/**"/>
+			<mvc:exclude-mapping path="/user/checkID.do"/>
+			<mvc:exclude-mapping path="/user/checkPW.do"/>
+			<mvc:exclude-mapping path="/user/checkEmail.do"/>
 			<beans:bean id="AuthSignInInterceptor" class="com.houseledger.app.common.auth.AuthSignInInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

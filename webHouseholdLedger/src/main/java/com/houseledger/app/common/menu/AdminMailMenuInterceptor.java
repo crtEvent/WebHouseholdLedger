@@ -16,7 +16,6 @@ public class AdminMailMenuInterceptor extends HandlerInterceptorAdapter {
 		String menu = "admin";
 		String subMenu = "email";
 		
-		System.out.println("servletPath: "+servletPath+", menu: "+menu+", subMenu: "+subMenu);
 		modelAndView.addObject("menu", "admin");
 		modelAndView.addObject("subMenu", "email");
 		

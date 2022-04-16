@@ -9,15 +9,18 @@ let check_ch_pw = false;
 /* old_user_pw 유효성 검사 */
 function fn_validOldUserPassword() {
 	let old_pw = $('#old_user_password').val();
-	if(old_pw == '') {
+	if(old_pw.length == 0) {
 		$('#msg_old_user_pw').text('기존 비밀번호를 입력해 주세요.');
 		check_old_pw = false;
+		return;
 	}
 	check_old_pw = true;
+	$('#msg_old_user_pw').text('');
 }
 
 /* user_pw 유효성 검사 */
 function fn_validUserPassword() {
+	
 	let dataToSend = {user_pw : $('#new_user_password').val()};
 	$.ajax({
 		url: '/app/user/checkPW.do',
@@ -45,6 +48,7 @@ function fn_validUserPasswordCheck() {
 		$('#msg_user_pw_check').text('Password가 동일하지 않습니다.');
 		check_ch_pw = false;
 	}else{
+		$('#msg_user_pw_check').text('');
 		let dataToSend = {user_pw : $('#new_user_password_check').val()};
 		$.ajax({
 			url: '/app/user/checkPW.do',

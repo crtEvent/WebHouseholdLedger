@@ -22,6 +22,7 @@
 		<p><a href="<c:url value='/ledger/calendar.do'/>">/ledger/calendar.do</p>
 		<p><a href="<c:url value='/user/signin.do'/>">/user/signin.do</p>
 		<p><a href="<c:url value='/user/signup.do'/>">/user/signup.do</p>
+		<p><a href="<c:url value='/user/findUserInfo.do'/>">/user/findUserInfo.do</p>
 	</div>
 	<div>
 		<p><a href="<c:url value='/stats/category.do'/>">/stats/category.do</p>
