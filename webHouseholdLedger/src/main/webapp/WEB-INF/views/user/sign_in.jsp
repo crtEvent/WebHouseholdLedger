@@ -57,7 +57,7 @@
 
 				<div class="text-center mt-2 mb-3">
 					<p>- OR -</p>
-					<a href="#" class="btn btn-block btn-primary">
+					<a href="<c:url value='/user/findUserInfo.do'/>" class="btn btn-block btn-primary">
 						<i class="fab mr-2"></i> 아이디/비밀번호 찾기
 					</a>
 					<a href="<c:url value='/user/signup.do'/>" class="btn btn-block btn-danger">

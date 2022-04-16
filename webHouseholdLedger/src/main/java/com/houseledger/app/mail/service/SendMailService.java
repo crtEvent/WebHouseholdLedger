@@ -26,7 +26,7 @@ public class SendMailService {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 			
 			messageHelper.setTo(writeMailDTO.getMail_to()); // 받는 사람 주소
-			messageHelper.setFrom("보내는 메일 주소", "웹가계부"); // 보내는 사람
+			messageHelper.setFrom("네이버 메일", "웹가계부"); // 보내는 사람
 			messageHelper.setSubject(writeMailDTO.getMail_subject()); // 제목
 			messageHelper.setText(writeMailDTO.getMail_content(), true); // 내용
 			
