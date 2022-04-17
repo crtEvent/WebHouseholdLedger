@@ -19,7 +19,7 @@ public class AuthAdminInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(true);
 		UserVO userSession = (UserVO) session.getAttribute("userSession");
 		
 		if(userSession.getUser_idx().equals("1")) {
