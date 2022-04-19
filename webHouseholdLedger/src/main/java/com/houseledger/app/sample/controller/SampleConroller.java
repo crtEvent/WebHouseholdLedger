@@ -111,5 +111,11 @@ public class SampleConroller {
 		
 		return "";
 	}
+	
+	@RequestMapping(value="/sample/error500.do")
+	public String serverError() throws Exception {
+		
+		throw new Exception();
+	}
 
 }
