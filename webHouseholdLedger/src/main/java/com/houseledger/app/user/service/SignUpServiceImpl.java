@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
+import com.houseledger.app.ledger.dao.AssetDAO;
+import com.houseledger.app.ledger.dto.AssetInsertDTO;
 import com.houseledger.app.user.dao.SignUpDAO;
 import com.houseledger.app.user.vo.SignUpVO;
 
@@ -24,8 +26,11 @@ public class SignUpServiceImpl implements SignUpService{
 	@Resource(name="signUpDAO")
 	SignUpDAO signUpDAO;
 	
+	@Resource(name = "assetDAO")
+	AssetDAO assetDAO;
+	
 	// 회원가입
-	public void executeSignUp(SignUpVO signUpVO) throws Exception{
+	public String executeSignUp(SignUpVO signUpVO) throws Exception{
 		
 		// 비밀번호 암호화
 		signUpVO.setUser_password(BCrypt.hashpw(signUpVO.getUser_password(), BCrypt.gensalt()));
@@ -33,6 +38,21 @@ public class SignUpServiceImpl implements SignUpService{
 		// 회원정보 INSERT
 		signUpDAO.insertUser(signUpVO);
 		
+		// insert 후 user_idx 추출 (useGeneratedKeys="true" keyProperty="user_idx")
+		return signUpVO.getUser_idx();
+		
+	}
+	
+	// 현금 자산 넣기
+	public void insertCashAsset(String user_idx) throws Exception {
+		AssetInsertDTO dto = new AssetInsertDTO();
+		dto.setUser_idx(user_idx);
+		dto.setAsset_order("1");
+		dto.setAsset_name("현금");
+		dto.setAsset_type("현금");
+		dto.setInitial_amount("0");
+		
+		assetDAO.insertAsset(dto);
 	}
 	
 	// 아이디 중복 체크

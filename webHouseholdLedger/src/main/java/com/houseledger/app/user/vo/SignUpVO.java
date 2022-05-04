@@ -9,6 +9,8 @@ import org.hibernate.validator.constraints.Length;
 
 public class SignUpVO {
 	
+	private String user_idx;
+	
 	@NotBlank(message="아이디를 입력해 주세요.")
 	@Pattern(regexp="^(?=.*\\d)(?=.*[a-zA-Z]).{5,20}$", message="ID는 영문, 숫자를 조합하여, 5자 이상 20자 이내로 적어주세요.")
 	@Length(min=5, max=20, message="ID는 영문, 숫자를 조합하여, 5자 이상 20자 이내로 적어주세요.")
@@ -46,6 +48,15 @@ public class SignUpVO {
 			+ "O9ancN3lZm2NEXvZWvbLfqvg1PVxhYDLqzxlborMPiu1KNf+sd/lhD94US7px28v/8XHp/Efx4T/QFP/CdGdasX7xFU9GdazR6iPSSL/9Qt/mO8+M8F4z9ojP/"
 			+ "kMo3+KDSN/2w1jf6wtvTEqE9/W1d3r4CvgP9FwL8BeeIx29kBsUQAAAAASUVORK5CYII=";
 	
+	
+	public String getUser_idx() {
+		return user_idx;
+	}
+
+	public void setUser_idx(String user_idx) {
+		this.user_idx = user_idx;
+	}
+
 	public String getUser_id() {
 		return user_id;
 	}

@@ -3,7 +3,7 @@
  
 <mapper namespace="signUp">
 	
-	<insert id="signUp.insertUser" parameterType="signUpVO">
+	<insert id="signUp.insertUser" useGeneratedKeys="true" keyProperty="user_idx" parameterType="signUpVO">
 		<![CDATA[
 		INSERT INTO USERS
 			(USER_ID, USER_PASSWORD, USER_EMAIL, RECEIVE_MAIL, USER_IMAGE)

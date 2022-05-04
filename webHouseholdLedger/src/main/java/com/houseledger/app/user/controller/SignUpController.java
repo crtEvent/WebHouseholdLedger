@@ -48,8 +48,11 @@ public class SignUpController {
 			return "user/sign_up";
 		}
 		
-		// insert 회원가입
-		signUpService.executeSignUp(signUpVO);
+		// insert 회원가입 후 user_idx 가져오기
+		String user_idx = signUpService.executeSignUp(signUpVO);
+		
+		// 현금자산 추가
+		signUpService.insertCashAsset(user_idx);
 		
 		// 회원가입 성공
 		return "redirect:/user/signin.do";

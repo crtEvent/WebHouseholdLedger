@@ -7,7 +7,9 @@ import com.houseledger.app.user.vo.SignUpVO;
 
 public interface SignUpService {
 	
-	public void executeSignUp(SignUpVO signUpVO) throws Exception;
+	public String executeSignUp(SignUpVO signUpVO) throws Exception;
+	
+	public void insertCashAsset(String user_idx) throws Exception;
 	
 	public boolean checkDuplicateUserId(String user_id) throws Exception;
 	
