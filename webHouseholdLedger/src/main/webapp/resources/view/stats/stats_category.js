@@ -11,7 +11,7 @@ $(document).ready(function(){
 	
 	for(var i = 1; i <= incomeListSize; i++){
 		incomeLabelArray.push($('#incomeDataTable').find('tbody tr:nth-child('+i+') td:nth-child(1)').text());
-		incomeDataArray.push($('#incomeDataTable').find('tbody tr:nth-child('+i+') td:nth-child(2)').text());
+		incomeDataArray.push($('#incomeDataTable').find('tbody tr:nth-child('+i+') td:nth-child(2)').text().replace(/,/g,''));
 	}
 	
 	var incomePieChartCanvas = $('#incomePieChart').get(0).getContext('2d');
@@ -46,7 +46,7 @@ $(document).ready(function(){
 	
 	for(var i = 1; i <= expensesListSize; i++){
 		expensesLabelsArray.push($('#expensesDataTable').find('tbody tr:nth-child('+i+') td:nth-child(1)').text());
-		expensesDataArray.push($('#expensesDataTable').find('tbody tr:nth-child('+i+') td:nth-child(2)').text());
+		expensesDataArray.push($('#expensesDataTable').find('tbody tr:nth-child('+i+') td:nth-child(2)').text().replace(/,/g,''));
 	}
 	
 	var expensesPieChartCanvas = $('#expensesPieChart').get(0).getContext('2d');

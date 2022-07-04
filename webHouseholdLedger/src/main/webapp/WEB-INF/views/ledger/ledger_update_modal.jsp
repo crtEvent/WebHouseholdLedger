@@ -118,8 +118,7 @@
 						<div class="input-group-prepend">
 							<button type="button" class="btn btn-default">금액</button>
 						</div>
-						<input name="amount" type="number" autocomplete="off" 
-							min="0" class="form-control">
+						<input name="amount" type="text" autocomplete="off" class="form-control">
 					</div>
 				</form>
 				<!-- /.insert-form -->

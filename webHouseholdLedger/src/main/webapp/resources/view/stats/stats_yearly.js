@@ -8,12 +8,9 @@ $(document).ready(function(){
 	var expensesDataArray = [];
 	
 	for(var i = 1; i <= 12; i++){
-		incomeDataArray.push($('#yearlyDataTable').find('tbody tr:nth-child('+i+') td:nth-child(2)').text());
-		expensesDataArray.push($('#yearlyDataTable').find('tbody tr:nth-child('+i+') td:nth-child(3)').text());
+		incomeDataArray.push($('#yearlyDataTable').find('tbody tr:nth-child('+i+') td:nth-child(2)').text().replace(/,/g,''));
+		expensesDataArray.push($('#yearlyDataTable').find('tbody tr:nth-child('+i+') td:nth-child(3)').text().replace(/,/g,''));
 	}
-	
-	console.log("incomeDataArray: "+incomeDataArray);
-	console.log("expensesDataArray: "+expensesDataArray);
 	
 	var yearlyBarChartCanvas = $('#yearlyBarChart').get(0).getContext('2d');
 	

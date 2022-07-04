@@ -12,7 +12,8 @@
 			, ASSET_TYPE
 			, CONNECTION_ASSET_IDX
 			, ASSET_NAME
-			, INITIAL_AMOUNT, REG_DATE
+			, FORMAT(INITIAL_AMOUNT, 0) AS INITIAL_AMOUNT
+			, REG_DATE
 		FROM 
 			ASSET
 		WHERE
@@ -40,7 +41,7 @@
 			, ASSET_NAME
 			, INITIAL_AMOUNT
 			, REG_DATE
-			, CASE 
+			, FORMAT(CASE 
 				WHEN 
 					ASSET_TYPE = "현금" OR ASSET_TYPE = "신용"
         		THEN 
@@ -128,7 +129,7 @@
            			 		FL.INCOME_AND_EXPENSES = '이동'
 						AND 
 							FL.FORMER_ASSET = A.ASSET_IDX)
-				END AS BALANCE
+				END, 0) AS BALANCE
 		FROM ASSET A
 		WHERE USER_IDX = #{user_idx}
 		ORDER BY ASSET_ORDER ASC;
@@ -253,7 +254,7 @@
 			, #{asset_type}
 			, #{connection_asset_idx}
 			, #{asset_name}
-			, #{initial_amount})
+			, REPLACE(#{initial_amount}, ',', ''))
 		]]>
 	</insert>
 	
@@ -267,13 +268,13 @@
 			<when test="asset_type == '현금'">
 				<![CDATA[
 				ASSET_NAME = #{asset_name}
-				, INITIAL_AMOUNT = #{initial_amount}
+				, INITIAL_AMOUNT = REPLACE(#{initial_amount}, ',', '')
 				]]>
 			</when>
 			<when test="asset_type == '통장'">
 				<![CDATA[
 				ASSET_NAME = #{asset_name}
-				, INITIAL_AMOUNT = #{initial_amount}
+				, INITIAL_AMOUNT = REPLACE(#{initial_amount}, ',', '')
 				]]>
 			</when>
 			<when test="asset_type == '체크'">
@@ -285,7 +286,7 @@
 			<when test="asset_type == '신용'">
 				<![CDATA[
 				ASSET_NAME = #{asset_name}
-				, INITIAL_AMOUNT = #{initial_amount}
+				, INITIAL_AMOUNT = REPLACE(#{initial_amount}, ',', '')
 				, CONNECTION_ASSET_IDX = #{connection_asset_idx}
 				]]>
 			</when>

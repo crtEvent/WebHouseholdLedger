@@ -23,15 +23,25 @@ $("[name=description]").keyup(function(event) {
     }
 });
 
-// amount 유효성 검사: 숫자만 입력 가능 & 15 자리수 제한
+// amount 유효성 검사: 숫자만 입력 가능 & 15 자리수 제한 & 세 자리수 마다 콤마
 $("[name=amount]").keyup(function(event) {
-    var inputVal = $(this).val();
-    $(this).val(inputVal.replace(/[^0-9]/gi,''));
+    // 숫자 이외의 문자 제거
+	var inputVal = $(this).val().replace(/[^0-9]/gi,'');
     
+    // 자리수 제한
     if(inputVal.length > 15) {
     	alert("금액 값은 15자리수 까지만 입력 가능합니다.");
-    	$(this).val(inputVal.slice(0, 15));
+    	inputVal = inputVal.slice(0, 15);
     }
+    
+    // Number(): 문자를숫자로 바꿔서 맨 앞에 0이 들어가는 것을 방지
+    // toString(): 3자리 마다 콤마를 찍기 위해 다시 문자로 변경
+    inputVal = Number(inputVal).toString();
+    
+    // 3자리 수마다 콤마
+    inputVal = inputVal.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    
+    $(this).val(inputVal);
 });
 
 insertForm.find("input:radio[name=income_and_expenses]").click(function(){

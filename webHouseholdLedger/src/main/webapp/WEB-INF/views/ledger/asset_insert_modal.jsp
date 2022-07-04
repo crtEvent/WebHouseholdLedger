@@ -61,8 +61,7 @@
 							<div class="input-group-prepend">
 								<button type="button" class="btn btn-default">초기금액</button>
 							</div>
-							<input name="initial_amount" type="number" autocomplete="off"
-								max="100000000000000" min="-100000000000000" class="form-control">
+							<input name="initial_amount" type="text" autocomplete="off" class="form-control">
 						</div>
 					</div>
 

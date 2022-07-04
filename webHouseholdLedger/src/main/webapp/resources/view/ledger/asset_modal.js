@@ -231,13 +231,34 @@ function fn_validAssetName(from) {
 	return true;
 }
 
-// 유효성 검사: 초기 금액
+// 유효성 검사: 초기 금액 - 숫자만 입력 가능 & 15 자리수 제한 & 세 자리수 마다 콤마
 $("input[name=initial_amount]").keyup(function(event) {
-    var inputVal = $(this).val();
-    $(this).val(inputVal.replace(/[^-][^0-9]/gi,''));
+	
+	// 숫자 이외의 문자 제거 (- 기호와 숫자만 허용)
+	var inputVal = $(this).val().replace(/[^-0-9]/gi,'');
     
+	// 숫자 이외의 문자 제거 (- 기호 표시)
+    if(inputVal.lastIndexOf("-")>0){ //중간에 -가 있다면 replace
+        if(inputVal.indexOf("-")==0){ //음수라면 replace 후 - 붙여준다.
+        	inputVal = "-"+inputVal.replace(/[-]/gi,'');
+        }else{
+        	inputVal = inputVal.replace(/[-]/gi,'');
+        }
+    
+    }
+    
+    // 자리수 제한
     if(inputVal.length > 15) {
     	alert("금액 값은 15자리수 까지만 입력 가능합니다.");
-    	$(this).val(inputVal.slice(0, 15));
+    	inputVal = inputVal.slice(0, 15);
     }
+    
+    // 세 자리수 마다 콤마 찍기
+    var reg = /(^[+-]?\d+)(\d{3})/;
+    while(reg.test(inputVal)) {
+    	inputVal = inputVal.replace(reg, '$1'+','+'$2');
+    }
+    
+    $(this).val(inputVal);
+    
 });

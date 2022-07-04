@@ -109,7 +109,7 @@
 														<td class="text-right">${statsIncome.AMOUNT }</td>
 														<td class="text-right">${statsIncome.RATIO }</td>
 													</tr>
-													<c:set var="totalIncomeAmount" value="${totalIncomeAmount + statsIncome.AMOUNT }" />
+													<c:set var="totalIncomeAmount" value="${totalIncomeAmount + fn:replace(statsIncome.AMOUNT, ',', '') }" />
 													<c:set var="totalIncomeRatio" value="${totalIncomeRatio + statsIncome.RATIO }" />
 												</c:forEach>
 											</tbody>
@@ -166,7 +166,7 @@
 														<td class="text-right">${statsExpenses.AMOUNT }</td>
 														<td class="text-right">${statsExpenses.RATIO }</td>
 													</tr>
-													<c:set var="totalExpensesAmount" value="${totalExpensesAmount + statsExpenses.AMOUNT }" />
+													<c:set var="totalExpensesAmount" value="${totalExpensesAmount + fn:replace(statsExpenses.AMOUNT, ',', '') }" />
 													<c:set var="totalExpensesRatio" value="${totalExpensesRatio + statsExpenses.RATIO }" />
 												</c:forEach>
 											</tbody>
