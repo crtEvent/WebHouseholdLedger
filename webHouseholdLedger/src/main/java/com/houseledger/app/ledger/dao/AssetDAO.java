@@ -82,4 +82,12 @@ public class AssetDAO extends AbstractDAO {
 		update("asset.updateAsset", dto);
 	}
 	
+	// 자산 삭제
+	public void deleteAsset(String asset_idx, String user_idx) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("asset_idx", asset_idx);
+		map.put("user_idx", user_idx);
+		delete("asset.deleteAsset", map);
+	}
+	
 }

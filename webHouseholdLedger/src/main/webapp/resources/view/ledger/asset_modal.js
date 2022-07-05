@@ -3,6 +3,7 @@
  */
 var insertForm = $("#assetInsertForm");
 var updateForm = $("#assetUpdateForm");
+var deleteForm = $("#assetDeleteForm");
 
 /* 자산 추가 Modal창 열기 */
 function fn_openInsertModal(){
@@ -13,6 +14,7 @@ function fn_openInsertModal(){
 function fn_closeModal(){
 	$("#insert-asset-modal").modal("hide");
 	$("#update-asset-modal").modal("hide");
+	$("#delete-asset-modal").modal("show");
 }
 
 // [INSERT MODAL FORM 변화]: input:radio[name=asset_type]에 따라 Modal form변화
@@ -46,8 +48,8 @@ insertForm.find("input:radio[name=asset_type]").click(function(){
 	
 });
 
-// 자산 수정 Modal창 열기
-function openUpdateModal(asset_idx) {
+/* 자산 수정 Modal창 열기 */
+function fn_openUpdateModal(asset_idx) {
 	
 	$.ajax({
 		url: '/app/ledger/getAssetOne.do',
@@ -262,3 +264,14 @@ $("input[name=initial_amount]").keyup(function(event) {
     $(this).val(inputVal);
     
 });
+
+/* 자산 삭제 Modal 열기 */
+function fn_openDeleteModal(asset_idx) {
+	deleteForm.find("[name=asset_idx]").val(asset_idx);
+	$("#delete-asset-modal").modal("show");
+}
+
+function fn_deleteAsset(asset_idx) {
+	deleteForm[0].action = "/app/ledger/deleteAsset.do";
+	deleteForm[0].submit();
+}

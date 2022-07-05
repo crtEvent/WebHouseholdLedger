@@ -17,4 +17,5 @@ public interface AssetService {
 	public void checkAssetInsertDTO(AssetInsertDTO dto);
 	public void insertAsset(AssetInsertDTO dto) throws Exception;
 	public void updateAsset(AssetUpdateDTO dto) throws Exception;
+	public void deleteAsset(String asset_idx, String user_idx) throws Exception;
 }

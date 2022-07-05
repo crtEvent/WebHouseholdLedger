@@ -298,4 +298,15 @@
 			ASSET_IDX = #{asset_idx}
 		]]>
 	</update>
+	
+	<delete id="asset.deleteAsset" parameterType="hashmap">
+		<![CDATA[
+		DELETE FROM 
+			ASSET
+		WHERE
+			USER_IDX = #{user_idx}
+		AND
+			ASSET_IDX = #{asset_idx}
+		]]>
+	</delete>
 </mapper>

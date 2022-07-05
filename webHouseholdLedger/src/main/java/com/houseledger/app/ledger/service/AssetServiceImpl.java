@@ -114,4 +114,9 @@ public class AssetServiceImpl implements AssetService {
 	public void updateAsset(AssetUpdateDTO dto) throws Exception {
 		assetDAO.updateAsset(dto);
 	}
+	
+	// 자산 수정
+	public void deleteAsset(String asset_idx, String user_idx) throws Exception {
+		assetDAO.deleteAsset(asset_idx, user_idx);
+	}
 }

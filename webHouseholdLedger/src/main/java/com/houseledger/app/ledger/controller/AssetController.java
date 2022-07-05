@@ -108,4 +108,16 @@ public class AssetController {
 		
 		return "redirect:"+referer;
 	}
+	
+	// [기능]: 자산 삭제하기
+	@RequestMapping(value="/ledger/deleteAsset.do")
+	public String deleteAsset(String asset_idx, @SessionAttribute("userSession")UserVO userVO, HttpServletRequest request) throws Exception {
+		
+		assetService.deleteAsset(asset_idx, userVO.getUser_idx());
+		
+		// 이전 페이지 URL
+		String referer = request.getHeader("Referer");
+				
+		return "redirect:"+referer;
+	}
 }
