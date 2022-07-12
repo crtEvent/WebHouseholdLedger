@@ -15,6 +15,7 @@ import java.util.Objects;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -263,6 +264,10 @@ public class LedgerServiceImpl implements LedgerService {
         CellStyle bodyStyle = wb.createCellStyle();
         bodyStyle.setAlignment(HorizontalAlignment.CENTER);
         
+        // 숫자 셀 스타일
+        CellStyle numberStyle = wb.createCellStyle();
+        numberStyle.setDataFormat(HSSFDataFormat.getBuiltinFormat("#,##0"));
+        
         // Header
         row = sheet.createRow(rowNum++);
         cell = row.createCell(0);
@@ -299,7 +304,8 @@ public class LedgerServiceImpl implements LedgerService {
             cell.setCellStyle(bodyStyle);
             cell.setCellValue(list.get("DESCRIPTION") != null ? list.get("DESCRIPTION").toString() : "");
             cell = row.createCell(4);
-            cell.setCellValue(list.get("AMOUNT") != null ? Double.parseDouble(list.get("AMOUNT").toString()) : 0);
+            cell.setCellStyle(numberStyle);
+            cell.setCellValue(list.get("AMOUNT") != null ? Double.parseDouble(list.get("AMOUNT").toString().replaceAll(",", "")) : 0);
             cell = row.createCell(5);
             cell.setCellStyle(bodyStyle);
             cell.setCellValue(list.get("ASSET") != null ? list.get("ASSET").toString() : "");
