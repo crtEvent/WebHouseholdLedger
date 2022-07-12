@@ -20,7 +20,7 @@ public class StatsMenuInterceptor extends HandlerInterceptorAdapter {
 		case "/stats/category.do":
 			subMenu = "category";
 			break;
-		case "stats/yearly.do":
+		case "/stats/yearly.do":
 			subMenu = "yearly";
 			break;
 		default:

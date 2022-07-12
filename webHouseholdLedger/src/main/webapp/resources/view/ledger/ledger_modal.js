@@ -14,7 +14,7 @@ $(document).ready(function(){
 	insertForm.find("[name=amount]").val(0);
 })
 
-// description 유효성 검사: 45 자리수 제한
+// description 유효성 검사 1 : 45 자리수 제한
 $("[name=description]").keyup(function(event) {
 	var inputVal = $(this).val();
 	if(inputVal.length > 45) {

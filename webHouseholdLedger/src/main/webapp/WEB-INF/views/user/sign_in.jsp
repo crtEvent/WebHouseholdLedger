@@ -51,7 +51,7 @@
 							<button type="submit" id="btn_submit" class="btn btn-primary btn-block">로그인</button>
 						</div>
 						<!-- /.col -->
-						<div class="col-12 text-center text-danger">${signInError }</div>
+						<div class="col-12 mt-2 text-center text-danger text-bold">${signInError }</div>
 					</div>
 				</form>
 

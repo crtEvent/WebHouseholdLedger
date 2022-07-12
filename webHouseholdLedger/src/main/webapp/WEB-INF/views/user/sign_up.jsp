@@ -24,7 +24,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="mb-3" id="msg_user_id">${valid_user_id }</div>
+					<div class="mb-3 text-danger text-bold" id="msg_user_id">${valid_user_id }</div>
 					
 					<div class="input-group">
 						<input type="email" class="form-control" name="user_email" id="user_email" placeholder="이메일" autocomplete="off">
@@ -34,7 +34,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="mb-3" id="msg_user_email">${valid_user_email }</div>
+					<div class="mb-3 text-danger text-bold" id="msg_user_email">${valid_user_email }</div>
 					
 					<div class="input-group">
 						<input type="password" class="form-control" name="user_password" id="user_password" placeholder="비밀번호(영문,숫자,특수문자 조합 5-25자)">
@@ -44,7 +44,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="mb-3" id="msg_user_pw">${valid_user_password }</div>
+					<div class="mb-3 text-danger text-bold" id="msg_user_pw">${valid_user_password }</div>
 					
 					<div class="input-group">
 						<input type="password" class="form-control" name="user_password_check" id="user_password_check" placeholder="비밀번호 다시입력">
@@ -54,7 +54,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="mb-3" id="msg_user_pw_check">${valid_user_password_check }</div>
+					<div class="mb-3 text-danger text-bold" id="msg_user_pw_check">${valid_user_password_check }</div>
 					
 					<div class="row">
 						<div class="col-12">
